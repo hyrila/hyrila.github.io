@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="#搭建环境  安装Ansible1yum -y install ansible 配置主机清单1vim &#x2F;etc&#x2F;ansible&#x2F;hosts  检查主机清单是否添加成功12345678910111213[root@Client ansible]#ansible all --list-hosts  hosts (3):    host1.centos7    host2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible实现Nginx负载均衡客户请求至后端Tomcat服务器集群">
+<meta property="og:url" content="http://yoursite.com/2020/02/14/Ansible%E5%AE%9E%E7%8E%B0Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%A2%E6%88%B7%E8%AF%B7%E6%B1%82%E8%87%B3%E5%90%8E%E7%AB%AFTomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#搭建环境  安装Ansible1yum -y install ansible 配置主机清单1vim &#x2F;etc&#x2F;ansible&#x2F;hosts  检查主机清单是否添加成功12345678910111213[root@Client ansible]#ansible all --list-hosts  hosts (3):    host1.centos7    host2">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-a956d84118c630f9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-25a2c8f5f2a7e2e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-077742825792c97e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-2693b94f415bb935.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-bd2d7caaea3336fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-1a6de710bc5c4216.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-b350d686f891a3a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-f66792d4aa6c971e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-72da45cf9445382d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-50e0625444829fb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-c216ea9bc019c38e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-bea7c57d5dce0158.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-cc261ca1877b0273.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-e4c5606d7ad327e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-913e8f63a75ab49f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-54cc0e326a951da2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-bd7e53d3cf06dc60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-53ef3df054510b14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-ef1ffffeaf68facd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-de27b18802ced97c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-adaf8c77f185138f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-a98badd327a11b34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-02-14T02:16:38.124Z">
+<meta property="article:modified_time" content="2020-02-14T02:16:38.125Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6121564-a956d84118c630f9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/14/Ansible%E5%AE%9E%E7%8E%B0Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%A2%E6%88%B7%E8%AF%B7%E6%B1%82%E8%87%B3%E5%90%8E%E7%AB%AFTomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Ansible实现Nginx负载均衡客户请求至后端Tomcat服务器集群 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/Books/" rel="section"><i class="fa fa-fw fa-eye"></i>Books</a>
+
+  </li>
+        <li class="menu-item menu-item-video">
+
+    <a href="/Video/" rel="section"><i class="fa fa-fw fa-play-circle"></i>Video</a>
+
+  </li>
+        <li class="menu-item menu-item-game">
+
+    <a href="/Game/" rel="section"><i class="fa fa-fw fa-gamepad"></i>Game</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Ansible%E5%AE%9E%E7%8E%B0Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%A2%E6%88%B7%E8%AF%B7%E6%B1%82%E8%87%B3%E5%90%8E%E7%AB%AFTomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ansible实现Nginx负载均衡客户请求至后端Tomcat服务器集群
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:16:38" itemprop="dateCreated datePublished" datetime="2020-02-14T10:16:38+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/6121564-a956d84118c630f9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#搭建环境</p>
+<ul>
+<li><strong>安装Ansible</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ansible</span><br></pre></td></tr></table></figure></li>
+<li><strong>配置主机清单</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;ansible&#x2F;hosts</span><br></pre></td></tr></table></figure>
+<img src="http://upload-images.jianshu.io/upload_images/6121564-25a2c8f5f2a7e2e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="定义主机清单"></li>
+<li><strong>检查主机清单是否添加成功</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@Client ansible]#ansible all --list-hosts</span><br><span class="line">  hosts (3):</span><br><span class="line">    host1.centos7</span><br><span class="line">    host2.centos7</span><br><span class="line">    host3.centos7</span><br><span class="line">[root@Client ansible]#ansible lb --list-hosts</span><br><span class="line">  hosts (1):</span><br><span class="line">    host1.centos7</span><br><span class="line">[root@Client ansible]#ansible tc --list-hosts</span><br><span class="line">  hosts (2):</span><br><span class="line">    host2.centos7</span><br><span class="line">    host3.centos7</span><br><span class="line">[root@Client ansible]#</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-077742825792c97e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>基于ssh做无密钥认证</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[root@Client ansible]#ssh-keygen -t rsa -P &#39;&#39;</span><br><span class="line">Generating public&#x2F;private rsa key pair.</span><br><span class="line">Enter file in which to save the key (&#x2F;root&#x2F;.ssh&#x2F;id_rsa): </span><br><span class="line">Your identification has been saved in &#x2F;root&#x2F;.ssh&#x2F;id_rsa.</span><br><span class="line">Your public key has been saved in &#x2F;root&#x2F;.ssh&#x2F;id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">02:6e:ab:d7:9a:35:54:25:7b:e6:2d:f7:c8:d8:aa:c1 root@Client.centos7</span><br><span class="line">The key&#39;s randomart image is:</span><br><span class="line">+--[ RSA 2048]----+</span><br><span class="line">|        . .      |</span><br><span class="line">|         +       |</span><br><span class="line">|    .   o o      |</span><br><span class="line">|   . . . + .     |</span><br><span class="line">|    o o S o o    |</span><br><span class="line">|   . o o   * o   |</span><br><span class="line">|    ..o E . + .  |</span><br><span class="line">|   ..o.. . .     |</span><br><span class="line">|  ..o.  ...      |</span><br><span class="line">+-----------------+</span><br><span class="line">[root@Client ansible]#ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host1</span><br><span class="line">The authenticity of host &#39;host1 (192.168.10.11)&#39; can&#39;t be established.</span><br><span class="line">ECDSA key fingerprint is 9a:7d:a7:45:06:e0:7f:f2:d5:9c:35:05:8c:c2:f7:e9.</span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no)? yes</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;ssh-copy-id: INFO: attempting to log in with the new key(s), </span><br><span class="line">to filter out any that are already installed</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now </span><br><span class="line">it is to install the new keys</span><br><span class="line">root@host1&#39;s password: </span><br><span class="line"></span><br><span class="line">Number of key(s) added: 1</span><br><span class="line"></span><br><span class="line">Now try logging into the machine, with:   &quot;ssh &#39;root@host1&#39;&quot;</span><br><span class="line">and check to make sure that only the key(s) you wanted were added.</span><br><span class="line"></span><br><span class="line">[root@Client ansible]#ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host2</span><br><span class="line">...</span><br><span class="line">[root@Client ansible]#ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host3</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-2693b94f415bb935.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>测试 ssh 链接</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-bd2d7caaea3336fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>执行简单的ansible命令测试能否管控远程主机</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@Client ansible]#ansible all -m shell -a &quot;ifconfig ens33&quot;</span><br></pre></td></tr></table></figure>
+<img src="http://upload-images.jianshu.io/upload_images/6121564-1a6de710bc5c4216.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+<li><strong>同步时间</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-b350d686f891a3a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>#创建角色</p>
+<blockquote>
+<p>需要创建三个角色分别为<strong>nginx</strong> 和 <strong>tomcat</strong> 以及 <strong>jdk</strong></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-f66792d4aa6c971e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-72da45cf9445382d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-50e0625444829fb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写playbook剧本nt.yml :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-c216ea9bc019c38e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写nginx角色的tasks :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-bea7c57d5dce0158.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写nginx角色的配置文件 :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-cc261ca1877b0273.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写nginx角色的handlers :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e4c5606d7ad327e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>测试一下nginx角色能否成执行：</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-913e8f63a75ab49f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>在lb主机上查看进程和端口是否存在：</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-54cc0e326a951da2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<ul>
+<li><strong>编辑tomcat角色的tasks :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-bd7e53d3cf06dc60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<ul>
+<li><strong>编写jdk角色的tasks :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-53ef3df054510b14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写jdk角色的files/java.sh :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-ef1ffffeaf68facd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写jdk角色的vars/main.yml :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-de27b18802ced97c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>#完善我们的剧本nt.yml<br><img src="http://upload-images.jianshu.io/upload_images/6121564-adaf8c77f185138f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#执行我们的剧本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">[root@Client ansible]#ansible-playbook nt.yml   </span><br><span class="line"></span><br><span class="line">PLAY [lb] **********************************************************************</span><br><span class="line"></span><br><span class="line">TASK [setup] *******************************************************************</span><br><span class="line">ok: [host1.centos7]</span><br><span class="line"></span><br><span class="line">TASK [nginx : install nginx] ***************************************************</span><br><span class="line">ok: [host1.centos7]</span><br><span class="line"></span><br><span class="line">TASK [nginx : install conf] ****************************************************</span><br><span class="line">ok: [host1.centos7]</span><br><span class="line"></span><br><span class="line">TASK [nginx : start nginx] *****************************************************</span><br><span class="line">ok: [host1.centos7]</span><br><span class="line"></span><br><span class="line">PLAY [tc] **********************************************************************</span><br><span class="line"></span><br><span class="line">TASK [setup] *******************************************************************</span><br><span class="line">ok: [host3.centos7]</span><br><span class="line">ok: [host2.centos7]</span><br><span class="line"></span><br><span class="line">TASK [jdk : install openjdk] ***************************************************</span><br><span class="line">changed: [host2.centos7]</span><br><span class="line">changed: [host3.centos7]</span><br><span class="line"></span><br><span class="line">TASK [jdk : install evn file] **************************************************</span><br><span class="line">changed: [host3.centos7]</span><br><span class="line">changed: [host2.centos7]</span><br><span class="line"></span><br><span class="line">TASK [tomcat : install package] ************************************************</span><br><span class="line">changed: [host3.centos7] &#x3D;&gt; (item&#x3D;[u&#39;tomcat&#39;, u&#39;tomcat-admin-webapps&#39;, u&#39;tomcat-webapps&#39;, u&#39;tomcat-docs-webapp&#39;])</span><br><span class="line">changed: [host2.centos7] &#x3D;&gt; (item&#x3D;[u&#39;tomcat&#39;, u&#39;tomcat-admin-webapps&#39;, u&#39;tomcat-webapps&#39;, u&#39;tomcat-docs-webapp&#39;])</span><br><span class="line"></span><br><span class="line">TASK [tomcat : start tomcat] ***************************************************</span><br><span class="line">changed: [host3.centos7]</span><br><span class="line">changed: [host2.centos7]</span><br><span class="line"></span><br><span class="line">PLAY RECAP *********************************************************************</span><br><span class="line">host1.centos7              : ok&#x3D;4    changed&#x3D;0    unreachable&#x3D;0    failed&#x3D;0   </span><br><span class="line">host2.centos7              : ok&#x3D;5    changed&#x3D;4    unreachable&#x3D;0    failed&#x3D;0   </span><br><span class="line">host3.centos7              : ok&#x3D;5    changed&#x3D;4    unreachable&#x3D;0    failed&#x3D;0   </span><br><span class="line"></span><br><span class="line">[root@Client ansible]#</span><br></pre></td></tr></table></figure>
+<p>#最终测试</p>
+<blockquote>
+<p><strong>在浏览器里输入<a href="http://www.grh.io" target="_blank" rel="noopener">www.grh.io</a></strong></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-a98badd327a11b34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/14/%E5%9F%BA%E4%BA%8EAnsible%E8%A7%92%E8%89%B2%E9%83%A8%E7%BD%B2Nginx%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="prev" title="基于Ansible角色部署Nginx虚拟机">
+      <i class="fa fa-chevron-left"></i> 基于Ansible角色部署Nginx虚拟机
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/14/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEZabbix-server%E6%9C%8D%E5%8A%A1%E7%AB%AF/" rel="next" title="安装配置Zabbix-server服务端">
+      安装配置Zabbix-server服务端 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

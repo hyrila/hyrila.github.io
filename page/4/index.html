@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/page/4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: true,
+    isPost: false
+  };
+</script>
+
+  <title>Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/Books/" rel="section"><i class="fa fa-fw fa-eye"></i>Books</a>
+
+  </li>
+        <li class="menu-item menu-item-video">
+
+    <a href="/Video/" rel="section"><i class="fa fa-fw fa-play-circle"></i>Video</a>
+
+  </li>
+        <li class="menu-item menu-item-game">
+
+    <a href="/Game/" rel="section"><i class="fa fa-fw fa-gamepad"></i>Game</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/deploy-bind-service-for-dns-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/deploy-bind-service-for-dns-server/" class="post-title-link" itemprop="url">编译安装bind服务配置一台DNS服务器</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 09:21:14" itemprop="dateCreated datePublished" datetime="2020-02-14T09:21:14+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>###安装DNS服务器软件bind</p>
+<blockquote>
+<p><strong><code>bind</code>是<code>DNS</code>服务软件包，安装部署配置一台<code>DNS</code>服务器可以直接通过<code>yum</code>来安装也可以选择编译安装，接下来我们选后者编译安装</strong></p>
+</blockquote>
+<p>#####准备工作：<br><strong>1.去官网下载bind包<a href="http://www.isc.org" target="_blank" rel="noopener">www.isc.org</a></strong><br><strong>2.把下载好的包rz上传到Linux</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@root ~]# rz  &lt;--rz是把windows桌面上的文件上传到Linux，反之sz filename(文件名)</span><br></pre></td></tr></table></figure>
+<p><strong>3.安装开发者包组：<code>[root@root ~]# yum -y groupinstall &quot;Development tools&quot;</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@root ~]# yum -y groupinstall &quot;Development tools&quot;  &lt;-- ‘Development Tools’是开发者包租</span><br></pre></td></tr></table></figure>
+<p><strong>4.解压缩包：<code>[root@root ~]# tar xvf bind-9.10.5-P3.tar.gz</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@root ~]#   tar xvf bind-9.10.5-P3.tar.gz</span><br></pre></td></tr></table></figure>
+<p><strong>5.创建对应的系统账号：<code>[root@root ~]# useradd -r -d /var/named -s /sbin/nologin -u 53 named</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@root ~]# useradd -r -d &#x2F;var&#x2F;named -s &#x2F;sbin&#x2F;nologin -u 53 named</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-0c9f73dbd52c0d0f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><strong>6.因为是用<code>useradd</code>创建的，系统账号家目录不会自动生成，并设置好所有者所属组；</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@root ~]# mkdir &#x2F;var&#x2F;named &lt;-- 注意，此时创建的目录所属组要修改成named,不然访问不了的</span><br><span class="line">[root@root ~]# chgrp named &#x2F;var&#x2F;named&#x2F; &lt;--‘chgrp’是修改所属组的命令</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-73dbcc3e3f3e992a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><strong>7.创建一个安装目录，以后再该目录下安装</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@root ~]# mkdir &#x2F;app&#x2F;bind9</span><br></pre></td></tr></table></figure>
+<hr>
+<p>#####编译安装bind</p>
+<blockquote>
+<p><strong><code>编译安装综合来讲就三大步，在解压包后生成的目录下分别执行三个命令:</code></strong><br><strong><code>注意：编译安装时必须在解压后生成的目录下</code></strong><br><strong><code>[root@root ~]#cd bind-9.10.5-P3</code></strong><br><strong><code>（1）configure：    &lt;--这一步一般用来生成 Makefile，为下一步的编译做准备！你可以根据生产环境去选择性的通过在 configure 后加上参数来对安装进行控制，比如指定安装目录等等；这个步骤会出现 error ，把相应的包用yum安装之后再执行一次；</code></strong><br><strong><code>[root@root bind-9.10.5-P3]# ./configure</code></strong><br><strong><code>（2）make：    &lt;--进行编译，执行Makefile文件里的指令，make的基本用处是自动根据makefile里的指令来编译源文件</code></strong><br><strong><code>[root@root bind-9.10.5-P3]# make</code></strong><br><strong><code>（3）make install：    &lt;--将 make 生成的文件安装到系统目录中</code></strong><br><strong><code>[root@root bind-9.10.5-P3]# make install</code></strong></p>
+</blockquote>
+<p><strong>1.执行configure，并指定安装路径为</strong><code>/app/bind9</code><strong>，并禁用openssl；</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@root bind-9.10.5-P3]#.&#x2F;configure --prefix&#x3D;&#x2F;app&#x2F;bind9 --without-openssl</span><br><span class="line">                                       安装目录为&#x2F;app&#x2F;bind9   禁用openssl</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-69a15c8154e29577.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>2.执行make和make install</strong></p>
+<blockquote>
+<p>这两个可以一条命令执行</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@root bind-9.10.5-P3]#make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<hr>
+<p>###简单部署配置DNS服务器</p>
+<blockquote>
+<p>修改编辑相关变量和配置文件以及测试</p>
+</blockquote>
+<p><strong>1.把<code>/app/bind9/sbin</code>和<code>/app/bind9/bin</code>路径加到$PATH变量里面。</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-5ec11034f7bff767.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="用vim编辑器在/etc/profile.d目录下创建一个bind9.sh文件"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-48b80424e5a4db20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bind9.sh文件内容"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-addb4029b1ff0d19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bind9.sh创建完成之后需要执行&quot;. /etc/profile.d/bind9.sh&quot;命令让其生效并&quot;echo $PATH&quot;查看是否添加成功"></p>
+<p><strong>2.在安装路径的</strong><code>etc</code><strong>下创建配置文件配置DNS</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-93749112d7099c3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="/app/bind9/etc目录下创建named.conf，指定数据文件保存目录/var/named和根文件类型以及文件名root.ca"></p>
+<p><strong>3.切到<code>/var/named</code>目录去抓13个根服务器重定向到我们在配置文件里指定的路径下的<code>root.ca</code>文件里</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@root named]#cd &#x2F;var&#x2F;named</span><br><span class="line">[root@root named]#dig -t NS . @172.16.0.1 &gt; root.ca</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-1d8b06fe6d5fac0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>Ps：为了满足好奇心还是用代码块的方式看一下神奇的13个根服务器到底长啥样…</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">[root@root named]#cat root.ca </span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.10.5-P3 &lt;&lt;&gt;&gt; -t NS . @172.16.0.1</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 20859</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 27</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;.				IN	NS</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">.			386996	IN	NS	k.root-servers.net.</span><br><span class="line">.			386996	IN	NS	c.root-servers.net.</span><br><span class="line">.			386996	IN	NS	f.root-servers.net.</span><br><span class="line">.			386996	IN	NS	e.root-servers.net.</span><br><span class="line">.			386996	IN	NS	i.root-servers.net.</span><br><span class="line">.			386996	IN	NS	h.root-servers.net.</span><br><span class="line">.			386996	IN	NS	j.root-servers.net.</span><br><span class="line">.			386996	IN	NS	l.root-servers.net.</span><br><span class="line">.			386996	IN	NS	a.root-servers.net.</span><br><span class="line">.			386996	IN	NS	g.root-servers.net.</span><br><span class="line">.			386996	IN	NS	d.root-servers.net.</span><br><span class="line">.			386996	IN	NS	b.root-servers.net.</span><br><span class="line">.			386996	IN	NS	m.root-servers.net.</span><br><span class="line"></span><br><span class="line">;; ADDITIONAL SECTION:</span><br><span class="line">e.root-servers.net.	74925	IN	A	192.203.230.10</span><br><span class="line">e.root-servers.net.	74925	IN	AAAA	2001:500:a8::e</span><br><span class="line">d.root-servers.net.	41600	IN	A	199.7.91.13</span><br><span class="line">d.root-servers.net.	41600	IN	AAAA	2001:500:2d::d</span><br><span class="line">h.root-servers.net.	41600	IN	A	198.97.190.53</span><br><span class="line">h.root-servers.net.	41600	IN	AAAA	2001:500:1::53</span><br><span class="line">j.root-servers.net.	41600	IN	A	192.58.128.30</span><br><span class="line">j.root-servers.net.	208801	IN	AAAA	2001:503:c27::2:30</span><br><span class="line">g.root-servers.net.	41600	IN	A	192.112.36.4</span><br><span class="line">g.root-servers.net.	74925	IN	AAAA	2001:500:12::d0d</span><br><span class="line">k.root-servers.net.	41600	IN	A	193.0.14.129</span><br><span class="line">k.root-servers.net.	41600	IN	AAAA	2001:7fd::1</span><br><span class="line">a.root-servers.net.	74925	IN	A	198.41.0.4</span><br><span class="line">a.root-servers.net.	208801	IN	AAAA	2001:503:ba3e::2:30</span><br><span class="line">i.root-servers.net.	41600	IN	A	192.36.148.17</span><br><span class="line">i.root-servers.net.	74925	IN	AAAA	2001:7fe::53</span><br><span class="line">c.root-servers.net.	74925	IN	A	192.33.4.12</span><br><span class="line">c.root-servers.net.	41600	IN	AAAA	2001:500:2::c</span><br><span class="line">f.root-servers.net.	41600	IN	A	192.5.5.241</span><br><span class="line">f.root-servers.net.	41600	IN	AAAA	2001:500:2f::f</span><br><span class="line">m.root-servers.net.	208801	IN	A	202.12.27.33</span><br><span class="line">m.root-servers.net.	208801	IN	AAAA	2001:dc3::35</span><br><span class="line">l.root-servers.net.	54228	IN	A	199.7.83.42</span><br><span class="line">l.root-servers.net.	54228	IN	AAAA	2001:500:9f::42</span><br><span class="line">b.root-servers.net.	41600	IN	A	192.228.79.201</span><br><span class="line">b.root-servers.net.	41600	IN	AAAA	2001:500:200::b</span><br><span class="line"></span><br><span class="line">;; Query time: 4 msec</span><br><span class="line">;; SERVER: 172.16.0.1#53(172.16.0.1)</span><br><span class="line">;; WHEN: Thu Jul 27 15:00:49 CST 2017</span><br><span class="line">;; MSG SIZE  rcvd: 811</span><br><span class="line"></span><br><span class="line">[root@root named]#</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的环节注意给named读权限!!!</p>
+</blockquote>
+<p><strong>4.把域建起来，比如：<code>gaorihan.com</code></strong><br><strong>4.1</strong> 编辑配置文件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-1319be7a40d4b660.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="gaorihan.com是域名，gaorihan.com.zone是/var/named下的数据库文件名"></p>
+<p><strong>4.2</strong> 在<strong><code>/var/named</code></strong>路径下创建域的文件并检查语法</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-773d06df26a2c7e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SOA记录、NS记录是必须写的记录，而且在最上面。A记录也是必须有的"><br><strong>4.3</strong> 把man帮助路径添加到系统man帮助的配置文件<strong><code>/etc/man.config</code></strong>里</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-c044fffbfff91a47.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>5.启动服务并测试</strong><br>1).本终端</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@root named]#named -f -g -d 3 -u named</span><br></pre></td></tr></table></figure>
+<p>2).另一个终端执行<strong><code>ss -tnul</code></strong>命令查看端口连接情况。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-d512bd5c30d0fc9b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DNS的TCP和UDP都是53端口"></p>
+<p>3)再别的主机上dig一下，看看能不能<strong><code>gaorihan.com</code></strong>域名解析成我们在记录里加进去的IP地址<strong><code>6.6.6.6</code></strong></p>
+<pre><code>[root@root ~]#dig www.gaorihan.com @172.16.252.217
+
+; &lt;&lt;&gt;&gt; DiG 9.8.2rc1-RedHat-9.8.2-0.47.rc1.el6 &lt;&lt;&gt;&gt; www.gaorihan.com @172.16.2
+52.217;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 34721
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 1
+
+;; QUESTION SECTION:
+;www.gaorihan.com.        IN    A
+
+;; ANSWER SECTION:
+www.gaorihan.com.    86400    IN    A    6.6.6.6   &lt;&lt;--这不就是我们设置的吗
+
+;; AUTHORITY SECTION:
+gaorihan.com.        86400    IN    NS    dns1.gaorihan.com.
+
+;; ADDITIONAL SECTION:
+dns1.gaorihan.com.    86400    IN    A    172.16.252.217
+
+;; Query time: 6 msec
+;; SERVER: 172.16.252.217#53(172.16.252.217)
+;; WHEN: Thu Jul 27 17:27:55 2017
+;; MSG SIZE  rcvd: 85
+
+[root@root ~]#dig www.gaorihan.com @172.16.252.217</code></pre><hr>
+<p>###结语<br>DNS服务器的主要作用就是将主机名解析成IP地址的过程，解决域名到IP地址的转换。目前互联网这么发达，几乎所有的服务器都在向外提供各种服务，DNS记录也会越来越多，掌握部署配置DNS服务器是必备技能。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Shell-while/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/Shell-while/" class="post-title-link" itemprop="url">Shell 脚本的 while 语句简单笔记</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 09:19:20" itemprop="dateCreated datePublished" datetime="2020-02-14T09:19:20+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>while 循环语句的基本语法为：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while  &lt;手机话费是否充足&gt;        #&lt;&#x3D;&#x3D;当话费余额不足时，就不能发短信了，也就是不能进入循环了</span><br><span class="line">do</span><br><span class="line">       发短信                  #&lt;&#x3D;&#x3D;发短信后话费会减少</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p><strong>形象的说明while 循环语句：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while  &lt;手机话费是否充足&gt;        #&lt;&#x3D;&#x3D;当话费余额不足时，就不能发短信了，也就是不能进入循环了</span><br><span class="line">do</span><br><span class="line">       发短信                  #&lt;&#x3D;&#x3D;发短信后话费会减少</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p><strong>while 循环语句逻辑流程图：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-8ac31765f2af2711.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="while循环执行逻辑流程图"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/scp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/scp/" class="post-title-link" itemprop="url">scp 命令用法</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 09:14:38" itemprop="dateCreated datePublished" datetime="2020-02-14T09:14:38+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>从远处复制文件到本地目录</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# scp  root@10.10.10.10:&#x2F;opt&#x2F;soft&#x2F;nginx-0.5.38.tar.gz  &#x2F;opt&#x2F;soft&#x2F;</span><br><span class="line"></span><br><span class="line">#从10.10.10.10机器上的&#x2F;opt&#x2F;soft&#x2F;的目录中下载nginx-0.5.38.tar.gz 文件到本地&#x2F;opt&#x2F;soft&#x2F;目录中。</span><br></pre></td></tr></table></figure>
+
+<p><strong>从远处复制到本地</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# scp  -r  root@10.10.10.10:&#x2F;opt&#x2F;soft&#x2F;mongodb  &#x2F;opt&#x2F;soft&#x2F;</span><br><span class="line"></span><br><span class="line">#从10.10.10.10机器上的&#x2F;opt&#x2F;soft&#x2F;中下载mongodb目录到本地的&#x2F;opt&#x2F;soft&#x2F;目录来。</span><br></pre></td></tr></table></figure>
+
+<p><strong>上传本地文件到远程机器指定目录</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# scp  &#x2F;opt&#x2F;soft&#x2F;nginx-0.5.38.tar.gz  root@10.10.10.10:&#x2F;opt&#x2F;soft&#x2F;scptest</span><br><span class="line"></span><br><span class="line">#复制本地&#x2F;opt&#x2F;soft&#x2F;目录下的文件nginx-0.5.38.tar.gz到远程机器10.10.10.10的opt&#x2F;soft&#x2F;scptest目录。</span><br></pre></td></tr></table></figure>
+
+<p><strong>上传本地目录到远程机器指定目录</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# scp -r &#x2F;opt&#x2F;soft&#x2F;mongodb root@10.10.10.10:&#x2F;opt&#x2F;soft&#x2F;scptest</span><br><span class="line"></span><br><span class="line">#上传本地目录&#x2F;opt&#x2F;soft&#x2F;mongodb到远程机器10.10.10.10上&#x2F;opt&#x2F;soft&#x2F;scptest的目录中去。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>本文只是个人笔记，为了方便身边的朋友看到所以发布。内容摘自<a href="http://man.linuxde.net/" target="_blank" rel="noopener">Linux命令大全</a>网站，一个很好的网站！</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/" class="post-title-link" itemprop="url">修改用户权限</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 09:13:16" itemprop="dateCreated datePublished" datetime="2020-02-14T09:13:16+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>###用户权限</p>
+<p> |- - - | - - -| - - -|<br> 用户   组   其他</p>
+<p>用户一般会有读（r）、写（w）、执行（x）等权限，还有特殊权限（s）；如图所示：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-13d1161d75964b5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="权限.png"><br>###修改权限<br>这里我用修改用户文件权限的实验来证明。<br>1.列出文件列表</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-cdad1bd2583b8ec0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看当前目录下文件.png"></p>
+<p>2.通过用chmod命令来修改用户对文件的权限。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-d987b953b4e9982f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="通过chmod修改用户权限.png"></p>
+<p>###特殊权限</p>
+<blockquote>
+<p>特殊权限是给普通用户添加特殊权限（s）来让其拥有root才能执行的权限。</p>
+</blockquote>
+<p>下面我用nano命令来做实验。</p>
+<p>1.用type命令查看nano路径</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-428aa89f0e3bc7c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看nano路径.png"></p>
+<p>2.将nano复制到/app目录下</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-249110ebbcc2abe0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="复制到app下.png"></p>
+<p>3.给普通用户添加特殊权限<br>3.1用户没有加特殊权限运行nano结果：<br>首先切换到普通用户</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-c5274259b3bdd6fb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="未加特殊权限之前的测试过程.png"><br>其次用没有特殊权限的普通用户guang来执行Nano命令去打开/etc/shadow配置文件</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-8a60c0c97655da4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="用户没有特殊权限下执行nano结果.png"></p>
+<p>上面的两个图证明普通用户没有打开/etc/shadow的权限。</p>
+<p>3.2给普通用户guang添加特殊权限</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-223b388bfee30bac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="给普通用户加特殊权限并执行.png"><br>执行结果</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e4665bf715de01b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="有特殊权限的普通用户可打开配置文件.png"></p>
+<p>3.3用ll命令查看详细信息</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-b6a2f23a3b732998.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="通过ll命令查看文件详细信息.png"></p>
+<p>从图中可以看出用户权限多了一个“s”,即SUID特殊权限。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/LinuxIptables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/LinuxIptables/" class="post-title-link" itemprop="url">Linux iptables</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 09:03:50" itemprop="dateCreated datePublished" datetime="2020-02-14T09:03:50+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-8af721e5cedcd878.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#概念：</p>
+<blockquote>
+<p><strong><code>(1) Linux 防火墙 ：</code></strong><br><strong><code>集成在内核里的 Netfilter 组件里，Linux 内核里已经自带一些防火墙的基本功能。并且,把我们生活中和工作中常用的常见的防火墙功能分成 PREROUTING  INPUT OUTPUT FORWARD POSTROUTING   等五个功能模块，称之为hook。用iptables 命令工具向其写入规则！</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-27c9b954f67e613f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><strong><code>(2) Linux 防火墙工具 ：</code></strong><br><strong><code>iptables：命令行工具，工作在用户空间；用来编写规则，写好的规则被送往netfilter ，告诉内核如何去处理信息包</code></strong><br><strong><code>firewalld ：CentOS 7 引入的新的前端管理工具，这里不细讲</code></strong></p>
+</blockquote>
+<p>#iptables组成：</p>
+<blockquote>
+<p><strong><code>(1) 四个表table : raw--&gt;mangle--&gt;nat--&gt;filter</code></strong><br><strong><code>raw: 关闭NAT表上启用的连接跟踪机制，加快封包穿越防火墙速度</code></strong><br><strong><code>mangle: 修改数据标记位规则表</code></strong><br><strong><code>nat: 地址转换规则表</code></strong><br><strong><code>filter: 过滤规则表，根据预定义的规则过滤符合条件的数据包</code></strong><br><strong><code>(2) 五个链chain : INPUT OUTPUT PREROUTING FORWARD POSTROUTING</code></strong><br><strong><code>(3) Netfilter 表和链对应关系与图:</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-3bc7cc67078b2dd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="表和链的对应关系"><br><img src="http://upload-images.jianshu.io/upload_images/6121564-db8756851c6c0341.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</blockquote>
+<p>#iptables防火墙策略命令行语法：</p>
+<p><strong>iptables + 表 + 链 + 规则（匹配条件 +  处理动作）</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**** iptables命令行输入顺序 ****</span><br><span class="line"></span><br><span class="line">iptables -t 表名 &lt;-A&#x2F;I&#x2F;D&#x2F;R&gt; 规则链名 [规则号] &lt;-i&#x2F;o 网卡名&gt; -p 协议名 &lt;-s 源IP&#x2F;源子网&gt; --sport 源端口 &lt;-d 目标IP&#x2F;目标子网&gt; --dport 目标端口 -j 动作</span><br></pre></td></tr></table></figure>
+<p><strong>常用选项：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-t &lt;表&gt; ： 指定要操纵的表； </span><br><span class="line">-A ： 向规则链中添加条目； </span><br><span class="line">-D ： 从规则链中删除条目； </span><br><span class="line">-i ： 向规则链中插入条目； </span><br><span class="line">-R ： 替换规则链中的条目； </span><br><span class="line">-L ： 显示规则链中已有的条目； </span><br><span class="line">-F ： 清楚规则链中已有的条目； </span><br><span class="line">-Z ： 清空规则链中的数据包计算器和字节计数器； </span><br><span class="line">-N ： 创建新的用户自定义规则链； </span><br><span class="line">-P ： 定义规则链中的默认目标； </span><br><span class="line">-h ： 显示帮助信息； </span><br><span class="line">-p ： 指定要匹配的数据包协议类型； </span><br><span class="line">-s ： 指定要匹配的数据包源ip地址； </span><br><span class="line">-j &lt;目标&gt; ： 指定要跳转的目标； </span><br><span class="line">-i &lt;网络接口&gt; ： 指定数据包进入本机的网络接口； </span><br><span class="line">-o &lt;网络接口&gt; ： 指定数据包要离开本机所使用的网络接口；</span><br></pre></td></tr></table></figure>
+
+<p>#Linux防火墙iptables实例：</p>
+<p><strong>查看防火墙策略：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~]# iptables -vnL   &lt;-- 最最基本也要用这三个选项！裸配了...</span><br></pre></td></tr></table></figure>
+
+<p><strong>清除已有规则：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# iptables -F     &lt;-- 基本都用这个</span><br><span class="line">~]# iptables -X  </span><br><span class="line">~]# iptables -Z</span><br></pre></td></tr></table></figure>
+
+<p><strong>屏蔽IP：DROP是丢弃的意思</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~]# iptables -I INPUT -s 123.45.6.7 -j DROP       &lt;-- 屏蔽单个IP的命令 </span><br><span class="line">~]# iptables -I INPUT -s 123.0.0.0&#x2F;8 -j DROP      &lt;-- 封整个段即从123.0.0.1到123.255.255.254的命令 </span><br><span class="line">~]# iptables -I INPUT -s 124.45.0.0&#x2F;16 -j DROP    &lt;-- 封IP段即从123.45.0.1到123.45.255.254的命令 </span><br><span class="line">~]# iptables -I INPUT -s 123.45.6.0&#x2F;24 -j DROP    &lt;-- 封IP段即从123.45.6.1到123.45.6.254的命令</span><br></pre></td></tr></table></figure>
+
+<p><strong>开放指定端口：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~]# iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT         &lt;-- 允许本地回环接口(即运行本机访问本机)</span><br><span class="line">：</span><br><span class="line">~]# iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT    &lt;-- 允许已建立的或相关连的通行</span><br><span class="line"></span><br><span class="line">~]# iptables -A OUTPUT -j ACCEPT     &lt;-- 允许所有本机向外的访问</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -p tcp --dport 22 -j ACCEPT     &lt;-- 允许访问22端口</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -p tcp --dport 80 -j ACCEPT     &lt;-- 允许访问80端口</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -p tcp --dport 21 -j ACCEPT     &lt;-- 允许ftp服务的21端口</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -p tcp --dport 20 -j ACCEPT     &lt;-- 允许FTP服务的20端口</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -j REJECT       &lt;-- 禁止其他未允许的规则访问</span><br><span class="line"></span><br><span class="line">~]# iptables -A FORWARD -j REJECT     &lt;-- 禁止其他未允许的规则访问</span><br></pre></td></tr></table></figure>
+<p>#结语：<br>这里只要还是以理论为主，iptables还有SNAT  和 DNAT模式才是重点；</p>
+<p><strong>NAT :</strong> </p>
+<ul>
+<li>请求报文： 修改源/ 目标IP，自由定义如何修改！</li>
+<li>响应报文：修改源 源/ 目标IP ，根据跟踪机制自动实现！</li>
+</ul>
+<p><strong>SNAT ：</strong></p>
+<ul>
+<li>让本地网络中的主机通过某一特定地址访问外部网络，实现地址伪装！</li>
+<li>请求报文：修改源IP</li>
+</ul>
+<p><strong>DNAT ：</strong></p>
+<ul>
+<li>把本地网络中的主机上的某服务开放给外部网络访问(发布服务和端口映射) ，但隐藏真实IP！</li>
+<li>请求报文：修改目标IP</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/27/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/27/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-01-27 08:09:18" itemprop="dateCreated datePublished" datetime="2020-01-27T08:09:18+08:00">2020-01-27</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+  </div>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

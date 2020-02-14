@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="cat：可以显示文件的内容（经常和more搭配使用），或将多个文件合并成一个文件。  chgrp：用来改变文件或目录所属的用户组，命令的参数以空格分开的要改变属组的文件列表，文件名支持通配符，如果用户不是该文件的所有者，则不能改变该文件的所属组。  chmod：用于改变文件或目录的访问权限，该命令有两种用法：一种是使用图形化的方法，另一种是数字设置法。  chown：用来将指定用户或组为特定的所">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux常见的文件系统操作命令">
+<meta property="og:url" content="http://yoursite.com/2020/02/14/Linux%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="cat：可以显示文件的内容（经常和more搭配使用），或将多个文件合并成一个文件。  chgrp：用来改变文件或目录所属的用户组，命令的参数以空格分开的要改变属组的文件列表，文件名支持通配符，如果用户不是该文件的所有者，则不能改变该文件的所属组。  chmod：用于改变文件或目录的访问权限，该命令有两种用法：一种是使用图形化的方法，另一种是数字设置法。  chown：用来将指定用户或组为特定的所">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-02-14T02:05:19.520Z">
+<meta property="article:modified_time" content="2020-02-14T02:05:19.521Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/14/Linux%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Linux常见的文件系统操作命令 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/Books/" rel="section"><i class="fa fa-fw fa-eye"></i>Books</a>
+
+  </li>
+        <li class="menu-item menu-item-video">
+
+    <a href="/Video/" rel="section"><i class="fa fa-fw fa-play-circle"></i>Video</a>
+
+  </li>
+        <li class="menu-item menu-item-game">
+
+    <a href="/Game/" rel="section"><i class="fa fa-fw fa-gamepad"></i>Game</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Linux%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux常见的文件系统操作命令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:05:19" itemprop="dateCreated datePublished" datetime="2020-02-14T10:05:19+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ol>
+<li><p>cat：可以显示文件的内容（经常和more搭配使用），或将多个文件合并成一个文件。</p>
+</li>
+<li><p>chgrp：用来改变文件或目录所属的用户组，命令的参数以空格分开的要改变属组的文件列表，文件名支持通配符，如果用户不是该文件的所有者，则不能改变该文件的所属组。</p>
+</li>
+<li><p>chmod：用于改变文件或目录的访问权限，该命令有两种用法：一种是使用图形化的方法，另一种是数字设置法。</p>
+</li>
+<li><p>chown：用来将指定用户或组为特定的所有者。用户可以设置为用户名或用户ID，组可以是组名或组ID。特定的文件是以空格分开的可以改变权限的文件列表，文件名支持通配符。</p>
+</li>
+<li><p>clear：用来清除终端屏幕。</p>
+</li>
+<li><p>cmp：用来比较两个文件的大小。</p>
+</li>
+<li><p>cp：（copy）可以将文件或目录复制到其他目录中，就如同Dos下的copy命令一样，功能非常强大。在使用cp命令时，只需要指定源文件名或目标目录即可。</p>
+</li>
+<li><p>cut：用来移除文件的部分内容。</p>
+</li>
+<li><p>diff：用来找出两个文件的不同之处。</p>
+</li>
+<li><p>du： 用来显示磁盘的剩余空间的大小。</p>
+</li>
+<li><p>file：用来显示文件的类型。</p>
+</li>
+<li><p>find：用来在目录中搜索文件，并执行指定的操作。</p>
+</li>
+<li><p>head：只查看文件的头几行内容，而不必浏览整个文件。</p>
+</li>
+<li><p>ln：可以在文件之间创建链接，实际上是给某个文件指定一个访问它的别名。</p>
+</li>
+<li><p>less：用法与more类似，可以查看超过一屏的文件内容，不同的是less除了可以按空格键向下显示文件外，还可以利用方向键来滚动显示文件，要结束浏览，只要在less的提示符“：”后按Q即可。</p>
+</li>
+<li><p>locate：可用于查找文件，且比find命令的搜索速度快。</p>
+</li>
+<li><p>ls（list）：用来显示当前目录中的文件和子目录列表。</p>
+</li>
+<li><p>mkdir(make directory)：建立子目录。</p>
+</li>
+<li><p>more：用于显示内容超过一屏的文件，为了避免文件内容显示瞬间就消失，可以使用more命令让文件显示满一屏时暂停，在按下任意键的时候继续显示下一屏的内容。</p>
+</li>
+<li><p>rmkdir(remove directory)：用来删除“空”的子目录或无用的目录文件。</p>
+</li>
+<li><p>mv(move)：可以将文件以及目录移到其他位置，或更改文件以及目录的名称。</p>
+</li>
+<li><p>pico：可指定文本的编辑方式。</p>
+</li>
+<li><p>pwd(print working directory)：可显示用户当前所在的目录。</p>
+</li>
+<li><p>rm：用来删除系统中过时或无用的文件，可以删除目录中的文件或目录本身，对于链接文件，原有文件保持不变。</p>
+</li>
+<li><p>sort：将文本文件自动分类。</p>
+</li>
+<li><p>stat：用于显示文件或文件系统的状态。</p>
+</li>
+<li><p>Strings：显示文件中要打印的字符串。</p>
+</li>
+<li><p>tail：输出文件的结尾。</p>
+</li>
+<li><p>touch：改变文件的时间戳。</p>
+</li>
+<li><p>umask：用于启动bash shell。</p>
+</li>
+<li><p>uniq：移除已分类文件中的重复文本行。</p>
+</li>
+<li><p>vi：启动vi文本编辑器。</p>
+</li>
+<li><p>wc：显示文件中字节、词组合文本行的数目。</p>
+</li>
+<li><p>whereis：查找特定目录下的原始程序，二进制程序或用户手册等文件的位置。</p>
+</li>
+<li><p>man：如果用户对某个命令想了解更详细的话，可使用此命令。</p>
+</li>
+<li><p>dd：复制一个文件。</p>
+</li>
+<li><p>df：查看一个文件系统的磁盘空间使用情况。</p>
+</li>
+<li><p>edquoat：设置用户与用户组的磁盘空间限制，即Windows系统中的配额。</p>
+</li>
+<li><p>fdformat：格式化软盘。</p>
+</li>
+<li><p>fdisk：执行Linux下的磁盘分区。</p>
+</li>
+<li><p>mkfs：建立一个Linux文件系统。</p>
+</li>
+<li><p>mkswap：创建一个Linux交换分区。</p>
+</li>
+<li><p>mount：挂载一个文件系统。</p>
+</li>
+<li><p>quota：限制和显示用户可用的磁盘空间。</p>
+</li>
+<li><p>swapon，swapoff：启用或取消设备和文件的交换页。</p>
+</li>
+<li><p>quotaon，quotaoff：启用或取消quota限制。</p>
+</li>
+<li><p>umount：取消文件系统的装备</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/14/CentOS%E8%AE%BE%E7%BD%AE%E6%9F%90%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E5%90%AF%E7%94%A8%E6%88%96%E5%BC%80%E6%9C%BA%E7%A6%81%E7%94%A8/" rel="prev" title="CentOS设置某服务开机启用或开机禁用">
+      <i class="fa fa-chevron-left"></i> CentOS设置某服务开机启用或开机禁用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/14/%E5%9F%BA%E4%BA%8ECentOS6.9%E7%9A%84MariaDB%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85/" rel="next" title="基于CentOS6.9的MariaDB二进制安装">
+      基于CentOS6.9的MariaDB二进制安装 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="######正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode  1模式。那到底怎么做呢呢？还请往下看~####第一：首先关闭NetworkManager服务 1[root@localhost ~]# service NetworkManager stop  ####第二：在&#x2F;etc&#x2F;sysconfig&#x2F;network-scrip">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 6.9系统如何通过多网卡绑定一个IP地址提高网络连接可用性和冗错性？">
+<meta property="og:url" content="http://yoursite.com/2020/02/14/Centos6.9%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E4%B8%80%E4%B8%AAIP/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="######正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode  1模式。那到底怎么做呢呢？还请往下看~####第一：首先关闭NetworkManager服务 1[root@localhost ~]# service NetworkManager stop  ####第二：在&#x2F;etc&#x2F;sysconfig&#x2F;network-scrip">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-060367e692b06ce7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-b7e3d190002327a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-15b7f99baf00219d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-e8931f64bca25dd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-02-14T01:36:22.025Z">
+<meta property="article:modified_time" content="2020-02-14T01:36:22.026Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6121564-060367e692b06ce7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/14/Centos6.9%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E4%B8%80%E4%B8%AAIP/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>CentOS 6.9系统如何通过多网卡绑定一个IP地址提高网络连接可用性和冗错性？ | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/Books/" rel="section"><i class="fa fa-fw fa-eye"></i>Books</a>
+
+  </li>
+        <li class="menu-item menu-item-video">
+
+    <a href="/Video/" rel="section"><i class="fa fa-fw fa-play-circle"></i>Video</a>
+
+  </li>
+        <li class="menu-item menu-item-game">
+
+    <a href="/Game/" rel="section"><i class="fa fa-fw fa-gamepad"></i>Game</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Centos6.9%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E4%B8%80%E4%B8%AAIP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CentOS 6.9系统如何通过多网卡绑定一个IP地址提高网络连接可用性和冗错性？
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 09:36:22" itemprop="dateCreated datePublished" datetime="2020-02-14T09:36:22+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/6121564-060367e692b06ce7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h2 id="正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode-1模式。那到底怎么做呢呢？还请往下看"><a href="#正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode-1模式。那到底怎么做呢呢？还请往下看" class="headerlink" title="######正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode  1模式。那到底怎么做呢呢？还请往下看~"></a>######正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用<strong><code>Bonding</code></strong>技术的<strong><code>Mode  1</code></strong>模式。那到底怎么做呢呢？还请往下看~</h2><p>####第一：首先关闭<strong><code>NetworkManager</code></strong>服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service NetworkManager stop</span><br></pre></td></tr></table></figure>
+<hr>
+<p>####第二：在<strong><code>/etc/sysconfig/network-scripts/</code></strong>目录下配置三个配置文件</p>
+<blockquote>
+<p>1.创建一个<strong><code>bond</code></strong>的新配置文件<br>2.修改要绑定的两个网卡的配置文件</p>
+</blockquote>
+<p>######新建<strong><code>bond</code></strong>文件并进行配置 :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;</span><br><span class="line"></span><br><span class="line">[root@localhost network-scripts]# vim ifcfg-bond0    &lt;&#x3D;&#x3D;: 直接用vim编辑器创建，名字可以自定义，写配置文件的时候注意相同就行</span><br><span class="line">DEVICE&#x3D;bond0</span><br><span class="line">BOOTPROTO&#x3D;none</span><br><span class="line">IPADDR&#x3D;192.168.32.99</span><br><span class="line">PREFIX&#x3D;24</span><br><span class="line">BONDING_OPTS&#x3D;&quot;mode&#x3D;1 miimon&#x3D;100&quot;      &lt;&#x3D;&#x3D;: 注意，这一行最关键！&quot;mode&#x3D;1&quot;是bo工作模式；&quot;miimon&#x3D;100&quot;是监控间隔为100毫秒；</span><br><span class="line">[root@localhost network-scripts]#</span><br></pre></td></tr></table></figure>
+<p>######如图 :</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-b7e3d190002327a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>######修改要绑定同一个IP地址的两个网卡配置文件 :</p>
+<p><strong>eth0 :</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]# vim ifcfg-eth0</span><br><span class="line">DEVICE&#x3D;&quot;eth0&quot;</span><br><span class="line">MASTER&#x3D;bond0              &lt;&#x3D;&#x3D;: 属于bond0            </span><br><span class="line">SLAVE&#x3D;yes                 &lt;&#x3D;&#x3D;: 确认从属关系 </span><br><span class="line">IPADDR&#x3D;192.168.32.66</span><br><span class="line">PREFIX&#x3D;24</span><br><span class="line">GATEWAY&#x3D;192.168.32.1</span><br><span class="line">BOOTPROTO&#x3D;&quot;none&quot;</span><br><span class="line">HWADDR&#x3D;&quot;00:0C:29:5A:C5:00&quot;</span><br><span class="line">IPV6INIT&#x3D;&quot;yes&quot;</span><br><span class="line">ONBOOT&#x3D;&quot;yes&quot;</span><br><span class="line">TYPE&#x3D;&quot;Ethernet&quot;</span><br><span class="line">UUID&#x3D;&quot;6da43880-cb88-4b6e-992f-d4c228b03cc9&quot;</span><br></pre></td></tr></table></figure>
+<p>######如图 :</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-15b7f99baf00219d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>eth1 :</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]# vim ifcfg-eth1</span><br><span class="line">DEVICE&#x3D;eth1</span><br><span class="line">MASTER&#x3D;bond0</span><br><span class="line">SLAVE&#x3D;yes</span><br><span class="line">IPADDR&#x3D;192.168.32.88</span><br><span class="line">PREFIX&#x3D;24</span><br><span class="line">GATEWAY&#x3D;192.168.32.1</span><br><span class="line">MACADDR&#x3D;00:0C:29:5A:C5:66  </span><br><span class="line">BOOTPROTO&#x3D;none</span><br><span class="line">ONBOOT&#x3D;&quot;yes&quot;</span><br><span class="line">TYPE&#x3D;Ethernet</span><br><span class="line">DNS1&#x3D;114.114.114.114</span><br><span class="line">DNS2&#x3D;8.8.8.8</span><br><span class="line">DNS3&#x3D;8.8.4.4</span><br></pre></td></tr></table></figure>
+
+<p>######如图 :</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e8931f64bca25dd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>####第三：重启网络服务<code>service network restart</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]# service network restart</span><br><span class="line">Shutting down interface bond0:                             [  OK  ]</span><br><span class="line">Shutting down loopback interface:                          [  OK  ]</span><br><span class="line">Bringing up loopback interface:                            [  OK  ]</span><br><span class="line">Bringing up interface bond0:  Determining if ip address 192.168.32.99 is already in use f</span><br><span class="line">or device bond0...                                                           [  OK  ]</span><br></pre></td></tr></table></figure>
+<hr>
+<p>####第四：查看配置结果</p>
+<blockquote>
+<p>这里不做详细的测试，看下IP地址和bond0工作状态</p>
+</blockquote>
+<p>######查看IP地址：</p>
+<blockquote>
+<p>这里注意查看网卡<strong>eth0</strong>和网卡<strong>eth1</strong>的<strong>mac</strong>地址，它们是相同的哦</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ifconfig</span><br><span class="line">bond0     Link encap:Ethernet  HWaddr 00:0C:29:5A:C5:00                       &lt;&#x3D;&#x3D;: MAC地址相同</span><br><span class="line">          inet addr:192.168.32.99  Bcast:192.168.32.255  Mask:255.255.255.0</span><br><span class="line">          inet6 addr: fe80::20c:29ff:fe5a:c500&#x2F;64 Scope:Link</span><br><span class="line">          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:685 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:440 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:0 </span><br><span class="line">          RX bytes:62692 (61.2 KiB)  TX bytes:44137 (43.1 KiB)</span><br><span class="line"></span><br><span class="line">eth0      Link encap:Ethernet  HWaddr 00:0C:29:5A:C5:00                       &lt;&#x3D;&#x3D;: MAC地址相同 </span><br><span class="line">          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:612 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:416 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:1000 </span><br><span class="line">          RX bytes:54584 (53.3 KiB)  TX bytes:42563 (41.5 KiB)</span><br><span class="line"></span><br><span class="line">eth1      Link encap:Ethernet  HWaddr 00:0C:29:5A:C5:00                       &lt;&#x3D;&#x3D;: MAC地址相同 </span><br><span class="line">          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:74 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:24 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:1000 </span><br><span class="line">          RX bytes:8168 (7.9 KiB)  TX bytes:1574 (1.5 KiB)</span><br><span class="line"></span><br><span class="line">lo        Link encap:Local Loopback  </span><br><span class="line">          inet addr:127.0.0.1  Mask:255.0.0.0</span><br><span class="line">          inet6 addr: ::1&#x2F;128 Scope:Host</span><br><span class="line">          UP LOOPBACK RUNNING  MTU:65536  Metric:1</span><br><span class="line">          RX packets:12 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:12 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:0 </span><br><span class="line">          RX bytes:1040 (1.0 KiB)  TX bytes:1040 (1.0 KiB)</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
+
+<p>######<strong>查</strong>看<strong><code>bond0</code></strong>状态:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat &#x2F;proc&#x2F;net&#x2F;bonding&#x2F;bond0 </span><br><span class="line">Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)</span><br><span class="line"></span><br><span class="line">Bonding Mode: fault-tolerance (active-backup)       &lt;&#x3D;&#x3D;: 工作模式</span><br><span class="line">Primary Slave: None</span><br><span class="line">Currently Active Slave: eth0                        &lt;&#x3D;&#x3D;: 当前工作的网卡</span><br><span class="line">MII Status: up</span><br><span class="line">MII Polling Interval (ms): 100</span><br><span class="line">Up Delay (ms): 0</span><br><span class="line">Down Delay (ms): 0</span><br><span class="line"></span><br><span class="line">Slave Interface: eth0</span><br><span class="line">MII Status: up                                      &lt;&#x3D;&#x3D;: eth0状态</span><br><span class="line">Speed: 1000 Mbps</span><br><span class="line">Duplex: full</span><br><span class="line">Link Failure Count: 0</span><br><span class="line">Permanent HW addr: 00:0c:29:5a:c5:00</span><br><span class="line">Slave queue ID: 0</span><br><span class="line"></span><br><span class="line">Slave Interface: eth1</span><br><span class="line">MII Status: up                                     &lt;&#x3D;&#x3D;: eth1状态</span><br><span class="line">Speed: 1000 Mbps</span><br><span class="line">Duplex: full</span><br><span class="line">Link Failure Count: 0</span><br><span class="line">Permanent HW addr: 00:0c:29:5a:c5:66</span><br><span class="line">Slave queue ID: 0</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
+<hr>
+<p>####结语<br><strong>bonding</strong>就是 将多块网卡绑定同一IP 地址对外提供服务，可以实现高可用或者负载均衡。当然，直接给两块网卡设置同一IP 地址是不可能的。先通过配置bonding ，虚拟一块网卡对外提供连接，然后修改物理网卡的配置文件，设置成和虚拟网卡从属关系，这样的话物理网卡的MAC地址和虚拟网卡的MAC 地址呈现为相同的地址。</p>
+<p><strong>当然</strong>有很多种工作模式，不同的功能可以选择~这里就不细说了</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/14/LVM/" rel="prev" title="LVM逻辑卷管理">
+      <i class="fa fa-chevron-left"></i> LVM逻辑卷管理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/14/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/" rel="next" title="CentOS6系列系统启动流程故障表现形式以及排错修复">
+      CentOS6系列系统启动流程故障表现形式以及排错修复 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode-1模式。那到底怎么做呢呢？还请往下看"><span class="nav-number">1.</span> <span class="nav-text">######正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode  1模式。那到底怎么做呢呢？还请往下看~</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

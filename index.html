@@ -215,7 +215,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/LinuxIptables/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/LVS%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E5%8F%8ASorryServer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -229,7 +229,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/02/14/LinuxIptables/" class="post-title-link" itemprop="url">Linux iptables</a>
+            <a href="/2020/02/14/LVS%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4%E5%8F%8ASorryServer/" class="post-title-link" itemprop="url">LVS负载均衡高可用集群及Sorry Server</a>
         </h1>
 
         <div class="post-meta">
@@ -239,7 +239,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-02-14 09:03:50" itemprop="dateCreated datePublished" datetime="2020-02-14T09:03:50+08:00">2020-02-14</time>
+              <time title="Created: 2020-02-14 10:24:44" itemprop="dateCreated datePublished" datetime="2020-02-14T10:24:44+08:00">2020-02-14</time>
             </span>
 
           
@@ -253,49 +253,53 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-8af721e5cedcd878.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>#概念：</p>
+          <p>#实验环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1. host1 host2 host3 host4 都是 CentOS7.3 系统；</span><br><span class="line">2. host3 host4 作为 Real Server，搭建Web服务；</span><br><span class="line">3. host1 host2 作为LVS负载均衡高可用集群；</span><br><span class="line">4. HA Cluster的配置前提：</span><br><span class="line">    (1) 各节点时间必须同步；</span><br><span class="line">            ntp, chrony</span><br><span class="line">    (2) 确保iptables及selinux不会成为阻碍；</span><br><span class="line">    (3) 各节点之间可通过主机名互相通信（对KA并非必须）；</span><br><span class="line">            建议使用&#x2F;etc&#x2F;hosts文件实现； </span><br><span class="line">    (4) 确保各节点的用于集群服务的接口支持MULTICAST（多播）通信；</span><br><span class="line">            D类：224-239</span><br></pre></td></tr></table></figure>
+<p>#配置Real Server</p>
+<ul>
+<li><strong>安装Nginx并修改测试页：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"># RS1:</span><br><span class="line">[root@host3 ~]#yum -y install nginx</span><br><span class="line">[root@host3 ~]#echo &quot;&lt;h1&gt;RS1:host3&lt;&#x2F;h1&gt;&quot; &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html </span><br><span class="line">[root@host3 ~]#cat &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html                             </span><br><span class="line">&lt;h1&gt;RS1:host3&lt;&#x2F;h1&gt;</span><br><span class="line">[root@host3 ~]#systemctl start nginx</span><br><span class="line">[root@host3 ~]#ss -ntl</span><br><span class="line">State      Recv-Q Send-Q                                         Local Address:Port</span><br><span class="line">LISTEN     0      128                                                        *:80</span><br><span class="line">LISTEN     0      128                                                        *:22</span><br><span class="line">LISTEN     0      100                                                127.0.0.1:25 </span><br><span class="line">LISTEN     0      128                                                       :::80</span><br><span class="line">LISTEN     0      128                                                       :::22</span><br><span class="line">LISTEN     0      100                                                      ::1:25 </span><br><span class="line">[root@host3 ~]#</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------------------------------------------------</span><br><span class="line"># RS2:</span><br><span class="line">[root@host4 ~]#yum -y install nginx </span><br><span class="line">[root@host4 ~]#echo &quot;&lt;h1&gt;RS2:host4&lt;&#x2F;h1&gt;&quot; &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html </span><br><span class="line">[root@host4 ~]#cat &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html </span><br><span class="line">&lt;h1&gt;RS2:host4&lt;&#x2F;h1&gt;</span><br><span class="line">[root@host4 ~]#systemctl start nginx             </span><br><span class="line">[root@host4 ~]#ss -ntl</span><br><span class="line">State      Recv-Q Send-Q                                         Local Address:Port              </span><br><span class="line">LISTEN     0      128                                                        *:80                  </span><br><span class="line">LISTEN     0      128                                                        *:22                  </span><br><span class="line">LISTEN     0      100                                                127.0.0.1:25                 </span><br><span class="line">LISTEN     0      128                                                       :::80                  </span><br><span class="line">LISTEN     0      128                                                       :::22                  </span><br><span class="line">LISTEN     0      100                                                      ::1:25                  </span><br><span class="line">[root@host4 ~]#</span><br><span class="line">------------------------------------------------------------------------------------------------------</span><br><span class="line"># 测试：</span><br><span class="line">&gt;.host1:</span><br><span class="line">[root@host1 ~]#curl http:&#x2F;&#x2F;192.168.10.13</span><br><span class="line">&lt;h1&gt;RS1:host3&lt;&#x2F;h1&gt;</span><br><span class="line">[root@host1 ~]#curl http:&#x2F;&#x2F;192.168.10.14</span><br><span class="line">&lt;h1&gt;RS2:host4&lt;&#x2F;h1&gt;</span><br><span class="line">[root@host1 ~]#</span><br><span class="line">&gt;.host2:</span><br><span class="line">[root@host2 ~]#curl http:&#x2F;&#x2F;192.168.10.13</span><br><span class="line">&lt;h1&gt;RS1:host3&lt;&#x2F;h1&gt;</span><br><span class="line">[root@host2 ~]#curl http:&#x2F;&#x2F;192.168.10.14</span><br><span class="line">&lt;h1&gt;RS2:host4&lt;&#x2F;h1&gt;</span><br><span class="line">[root@host2 ~]#</span><br></pre></td></tr></table></figure></li>
+<li><strong>修改RS的内核参数并配置VIP</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-dce3ce2c18277f54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RS1"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-cea0e67e21aa9e00.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RS1上给权限"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-c3e19be59440522d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RS1上执行脚本并查看lo:0的IP地址"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-80f57e2c2ee9affc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RS2"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-f7d75c7e7a084343.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RS2上给权限"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-6205ca2d9bb6aa41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RS2上执行脚本并查看lo:0的IP地址"></p>
+<p>#搭建LVS集群</p>
 <blockquote>
-<p><strong><code>(1) Linux 防火墙 ：</code></strong><br><strong><code>集成在内核里的 Netfilter 组件里，Linux 内核里已经自带一些防火墙的基本功能。并且,把我们生活中和工作中常用的常见的防火墙功能分成 PREROUTING  INPUT OUTPUT FORWARD POSTROUTING   等五个功能模块，称之为hook。用iptables 命令工具向其写入规则！</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-27c9b954f67e613f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><strong><code>(2) Linux 防火墙工具 ：</code></strong><br><strong><code>iptables：命令行工具，工作在用户空间；用来编写规则，写好的规则被送往netfilter ，告诉内核如何去处理信息包</code></strong><br><strong><code>firewalld ：CentOS 7 引入的新的前端管理工具，这里不细讲</code></strong></p>
+<p><em>给两台VS服务器 <code>host1 host2</code>上 安装 <code>ipvsadm</code> 和 <code>keepalived</code></em></p>
 </blockquote>
-<p>#iptables组成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># VS1：</span><br><span class="line">[root@host1 ~]#yum -y install ipvsadm keepalived</span><br><span class="line"></span><br><span class="line">@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</span><br><span class="line"></span><br><span class="line"># VS2：</span><br><span class="line">[root@host2 ~]#yum -y install ipvsadm keepalived</span><br></pre></td></tr></table></figure>
+<p>#配置LVS高可用集群服务器</p>
+<ul>
+<li><strong>配置VS服务器host1的keepalived服务并启动：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">[root@host1 keepalived]#cat keepalived.conf</span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id host1</span><br><span class="line">   vrrp_mcast_group4 224.89.51.18</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER                       &lt;-- 配置 host1 为 MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 89</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nQyVIaY1</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.88                  &lt;-- 虚拟 IP 为 VIP</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.10.88 80 &#123;      &lt;-- 配置 VS 服务器 host1</span><br><span class="line">    delay_loop 6</span><br><span class="line">    lb_algo rr                         &lt;-- LVS调度算法</span><br><span class="line">    lb_kind DR                         &lt;--LVS工作模式</span><br><span class="line">    nat_mask 255.255.255.255</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">    real_server 192.168.10.13 80 &#123;      &lt;-- 添加第一台 RS服务器 host3</span><br><span class="line">        weight 1</span><br><span class="line">        HTTP_GET &#123;</span><br><span class="line">            url &#123;</span><br><span class="line">              path &#x2F;</span><br><span class="line">              status_code 200 </span><br><span class="line">            &#125;</span><br><span class="line">            connect_timeout 2</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 1</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    real_server 192.168.10.14 80 &#123;       &lt;--添加第二台RS服务器 host4</span><br><span class="line">        weight 1</span><br><span class="line">        HTTP_GET &#123;</span><br><span class="line">            url &#123;</span><br><span class="line">              path &#x2F;</span><br><span class="line">              status_code 200 </span><br><span class="line">            &#125;</span><br><span class="line">            connect_timeout 2</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@host1 keepalived]#systemctl start keepalived</span><br></pre></td></tr></table></figure></li>
+<li><strong>配置VS服务器host2的keepalived服务并启动：</strong><blockquote>
+<p>只需把<strong><code>vrrp_instance VI_1</code></strong>的<strong><code>state</code></strong>改为<strong><code>BACKUP</code></strong>即可，其他与<strong><code>VS1</code></strong>保持一致</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">[root@host1 keepalived]#cat keepalived.conf</span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id host1</span><br><span class="line">   vrrp_mcast_group4 224.89.51.18</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP                        &lt;-- 配置 host2 为 BACKUP</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 89</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nQyVIaY1</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.88                  &lt;-- 虚拟 IP 为 VIP</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.10.88 80 &#123;      &lt;-- 配置 VS 服务器 host2</span><br><span class="line">    delay_loop 6</span><br><span class="line">    lb_algo rr                         &lt;-- LVS调度算法</span><br><span class="line">    lb_kind DR                         &lt;--LVS工作模式</span><br><span class="line">    nat_mask 255.255.255.255</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">    real_server 192.168.10.13 80 &#123;      &lt;-- 添加第一台 RS服务器 host3</span><br><span class="line">        weight 1</span><br><span class="line">        HTTP_GET &#123;</span><br><span class="line">            url &#123;</span><br><span class="line">              path &#x2F;</span><br><span class="line">              status_code 200 </span><br><span class="line">            &#125;</span><br><span class="line">            connect_timeout 2</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 1</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    real_server 192.168.10.14 80 &#123;       &lt;--添加第二台RS服务器 host4</span><br><span class="line">        weight 1</span><br><span class="line">        HTTP_GET &#123;</span><br><span class="line">            url &#123;</span><br><span class="line">              path &#x2F;</span><br><span class="line">              status_code 200 </span><br><span class="line">            &#125;</span><br><span class="line">            connect_timeout 2</span><br><span class="line">            nb_get_retry 3</span><br><span class="line">            delay_before_retry 1</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@host2 keepalived]#systemctl start keepalived</span><br></pre></td></tr></table></figure>
+#测试：</li>
+</ul>
+<p><strong>如何测试的详细步骤我就不细写了，贴个图意思意思下：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-073ebf7eb165b7f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>#Sorry Server</p>
 <blockquote>
-<p><strong><code>(1) 四个表table : raw--&gt;mangle--&gt;nat--&gt;filter</code></strong><br><strong><code>raw: 关闭NAT表上启用的连接跟踪机制，加快封包穿越防火墙速度</code></strong><br><strong><code>mangle: 修改数据标记位规则表</code></strong><br><strong><code>nat: 地址转换规则表</code></strong><br><strong><code>filter: 过滤规则表，根据预定义的规则过滤符合条件的数据包</code></strong><br><strong><code>(2) 五个链chain : INPUT OUTPUT PREROUTING FORWARD POSTROUTING</code></strong><br><strong><code>(3) Netfilter 表和链对应关系与图:</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-3bc7cc67078b2dd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="表和链的对应关系"><br><img src="http://upload-images.jianshu.io/upload_images/6121564-db8756851c6c0341.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>在两台VS上也安装Nginx，设置页面内容为Say sorry的message！</strong></p>
 </blockquote>
-<p>#iptables防火墙策略命令行语法：</p>
-<p><strong>iptables + 表 + 链 + 规则（匹配条件 +  处理动作）</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**** iptables命令行输入顺序 ****</span><br><span class="line"></span><br><span class="line">iptables -t 表名 &lt;-A&#x2F;I&#x2F;D&#x2F;R&gt; 规则链名 [规则号] &lt;-i&#x2F;o 网卡名&gt; -p 协议名 &lt;-s 源IP&#x2F;源子网&gt; --sport 源端口 &lt;-d 目标IP&#x2F;目标子网&gt; --dport 目标端口 -j 动作</span><br></pre></td></tr></table></figure>
-<p><strong>常用选项：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-t &lt;表&gt; ： 指定要操纵的表； </span><br><span class="line">-A ： 向规则链中添加条目； </span><br><span class="line">-D ： 从规则链中删除条目； </span><br><span class="line">-i ： 向规则链中插入条目； </span><br><span class="line">-R ： 替换规则链中的条目； </span><br><span class="line">-L ： 显示规则链中已有的条目； </span><br><span class="line">-F ： 清楚规则链中已有的条目； </span><br><span class="line">-Z ： 清空规则链中的数据包计算器和字节计数器； </span><br><span class="line">-N ： 创建新的用户自定义规则链； </span><br><span class="line">-P ： 定义规则链中的默认目标； </span><br><span class="line">-h ： 显示帮助信息； </span><br><span class="line">-p ： 指定要匹配的数据包协议类型； </span><br><span class="line">-s ： 指定要匹配的数据包源ip地址； </span><br><span class="line">-j &lt;目标&gt; ： 指定要跳转的目标； </span><br><span class="line">-i &lt;网络接口&gt; ： 指定数据包进入本机的网络接口； </span><br><span class="line">-o &lt;网络接口&gt; ： 指定数据包要离开本机所使用的网络接口；</span><br></pre></td></tr></table></figure>
-
-<p>#Linux防火墙iptables实例：</p>
-<p><strong>查看防火墙策略：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~]# iptables -vnL   &lt;-- 最最基本也要用这三个选项！裸配了...</span><br></pre></td></tr></table></figure>
-
-<p><strong>清除已有规则：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# iptables -F     &lt;-- 基本都用这个</span><br><span class="line">~]# iptables -X  </span><br><span class="line">~]# iptables -Z</span><br></pre></td></tr></table></figure>
-
-<p><strong>屏蔽IP：DROP是丢弃的意思</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~]# iptables -I INPUT -s 123.45.6.7 -j DROP       &lt;-- 屏蔽单个IP的命令 </span><br><span class="line">~]# iptables -I INPUT -s 123.0.0.0&#x2F;8 -j DROP      &lt;-- 封整个段即从123.0.0.1到123.255.255.254的命令 </span><br><span class="line">~]# iptables -I INPUT -s 124.45.0.0&#x2F;16 -j DROP    &lt;-- 封IP段即从123.45.0.1到123.45.255.254的命令 </span><br><span class="line">~]# iptables -I INPUT -s 123.45.6.0&#x2F;24 -j DROP    &lt;-- 封IP段即从123.45.6.1到123.45.6.254的命令</span><br></pre></td></tr></table></figure>
-
-<p><strong>开放指定端口：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~]# iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT         &lt;-- 允许本地回环接口(即运行本机访问本机)</span><br><span class="line">：</span><br><span class="line">~]# iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT    &lt;-- 允许已建立的或相关连的通行</span><br><span class="line"></span><br><span class="line">~]# iptables -A OUTPUT -j ACCEPT     &lt;-- 允许所有本机向外的访问</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -p tcp --dport 22 -j ACCEPT     &lt;-- 允许访问22端口</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -p tcp --dport 80 -j ACCEPT     &lt;-- 允许访问80端口</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -p tcp --dport 21 -j ACCEPT     &lt;-- 允许ftp服务的21端口</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -p tcp --dport 20 -j ACCEPT     &lt;-- 允许FTP服务的20端口</span><br><span class="line"></span><br><span class="line">~]# iptables -A INPUT -j REJECT       &lt;-- 禁止其他未允许的规则访问</span><br><span class="line"></span><br><span class="line">~]# iptables -A FORWARD -j REJECT     &lt;-- 禁止其他未允许的规则访问</span><br></pre></td></tr></table></figure>
-<p>#结语：<br>这里只要还是以理论为主，iptables还有SNAT  和 DNAT模式才是重点；</p>
-<p><strong>NAT :</strong> </p>
 <ul>
-<li>请求报文： 修改源/ 目标IP，自由定义如何修改！</li>
-<li>响应报文：修改源 源/ 目标IP ，根据跟踪机制自动实现！</li>
+<li><strong>VS1上：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@host1 keepalived]#yum -y install nginx</span><br><span class="line">[root@host1 keepalived]#echo &quot;&lt;h1&gt;Sorry from Director 1&lt;&#x2F;h1&gt;&quot; &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html</span><br><span class="line">[root@host1 keepalived]#systemctl start nginx</span><br></pre></td></tr></table></figure></li>
+<li><strong>VS2上：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@host2 keepalived]#yum -y install nginx</span><br><span class="line">[root@host2 keepalived]#echo &quot;&lt;h1&gt;Sorry from Director 2&lt;&#x2F;h1&gt;&quot; &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html</span><br><span class="line">[root@host2 keepalived]#systemctl start nginx</span><br></pre></td></tr></table></figure></li>
+<li><strong>编辑配置文件：</strong><blockquote>
+<p>很简单，只需在两台VS的配置文件keepalived.conf的virtual_server里加一行sorry_server 127.0.0.1 80 即可！</p>
+</blockquote>
+</li>
 </ul>
-<p><strong>SNAT ：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-6d17043b132db34c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <ul>
-<li>让本地网络中的主机通过某一特定地址访问外部网络，实现地址伪装！</li>
-<li>请求报文：修改源IP</li>
+<li><strong>测试Sorry Server 的效果：</strong></li>
 </ul>
-<p><strong>DNAT ：</strong></p>
-<ul>
-<li>把本地网络中的主机上的某服务开放给外部网络访问(发布服务和端口映射) ，但隐藏真实IP！</li>
-<li>请求报文：修改目标IP</li>
-</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-5fc721f70245e8a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 
       
     </div>
@@ -315,7 +319,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/27/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8Nginx-Proxy%E6%9C%8D%E5%8A%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -329,7 +333,7 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/01/27/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2020/02/14/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8Nginx-Proxy%E6%9C%8D%E5%8A%A1/" class="post-title-link" itemprop="url">keepalived高可用Nginx Proxy服务</a>
         </h1>
 
         <div class="post-meta">
@@ -339,7 +343,7 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-01-27 08:09:18" itemprop="dateCreated datePublished" datetime="2020-01-27T08:09:18+08:00">2020-01-27</time>
+              <time title="Created: 2020-02-14 10:23:47" itemprop="dateCreated datePublished" datetime="2020-02-14T10:23:47+08:00">2020-02-14</time>
             </span>
 
           
@@ -353,19 +357,874 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+          <blockquote>
+<ul>
+<li>准备四台主机为host（1-4）；</li>
+<li>host1 host2上配置Nginx调度服务和keepalived服务；</li>
+<li>主机host3和主机host4提供Web服务<ul>
+<li>host1：192.168.10.11</li>
+<li>host2：192.168.10.12</li>
+<li>host3：192.168.10.13</li>
+<li>host4：192.168.10.14</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>#安装服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#安装服务：给四台主机分别安装所需服务应用</span><br><span class="line"></span><br><span class="line">[root@host1 ~]#yum -y install nginx keepalived</span><br><span class="line">[root@host2 ~]#yum -y install nginx keepalived</span><br><span class="line">[root@host3 ~]#yum -y install nginx </span><br><span class="line">[root@host3 ~]#yum -y install nginx</span><br><span class="line"></span><br><span class="line">#编辑测试页：直接把内容重定向即可</span><br><span class="line"></span><br><span class="line">[root@host1 ~]#echo &quot;&lt;h1&gt;测试页内容&lt;&#x2F;h1&gt;&quot; &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html</span><br><span class="line">[root@host2 ~]#echo &quot;&lt;h1&gt;测试页内容&lt;&#x2F;h1&gt;&quot; &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html</span><br><span class="line">[root@host3 ~]#echo &quot;&lt;h1&gt;测试页内容&lt;&#x2F;h1&gt;&quot; &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html</span><br><span class="line">[root@host4 ~]#echo &quot;&lt;h1&gt;测试页内容&lt;&#x2F;h1&gt;&quot; &gt; &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html</span><br></pre></td></tr></table></figure>
+<p>#两台Nginx调度主机上配置Nginx Proxy服务<br><strong>主机host1上配置Nginx Proxy服务：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-4fb2685f2ff03ac0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>主机host2上配置Nginx Proxy服务：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-8d17db77b8c13850.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#两台Nginx调度主机上配置keepalived服务</p>
+<blockquote>
+<ul>
+<li><strong>这里我采用单主模式！也可以双主模式，双主模式也很简单，keepalived配置文件里再vrrp_instance即可；</strong></li>
+<li><strong>这里我定义了两个脚本，稍微演示下keepalived的script功能；</strong></li>
+</ul>
+</blockquote>
+<p><strong>主机host1上配置keepalived服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[root@host1 keepalived]#cat keepalived.conf</span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id host1</span><br><span class="line">   vrrp_mcast_group4 224.89.51.18</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script chk_down &#123;             # 定义的脚本，意思是&#x2F;etc&#x2F;keepalived目录下有down文件就虚拟IP地质转移</span><br><span class="line">   script &quot;[[ -f &#x2F;etc&#x2F;keepalived&#x2F;down ]] &amp;&amp; exit 1 || exit 0&quot;</span><br><span class="line">   interval 1                      # 检测间隔</span><br><span class="line">   weight -10                      # 降权，也就是减去优先级多少值</span><br><span class="line">   fall 2                          # 检测到两次错误才发生转移</span><br><span class="line">   rise 1                          # 至少正常1次才算正常</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script chk_nginx &#123;            # 定义的脚本，意思是Nginx进程是否在运行，如果没有就虚拟IP地址转移；</span><br><span class="line">        script &quot;killall -0 nginx &amp;&amp; exit 0 || exit 1&quot;</span><br><span class="line">        interval 2</span><br><span class="line">        weight -10</span><br><span class="line">        fall 2</span><br><span class="line">        rise 2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 89</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nQyVIaY1</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.88</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">        track_script &#123;               # 调用定义的脚本</span><br><span class="line">                chk_down</span><br><span class="line">                chk_nginx</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@host1 keepalived]#</span><br></pre></td></tr></table></figure>
+<p><strong>主机host2上配置keepalived服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">[root@host2 keepalived]#cat keepalived.conf </span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id host2</span><br><span class="line">   vrrp_mcast_group4 224.89.51.18</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script chk_down &#123;</span><br><span class="line">   scrip &quot;[[ -f &#x2F;etc&#x2F;keepalived&#x2F;down ]] &amp;&amp; exit 1 || exit 0&quot;</span><br><span class="line">   interval 1</span><br><span class="line">   weight -10</span><br><span class="line">   fall 2</span><br><span class="line">   rise 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_sript chk_nginx &#123;</span><br><span class="line">   script &quot;killall -0 nginx&quot;</span><br><span class="line">   interval 2</span><br><span class="line">   weight -10</span><br><span class="line">   fall 2</span><br><span class="line">   rise 2</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP     &lt;-- 这里是BACKUP</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 89</span><br><span class="line">    priority 95</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nQyVIaY1</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.88</span><br><span class="line">    &#125;</span><br><span class="line">    track_script &#123;                # 调用定义的脚本</span><br><span class="line">        chk_nginx</span><br><span class="line">        chk_down</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>在四台主机上启动各自的服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start nginx</span><br><span class="line">systemctl start keepalived</span><br></pre></td></tr></table></figure>
+<p>#测试：</p>
+<ul>
+<li><p><strong>1. 关闭主机host1的Nginx：systemctl stop nginx</strong></p>
+<ul>
+<li>查看host2的keepalived状态和IP地址<br><img src="http://upload-images.jianshu.io/upload_images/6121564-14ccd9b191482cc2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="host2"></li>
+<li>客户端上测试是否能够访问后端Web服务<br><img src="http://upload-images.jianshu.io/upload_images/6121564-411329ab8314ce60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="在客户端主机上"></li>
+</ul>
+</li>
+<li><p><strong>2. 测试调用脚本：这里只检测一项脚本</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-65c8b9a8ca73f487.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="测试脚本，创建down文件和删除down文件，兼顾查看IP"></p>
+</li>
+</ul>
+<h2 id><a href="#" class="headerlink" title></a><img src="http://upload-images.jianshu.io/upload_images/6121564-54b9ffe0e24e7890.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="注意降权和地址漂移"></h2>
+      
+    </div>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/keepalived%E5%8F%8C%E4%B8%BB%E6%A8%A1%E5%9E%8B%E5%AE%9E%E9%AA%8C/">
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/keepalived%E5%8F%8C%E4%B8%BB%E6%A8%A1%E5%9E%8B%E5%AE%9E%E9%AA%8C/" class="post-title-link" itemprop="url">keepalived双主模型实验</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:21:41" itemprop="dateCreated datePublished" datetime="2020-02-14T10:21:41+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<ul>
+<li><strong>双主模型对于vrrp来讲实际上也是单主模型，所不同的是在同一组接口上配置了多个虚拟路由器；有几个物理路由就配置几个虚拟路由，所以所谓多主就是让每一个物理节点都工作起来；</strong><ul>
+<li><em>注意：配置多个虚拟路由器，每个虚拟路由器都要用独立的专用的VIP！</em></li>
+</ul>
+</li>
+<li><strong>双主模型在互联网上的工作原理很简单，就是DNS域名解析服务器上为域名配置两条A记录，两个虚拟路由IP分别都指向同一个域名！</strong><ul>
+<li><em>就双主而言，因为两个同时工作，DNS也有两条虚拟IP指向同一个域名的A记录，一个节点down掉了也同样能工作，这既起到了高可用功能，也起到了负载均衡的功能；</em></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>配置节点一：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">[root@host1 keepalived]#vim keepalived.conf</span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id host1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id host1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 89</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nQyVIaY1</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.66</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_2 &#123;           &lt;-- 节点一上的第二个虚拟路由器的配置；</span><br><span class="line">    state BACKUP               &lt;-- 节点一上的第二个虚拟路由器设为BACKUP，MASTER正常时处于就绪监听状态；</span><br><span class="line">    interface ens33            &lt;-- 接口不变</span><br><span class="line">    virtual_router_id 79       &lt;-- 不能跟其他虚拟路由相同；</span><br><span class="line">    priority 95                &lt;-- 因为是BACKUP，优先级要低于节点二的第二个虚拟路由器的MASTER;</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nRyVIaY2     &lt;-- 这里各虚拟路由器不能相同！</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.77          &lt;-- 不同的虚拟路由器，IP地址也肯定不能相同；</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#</span><br><span class="line">&quot;keepalived.conf&quot; 165L, 3807C written</span><br><span class="line">[root@host1 keepalived]#</span><br></pre></td></tr></table></figure>
+<p><strong>配置节点二：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">[root@host2 keepalived]#vim keepalived.conf </span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id host2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 89</span><br><span class="line">    priority 95</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nQyVIaY1</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.66</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_2 &#123;           &lt;-- 节点二上的第二个虚拟路由器的配置；</span><br><span class="line">    state MASTER               &lt;-- 节点二上这里变成MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 79</span><br><span class="line">    priority 100               &lt;-- 优先级高于节点一的第二个虚拟路由器；</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nRyVIaY2</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.77</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#</span><br><span class="line">&quot;keepalived.conf&quot; 165L, 3807C written</span><br><span class="line">[root@host2 keepalived]#</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>到这里双主模式就配置好了！</strong></p>
+</blockquote>
+<p><strong>测试：</strong></p>
+<ul>
+<li><strong>设定节点二故障：</strong><blockquote>
+<p>启动节点一的keepalived服务，关闭节点二的keepalived服务；查看节点一的状态；</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-26406f1d337019c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>节点二上也启动keepalived服务：</strong><blockquote>
+<p>两个节点都启动keepalived服务，并查看状态和接口IP地址信息；</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-df090f56e129a3c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点一的keepalived服务状态及ens33接口的IP信息"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-1ec8c649c66892f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点二的keepalived服务状态及接口ens33的IP信息"></p>
+<ul>
+<li><strong>设定节点一故障：</strong><blockquote>
+<p>关闭节点一的keepalived服务，在节点二上查看keepalived状态;</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-aa7e422d2ec9afc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点二的状态"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e75a261af3b37679.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点一的状态"></p>
+<p><strong>就像上面测试的，你多来几遍，看看状态，看看设置虚拟路由接口的虚拟IP变化…</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/keepalived%E4%B9%8Bvrrp%E5%AE%9E%E7%8E%B0%E5%9C%B0%E5%9D%80%E8%BD%AC%E7%A7%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/keepalived%E4%B9%8Bvrrp%E5%AE%9E%E7%8E%B0%E5%9C%B0%E5%9D%80%E8%BD%AC%E7%A7%BB/" class="post-title-link" itemprop="url">keepalived之vrrp实现地址转移</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:20:56" itemprop="dateCreated datePublished" datetime="2020-02-14T10:20:56+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>节点一上的配置：</strong><br>切到配置文件的目录下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@host1 ~]#cd &#x2F;etc&#x2F;keepalived</span><br><span class="line">[root@host1 keepalived]#cp keepalived.conf&#123;,.bak&#125;  &lt;--备份</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-75da397fc34691f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">配置文件</span><br><span class="line">vim keepalived.conf</span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;         &lt;--真正能接收邮件的邮箱地址</span><br><span class="line">		ngt@mgl.com  		    &lt;--邮件地址</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com    &lt;--能发邮件的邮箱地址</span><br><span class="line">   smtp_server 127.0.0.1        &lt;--邮件服务器</span><br><span class="line">   smtp_connect_timeout 30      &lt;--smtp链接超时时间，超了就不发了</span><br><span class="line">   router_id   host1            &lt;--五里路由器的服务器的ID,直接写上主机名更好</span><br><span class="line">   vrrp_mcast_group4 224.89.51.18             &lt;--ipv4多播地址（默认是224.0.0.18）</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_1 &#123;        &lt;--真正的虚拟路由器的配置</span><br><span class="line">    state MASTER            &lt;--或状态BACKUP</span><br><span class="line">    interface ens33         &lt;--配置的接口网卡</span><br><span class="line">    virtual_router_id 89    &lt;-- 虚拟路由ID0-255</span><br><span class="line">    priority 100        &lt;--当前虚拟路由器之间的优先级</span><br><span class="line">    advert_int 1        &lt;--每个多长时间传递优先级</span><br><span class="line">    authentication &#123;    &lt;--认证</span><br><span class="line">        auth_type PASS  &lt;--认证方法，简单字符串密码认证，不能超过8位</span><br><span class="line">        auth_pass 12345678   &lt;--认证的值，也就是密码(可以用openssl rand -base64 8 命令生成) </span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;    &lt;--虚拟地址</span><br><span class="line">        192.168.10.66</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-a846633c0ab46c21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="vim /keepalived.conf"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[root@host1 keepalived]#vim keepalived.conf</span><br><span class="line"></span><br><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;</span><br><span class="line">     ngt@mgl.com</span><br><span class="line">   &#125;</span><br><span class="line">   notification_email_from grh_ngt@mgl.com</span><br><span class="line">   smtp_server 127.0.0.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id host1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 89</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass nQyVIaY1</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.10.66</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&quot;keepalived.conf&quot; 151L, 3560C written        </span><br><span class="line">                  </span><br><span class="line">[root@host1 keepalived]#scp keepalived.conf host2:&#x2F;etc&#x2F;keepalived&#x2F;    &lt;--发送到节点2 上</span><br><span class="line">The authenticity of host &#39;host2 (192.168.10.12)&#39; can&#39;t be established.</span><br><span class="line">ECDSA key fingerprint is ed:c4:6c:43:77:9b:ab:a4:d9:64:fb:37:4c:cf:0f:7f.</span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no)? yes</span><br><span class="line">Warning: Permanently added &#39;host2&#39; (ECDSA) to the list of known hosts.</span><br><span class="line">root@host2&#39;s password: </span><br><span class="line">keepalived.conf                                100% 3560     3.5KB&#x2F;s   00:00    </span><br><span class="line">[root@host1 keepalived]#</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-7951b96bf51344a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>节点二上的配置：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-2a16c1f5030abf8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点二的keepalived.conf配置"></p>
+<p><strong>两个节点上分别启动服务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@host1 keepalived]#systemctl start keepalived.service</span><br><span class="line">[root@host2 keepalived]#systemctl start keepalived.service</span><br></pre></td></tr></table></figure>
+<p><strong>测试：</strong></p>
+<ul>
+<li><strong>首先分别在两个节点上查看状态是否正常，尤其注意节点一的状态；</strong></li>
+</ul>
+<p><strong>节点一：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-4234d6db3790d780.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点1上，也是主节点"><br><strong>节点二：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-3061ff70caf5bffe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点二也正常"></p>
+<ul>
+<li><strong>把节点一的服务停掉，再在节点二上查看状态以及IP地址，查看是否转移；</strong></li>
+</ul>
+<p><strong>节点一：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-113dac983b82bdd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="关掉服务之后，作为MASTER的节点一失去了虚拟IP地址"></p>
+<p><strong>节点二：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-4c1ab87979dd3b60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="虚拟IP地址已经成功转移到节点二上了"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-72380f6a968509d2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="查看节点二的IP地址能看到虚拟IP地址已经成功转移过来了"></p>
+<ul>
+<li><strong>再把节点一的服务启动起来，并查看状态和IP；</strong></li>
+</ul>
+<p><strong>节点一：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-744065f27140fc74.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点一"></p>
+<p><strong>节点二：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-2247e46a2d6335c2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="节点二"></p>
+<hr>
+<p>至此，关于keepalived的vrrp实现地址转移已经结束了；</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/keepalived%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/keepalived%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">keepalived概念</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:20:12" itemprop="dateCreated datePublished" datetime="2020-02-14T10:20:12+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#vrrp协议简介：</p>
+<blockquote>
+<ul>
+<li><strong>虚拟路由冗余协议(Virtual Router Redundancy Protocol，简称VRRP协议)</strong><ul>
+<li><strong>VRRP是一种选择协议</strong>。它可以把一个虚拟路由器的责任动态分配到局域网上的 VRRP 路由器中的一台。控制虚拟路由器 IP 地址的 VRRP 路由器称为主路由器，它负责转发数据包到这些虚拟 IP 地址。  一旦主路由器不可用，这种选择过程就提供了动态的故障转移机制，这就允许虚拟路由器的 IP 地址可以作为终端主机的默认第一跳路由器。是一种LAN接入设备备份协议。一个局域网络内的所有主机都设置[缺省网关，这样主机发出的目的地址不在本网段的报文将被通过缺省网关发往三层交换机，从而实现了主机和外部网络的通信。</li>
+<li><strong>VRRP是一种路由容错协议，也可以叫做备份路由协议</strong>。一个局域网络内的所有主机都设置缺省路由，当网内主机发出的目的地址不在本网段时，报文将被通过缺省路由发往外部路由器，从而实现了主机与外部网络的通信。当缺省路由器down掉（即端口关闭）之后，内部主机将无法与外部通信，如果路由器设置了VRRP时，那么这时，虚拟路由将启用备份路由器，从而实现全网通信。</li>
+<li><strong>VRRP（Virtual Router Redundancy Protocol，虚拟路由冗余协议）是一种容错协议</strong>。通常，一个网络内的所有主机都设置一条[缺省路由]，这样，主机发出的目的地址不在本网段的报文将被通过缺省路由发往路由器RouterA，从而实现了主机与外部网络的通信。当路由器RouterA 坏掉时，本网段内所有以RouterA 为缺省路由下一跳的主机将断掉与外部的通信产生单点故障。VRRP 就是为解决上述问题而提出的，它为具有多播组播或广播能力的局域网（如：以太网）设计。</li>
+</ul>
+</li>
+<li><a href="https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E8%B7%AF%E7%94%B1%E5%99%A8%E5%86%97%E4%BD%99%E5%8D%8F%E8%AE%AE/2991482?fr=aladdin" target="_blank" rel="noopener">本段简介摘自百度百科vrrp协议</a></li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vrrp协议：Virtual Redundant Routing Protocol</span><br><span class="line">      术语：</span><br><span class="line">		虚拟路由器：Virtual Router </span><br><span class="line">		虚拟路由器标识：VRID(0-255)</span><br><span class="line">		物理路由器：</span><br><span class="line">			master：主设备</span><br><span class="line">			backup：备用设备</span><br><span class="line">			priority：优先级</span><br><span class="line">		VIP：Virtual IP </span><br><span class="line">		VMAC：Virutal MAC (00-00-5e-00-01-VRID)</span><br><span class="line">			 GraciousARP</span><br><span class="line">				</span><br><span class="line">通告：心跳，优先级等；周期性；</span><br><span class="line">			</span><br><span class="line">        抢占式，非抢占式；</span><br><span class="line">			</span><br><span class="line">安全工作：</span><br><span class="line">		无认证</span><br><span class="line">		简单字符认证</span><br><span class="line">		MD5</span><br><span class="line">					</span><br><span class="line">工作模式：</span><br><span class="line">    主&#x2F;备：单虚拟路径器；</span><br><span class="line">    主&#x2F;主：主&#x2F;备（虚拟路径器1），备&#x2F;主（虚拟路径器2）</span><br></pre></td></tr></table></figure>
+
+<p>#keepalived定义：</p>
+<blockquote>
+<ul>
+<li><strong><code>keepalived</code>作为一款软件，能够在<code>Linux</code>主机之上，实现其<code>vrrp协议</code>的功能！设计目的是为了高可用<code>ipvs</code>服务的！</strong><ul>
+<li>基于vrrp协议完成地址转移，或者说地址流动；</li>
+<li>为集群内的所有节点生成ipvs规则（在配置文件中预先定义）；</li>
+<li>为ipvs集群的各RS（Real Server）做健康状态检测；</li>
+<li>基于脚本调用接口通过执行脚本，完成脚本中定义的功能，进而影响集群事物；</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>#keepalived组件：</p>
+<blockquote>
+<ul>
+<li><strong>核心组件：</strong><ul>
+<li><strong>vrrp stack：</strong>vrrp协议的实现</li>
+<li><strong>ipvs wrapper：</strong>为集群内所有节点生成ipvs规则等</li>
+<li><strong>checkers：</strong>为ipvs几群的各RS做健康状态检测的组件；</li>
+</ul>
+</li>
+<li><strong>其他组件：</strong><ul>
+<li><strong>控制组件：</strong>配置文件分析器，用来实现配置文件的分析和加载</li>
+<li><strong>IO复用器</strong></li>
+<li><strong>内存管理组件：</strong>高效管理keepalived的高可用服务时的内存空间占用的</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>#Linux CentOS系统keepalived 安装和配置文件结构</p>
+<p><strong>高可用集群的配置前提：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HA Cluster的配置前提：</span><br><span class="line">	(1) 各节点时间必须同步；</span><br><span class="line">	        ntp, chrony</span><br><span class="line">	(2) 确保iptables及selinux不会成为阻碍；</span><br><span class="line">	(3) 各节点之间可通过主机名互相通信（对KA并非必须）；</span><br><span class="line">		    建议使用&#x2F;etc&#x2F;hosts文件实现； </span><br><span class="line">	(4) 确保各节点的用于集群服务的接口支持MULTICAST（多播）通信；</span><br><span class="line">		    D类：224-239；</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-033e74194e51b2af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>安装keepalived：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-0e965e545455fe6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-cd80263c70616803.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="几个主要的文件"></p>
+<p><strong>配置文件组成部分：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">TOP HIERACHY   顶级结构</span><br><span class="line">      GLOBAL CONFIGURATION  全局配置段</span><br><span class="line">      VRRPD CONFIGURATION   vrrp配置段</span><br><span class="line">      LVS CONFIGURATION     LVS配置段</span><br><span class="line"></span><br><span class="line">GLOBAL CONFIGURATION  全局配置段</span><br><span class="line">      Global definitions</span><br><span class="line">      Static routes&#x2F;addresses   在全局配置中可以添加静态路由</span><br><span class="line"></span><br><span class="line">VRRPD CONFIGURATION  vrrp 配置段</span><br><span class="line">      VRRP synchronization group(s)  同步组</span><br><span class="line">      VRRP instance(s)  vrrp实例：一个vrrp实例就是一个vrrp虚拟路由器</span><br><span class="line"></span><br><span class="line">LVS CONFIGURATION  LVS配置段：keepalived的高可用的时候才有必要配置这段</span><br><span class="line">      Virtual server group(s)  虚拟服务器组</span><br><span class="line">      Virtual server(s)   虚拟服务器</span><br></pre></td></tr></table></figure>
+<hr>
+<p>####（—-未完待续 —- ）</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/MariaDB%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%86%97%E4%BD%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/MariaDB%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%AE%9E%E7%8E%B0%E5%86%97%E4%BD%99/" class="post-title-link" itemprop="url">MariaDB主从复制实现冗余</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:19:38" itemprop="dateCreated datePublished" datetime="2020-02-14T10:19:38+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#1. 实验环境</p>
+<blockquote>
+<ul>
+<li>系统环境：CentOS7.3</li>
+<li>两个节点：<ul>
+<li>主节点host3_13 IP地址：192.168.10.13</li>
+<li>从节点host4_14 IP地址：192.168.10.14</li>
+</ul>
+</li>
+<li>同步时间：工具ntpdate</li>
+</ul>
+</blockquote>
+<p>#2.  搭建环境：</p>
+<ul>
+<li><strong>安装软件</strong><blockquote>
+<p>两个节点做同样的工作，这里只放一个节点的图</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-8fe58ce3dce53f3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>同步时间</strong><blockquote>
+<p>作为主从复制，时间同步是最基本的设置！最基本的满足条件！</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-c8ea406018f11c91.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主节点"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-7ed55560c948d79a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="从节点"></p>
+<p>#3. 配置主节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">主节点做三件事：</span><br><span class="line">   （1）对主服务器节点设置一个server-id</span><br><span class="line">   （2）启用二进制日志</span><br><span class="line">   （3）创建一个拥有复制权限的用户账号</span><br></pre></td></tr></table></figure>
+<p><strong>修改 Mariadb-server 配置文件 /etc/my.cnf.d/server.cnf ：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-d663dfe0b0f75fc6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>创建一个拥有复制权限的用户账号 ：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">[root@host3 mysql]#mysql</span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MariaDB connection id is 3</span><br><span class="line">ongoingServer version: 5.5.52-MariaDB MariaDB Server</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">######  创建一个拥有复制权限的用户账号  ######</span><br><span class="line">MariaDB [(none)]&gt; grant replication client,replication slave on *.* to &#39;repluser&#39;@&#39;19&#39;192.168.10.%&#39; identified by &#39;replpass&#39;;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; flush privileges;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; show master status;</span><br><span class="line">+-------------------+----------+--------------+------------------+</span><br><span class="line">| File              | Position | Binlog_Do_DB | Binlog_Ignore_DB |</span><br><span class="line">+-------------------+----------+--------------+------------------+</span><br><span class="line">| master-log.000003 |      498 |              |                  |</span><br><span class="line">+-------------------+----------+--------------+------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; show binlog events in &#39;master-log.000003&#39;;</span><br><span class="line">+-------------------+-----+-------------+-----------+-------------+---------------------------------------------------------------------------------------------------------+</span><br><span class="line">| Log_name          | Pos | Event_type  | Server_id | End_log_pos | Info                                                                                                    |</span><br><span class="line">+-------------------+-----+-------------+-----------+-------------+---------------------------------------------------------------------------------------------------------+</span><br><span class="line">| master-log.000003 |   4 | Format_desc |         1 |         245 | Server ver: 5.5.52-MariaDB, Binlog ver: 4                                                               |</span><br><span class="line">| master-log.000003 | 245 | Query       |         1 |         423 | grant replication client,replication slave on *.* to &#39;repluser&#39;@&#39;192.168.10.%&#39; identified by &#39;replpass&#39; |</span><br><span class="line">| master-log.000003 | 423 | Query       |         1 |         498 | flush privileges                                                                                        |</span><br><span class="line">+-------------------+-----+-------------+-----------+-------------+---------------------------------------------------------------------------------------------------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-ff46a43f6c70094f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#4. 配置从节点<br><strong>修改从服务器节点的配置文件：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-655289f02cbc4387.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>使用主服务器授权的账号连接至主服务器：</strong></p>
+<blockquote>
+<ul>
+<li><strong>特别注意：</strong><br>把一个节点变成从节点的要点在于，我们可以在从节点上直接用MySQL命令’’CHANGE MASTER TO’’来指定自己的主服务器节点；<br><img src="http://upload-images.jianshu.io/upload_images/6121564-52d64df95360a42e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+</ul>
+</blockquote>
+<p><strong>指定主服务器节点：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-2b85da40b2f00180.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><strong>启动从服务器：</strong></p>
+<blockquote>
+<p>对比从服务器状态前后差别</p>
+</blockquote>
+<ul>
+<li><strong>启动之前状态</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-bcf8c196ea8f554d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+<li><strong>start slave启动从服务器节点</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-8cd03669f0e2a402.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+</ul>
+<p>#5. 测试</p>
+<blockquote>
+<p>我们这是实现<strong>MySQL主从复制</strong>，所测试也简单，我们在主节点上跑几个SQL指令，在回过头查看从节点就可以了<br><strong>主节点：</strong></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-657df588a1fe6cec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>从节点：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-d9c1445cddd8f30d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><strong>整体对比图：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-b5dde140f198fc54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>#结语：<br><strong>对于运维工程师来说有很多工作需要我们去做，这里有些个技能是我们必须具备的；其中数据备份、数据恢复和MySQL主从复制等等更是格外重要！还是那句话，我们运维就是什么都懂的神仙…</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Mariadb%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8%E8%AF%AD%E5%8F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/Mariadb%E6%95%B0%E6%8D%AE%E5%BA%93%E5%85%A5%E9%97%A8%E8%AF%AD%E5%8F%A5/" class="post-title-link" itemprop="url">Mariadb数据库入门语句</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:19:01" itemprop="dateCreated datePublished" datetime="2020-02-14T10:19:01+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>创建用户账号</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [mydb]&gt; create user yonghuming@&#39;172.16.%.%&#39; identified by &#39;yonghumima&#39;; </span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [mydb]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>忘记用户密码后修改密码</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;方法一：</span><br><span class="line">MariaDB [mydb]&gt; set password for &#39;yonghuming&#39;@&#39;172.16.%.%&#39; &#x3D; password(&#39;mageedu&#39;);</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [mydb]&gt; flush privileges;    &lt;-- 让MySQL重新加载授权表,即修改密码后让其即时生效</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"> </span><br><span class="line">&gt;&gt;方法二：</span><br><span class="line">MariaDB [mydb]&gt; select user,host,password from mysql.user;</span><br><span class="line">+------------+---------------+-------------------------------------------+</span><br><span class="line">| user       | host          | password                                  |</span><br><span class="line">+------------+---------------+-------------------------------------------+</span><br><span class="line">| root       | localhost     |                                           |</span><br><span class="line">| root       | host1.centos7 |                                           |</span><br><span class="line">| root       | 127.0.0.1     |                                           |</span><br><span class="line">| root       | ::1           |                                           |</span><br><span class="line">|            | localhost     |                                           |</span><br><span class="line">|            | host1.centos7 |                                           |</span><br><span class="line">| test       | 192.168.10.%  | *9A94EE7D14C10908118B62D2DA88E6932E11E438 | &lt;-- 修改前结尾是E438</span><br><span class="line">| wxg        | 192.168.%.%   | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 |</span><br><span class="line">| yonghuming | 172.16.%.%    | *9A94EE7D14C10908118B62D2DA88E6932E11E438 | &lt;-- 相同密码的加密后生成的也相同</span><br><span class="line">+------------+---------------+-------------------------------------------+</span><br><span class="line">9 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [mydb]&gt; update mysql.user set password&#x3D;password(&#39;123456&#39;) where user&#x3D;&#39;test&#39; and host&#x3D;&#39;192.168.10.%&#39;;    </span><br><span class="line">(上面的整条命令的意思是：把test用户的密码修改为‘123456’ where 是条件，后面一定要跟条件)   </span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br><span class="line"></span><br><span class="line">MariaDB [mydb]&gt; select user,host,password from mysql.user;                                                  </span><br><span class="line">+------------+---------------+-------------------------------------------+</span><br><span class="line">| user       | host          | password                                  |</span><br><span class="line">+------------+---------------+-------------------------------------------+</span><br><span class="line">| root       | localhost     |                                           |</span><br><span class="line">| root       | host1.centos7 |                                           |</span><br><span class="line">| root       | 127.0.0.1     |                                           |</span><br><span class="line">| root       | ::1           |                                           |</span><br><span class="line">|            | localhost     |                                           |</span><br><span class="line">|            | host1.centos7 |                                           |</span><br><span class="line">| test       | 192.168.10.%  | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 | &lt;--修改后是2AD9</span><br><span class="line">| wxg        | 192.168.%.%   | *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9 | &lt;--相同密码生成的password字段的加密码相同</span><br><span class="line">| yonghuming | 172.16.%.%    | *9A94EE7D14C10908118B62D2DA88E6932E11E438 |</span><br><span class="line">+------------+---------------+-------------------------------------------+</span><br><span class="line">9 rows in set (0.00 sec)</span><br><span class="line">（注意当我们调用内键变量password修改密码的时候，它是对称的，同样的密码所生成的加密码是相同的！细看表中test和wxg的加密码）</span><br><span class="line"></span><br><span class="line">MariaDB [mydb]&gt; flush privileges;    &lt;-- 让MySQL重新加载授权表,即修改密码后让其即时生效</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">MariaDB [mydb]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>查看当前数据库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@centos7 ~]#mysql -uroot -p</span><br><span class="line">Enter password: </span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; show databases;    &lt;---查看当前数据库</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| bjtechan           |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">+--------------------+</span><br><span class="line">4 rows in set (0.09 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>切换到某个数据库去访问</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [bjtechan]&gt; use mysql;    &lt;---切换到mysql数据库</span><br><span class="line">Reading table information for completion of table and column names</span><br><span class="line">You can turn off this feature to get a quicker startup with -A</span><br><span class="line"></span><br><span class="line">Database changed</span><br><span class="line">MariaDB [mysql]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>查看当前数据库有哪些表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [mysql]&gt; show tables;    &lt;---查看当前数据库有哪些表</span><br><span class="line">+---------------------------+</span><br><span class="line">| Tables_in_mysql           |</span><br><span class="line">+---------------------------+</span><br><span class="line">| columns_priv              |</span><br><span class="line">| db                        |</span><br><span class="line">| event                     |</span><br><span class="line">| func                      |</span><br><span class="line">| general_log               |</span><br><span class="line">| help_category             |</span><br><span class="line">| help_keyword              |</span><br><span class="line">| help_relation             |</span><br><span class="line">| help_topic                |</span><br><span class="line">| host                      |</span><br><span class="line">| ndb_binlog_index          |</span><br><span class="line">| plugin                    |</span><br><span class="line">| proc                      |</span><br><span class="line">| procs_priv                |</span><br><span class="line">| proxies_priv              |</span><br><span class="line">| servers                   |</span><br><span class="line">| slow_log                  |</span><br><span class="line">| tables_priv               |</span><br><span class="line">| time_zone                 |</span><br><span class="line">| time_zone_leap_second     |</span><br><span class="line">| time_zone_name            |</span><br><span class="line">| time_zone_transition      |</span><br><span class="line">| time_zone_transition_type |</span><br><span class="line">| user                      |</span><br><span class="line">+---------------------------+</span><br><span class="line">24 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [mysql]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>查看某一个表的表结构</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [mysql]&gt; desc user;    &lt;---查看表结构：desc 加 表名</span><br><span class="line">+------------------------+-----------------------------------+------+-----+---------+-------+</span><br><span class="line">| Field                  | Type                              | Null | Key | Default | Extra |</span><br><span class="line">+------------------------+-----------------------------------+------+-----+---------+-------+</span><br><span class="line">| Host                   | char(60)                          | NO   | PRI |         |       |</span><br><span class="line">| User                   | char(16)                          | NO   | PRI |         |       |</span><br><span class="line">| Password               | char(41)                          | NO   |     |         |       |</span><br><span class="line">| Select_priv            | enum(&#39;N&#39;,&#39;Y&#39;)                     | NO   |     | N       |       |</span><br><span class="line">| Show_db_priv           | enum(&#39;N&#39;,&#39;Y&#39;)                     | NO   |     | N       |       |</span><br><span class="line">| Super_priv             | enum(&#39;N&#39;,&#39;Y&#39;)                     | NO   |     | N       |       |</span><br><span class="line">| Repl_slave_priv        | enum(&#39;N&#39;,&#39;Y&#39;)                     | NO   |     | N       |       |</span><br><span class="line">| ssl_type               | enum(&#39;&#39;,&#39;ANY&#39;,&#39;X509&#39;,&#39;SPECIFIED&#39;) | NO   |     |         |       |</span><br><span class="line">| ssl_cipher             | blob                              | NO   |     | NULL    |       |</span><br><span class="line">| x509_issuer            | blob                              | NO   |     | NULL    |       |</span><br><span class="line">| x509_subject           | blob                              | NO   |     | NULL    |       |</span><br><span class="line">| max_questions          | int(11) unsigned                  | NO   |     | 0       |       |</span><br><span class="line">| max_updates            | int(11) unsigned                  | NO   |     | 0       |       |</span><br><span class="line">| max_connections        | int(11) unsigned                  | NO   |     | 0       |       |</span><br><span class="line">| max_user_connections   | int(11)                           | NO   |     | 0       |       |</span><br><span class="line">| plugin                 | char(64)                          | NO   |     |         |       |</span><br><span class="line">| authentication_string  | text                              | NO   |     | NULL    |       |</span><br><span class="line">+------------------------+-----------------------------------+------+-----+---------+-------+</span><br><span class="line">42 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [mysql]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>选择性查看一个表格的某些字段</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MariaDB [mysql]&gt; select host,user,password from user;    &lt;---查看user表格的主机用户密码信息</span><br><span class="line">+---------------+------+-------------------------------------------+</span><br><span class="line">| host          | user | password                                  |</span><br><span class="line">+---------------+------+-------------------------------------------+</span><br><span class="line">| localhost     | root | *9A94EE7D14C10908118B62D2DA88E6932E11E438 |</span><br><span class="line">| centos7.3.wxg | root | *9A94EE7D14C10908118B62D2DA88E6932E11E438 |</span><br><span class="line">| 127.0.0.1     | root | *9A94EE7D14C10908118B62D2DA88E6932E11E438 |</span><br><span class="line">| ::1           | root | *9A94EE7D14C10908118B62D2DA88E6932E11E438 |</span><br><span class="line">+---------------+------+-------------------------------------------+</span><br><span class="line">4 rows in set (0.01 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [mysql]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>显示当前的用户名</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [mysql]&gt; select user();    &lt;---显示当前的用户名</span><br><span class="line">+----------------+</span><br><span class="line">| user()         |</span><br><span class="line">+----------------+</span><br><span class="line">| root@localhost |    &lt;---当前登录的用户，这才是完整的用户名；用户@主机名（可以是ip地址）</span><br><span class="line">+----------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [mysql]&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>创建数据库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [(none)]&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| bjtechan           |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">+--------------------+</span><br><span class="line">4 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; create database testdb;    &lt;---创建一个叫testdb的数据库</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| bjtechan           |</span><br><span class="line">| mysql              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| testdb             |</span><br><span class="line">+--------------------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt; quit    &lt;---退出数据库</span><br><span class="line">Bye</span><br><span class="line">[root@centos7 ~]#</span><br></pre></td></tr></table></figure>
+<p><strong>显示当前登录用户</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">MariaDB [mydb]&gt; select current_user();    &lt;-- 内键函数，显示当前登录用户</span><br><span class="line">+----------------+</span><br><span class="line">| current_user() |</span><br><span class="line">+----------------+</span><br><span class="line">| root@localhost |</span><br><span class="line">+----------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [mydb]&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%98%AF%E4%BB%80%E4%B9%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%98%AF%E4%BB%80%E4%B9%88/" class="post-title-link" itemprop="url">MySQL数据库的多个是什么</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:18:07" itemprop="dateCreated datePublished" datetime="2020-02-14T10:18:07+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>什么叫数据库？</strong><br>数据库本质上就是文件、表格的集合。以一定的形式存于存储介质上。</p>
+<hr>
+<p><strong>什么叫数据库管理系统?</strong><br>数据库管理系统就是管理数据库的系统软件。有我们熟悉的MySQL数据库、Oracle数据库、Mariadb数据库等都是数据库管理系统。生活中我们习惯称其为MySQL数据库、Oracle数据库等。我们可以通过这些数据库管理软件来对数据进行增删减查询等各种操作进行管理。</p>
+<hr>
+<p><strong>数据库管理系统的基本功能?</strong><br>数据定义：就好比我要创建一个数据库，在数据库里创建一个几行几列的表格等；<br>数据处理：在数据库里加点东西、删点东西、查点东西等；<br>数据安全：对数据设置一些权限，哪些表格能看哪些表格不能看等数据处理权限管理；<br>数据备份：对数据的备份还原，必要的功能；</p>
+<hr>
+<p><strong>什么是关系数据库？</strong><br>关系数据库就是行行列列的二维表格。<br>行row：表中的每一行，成为记录；<br>列column：表中的每一列，称为属性、字段；<br><strong>关系是指的什么？</strong><br>表格和表格之间是有关系的，表a里有的记录表b里也有相关记录；就是有一定的关联的表；</p>
+<blockquote>
+<p>主键(pk)Primary key：作用在某一个列上的，这一列的值，所有的记录是不能相同的，必须不一样的；必须有值！必须唯一！绝对不能为空！主键保证了每条记录的唯一性，可以避免数据冗余；一个表中主键只有一个。</p>
+</blockquote>
+<hr>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEZabbix-server%E6%9C%8D%E5%8A%A1%E7%AB%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEZabbix-server%E6%9C%8D%E5%8A%A1%E7%AB%AF/" class="post-title-link" itemprop="url">安装配置Zabbix-server服务端</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:17:24" itemprop="dateCreated datePublished" datetime="2020-02-14T10:17:24+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-f166baee06b2682c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>####1. 配置zabbix的yum仓库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;repo.zabbix.com&#x2F;zabbix&#x2F;3.4&#x2F;rhel&#x2F;7&#x2F;x86_64&#x2F;zabbix-release-3.4-1.el7.centos.noarch.rpm</span><br><span class="line"></span><br><span class="line">rpm -ivh zabbix-release-3.4-1.el7.centos.noarch.rpm</span><br><span class="line"></span><br><span class="line">yum clean all</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure>
+<hr>
+<p>####2. 安装Zabbix-server及相关包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install zabbix-server-mysql zabbix-web-mysql zabbix-get zabbix-agent zabbix-sender</span><br><span class="line"></span><br><span class="line">yum -y install mariadb-server</span><br></pre></td></tr></table></figure>
+<hr>
+<p>####3. 配置mariadb</p>
+<ul>
+<li><strong>简单配置数据库配置文件</strong><blockquote>
+<p>zabbix数据存储在关系型数库里，还是需要简单配置一下的</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-a713e39f54493628.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><p><strong>创建zabbix的数据库和用户账号并授权</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-d0fb6b2a1ad176b0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+<li><p><strong>利用装包后生成的自带的SQL脚本创建zabbix相关数据库表格</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-379b254899d39535.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+</ul>
+<hr>
+<p>####4. 配置zabbix server</p>
+<ul>
+<li><p><strong>zabbix服务端配置文件的结构</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-53e09e57d30ffe76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+<li><p><strong>配置zabbix-server.conf文件的通用配置段</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-ad17669b708fb555.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+<li><p><strong>启动 zabbix 服务并查看端口状态</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-672496442bc75b03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+</ul>
+<hr>
+<p>####5. 配置zabbix网页相关的php配置文件并启动httpd服务</p>
+<blockquote>
+<p>zabbix时强烈依赖于PHP所配置的时区的！所以一定要修改<strong><code>/etc/httpd/conf.d/zabbix.conf</code></strong>文件关于php的时区配置！</p>
+</blockquote>
+<ul>
+<li><p><strong>修改配置文件</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-e523ea38fb95e006.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+<li><p><strong>启动httpd服务</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-458dcd23dffb4580.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+</ul>
+<hr>
+<p>####6. 浏览器上访问 zabbix</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-3c87ccb5492b20ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>检查依赖环境</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-87d46cc722b57150.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><p><strong>连入数据库</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-02999ad3306160a6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+<li><p><strong>下一步</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-45914d1c05dd4ec8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+<li><p><strong>点击Finish</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-1bf4f6860b93b316.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+<li><p><strong>输入账号密码登录</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-a2aa7dde5e7298e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+<li><p><strong>zabbix-server服务端初步搭建完成</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-bf4a8920e7efdb70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+</li>
+</ul>
+<hr>
+<p>####zabbix服务端配置到这就完成啦</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Ansible%E5%AE%9E%E7%8E%B0Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%A2%E6%88%B7%E8%AF%B7%E6%B1%82%E8%87%B3%E5%90%8E%E7%AB%AFTomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/14/Ansible%E5%AE%9E%E7%8E%B0Nginx%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%AE%A2%E6%88%B7%E8%AF%B7%E6%B1%82%E8%87%B3%E5%90%8E%E7%AB%AFTomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4/" class="post-title-link" itemprop="url">Ansible实现Nginx负载均衡客户请求至后端Tomcat服务器集群</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:16:38" itemprop="dateCreated datePublished" datetime="2020-02-14T10:16:38+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-a956d84118c630f9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#搭建环境</p>
+<ul>
+<li><strong>安装Ansible</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install ansible</span><br></pre></td></tr></table></figure></li>
+<li><strong>配置主机清单</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;ansible&#x2F;hosts</span><br></pre></td></tr></table></figure>
+<img src="http://upload-images.jianshu.io/upload_images/6121564-25a2c8f5f2a7e2e3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="定义主机清单"></li>
+<li><strong>检查主机清单是否添加成功</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@Client ansible]#ansible all --list-hosts</span><br><span class="line">  hosts (3):</span><br><span class="line">    host1.centos7</span><br><span class="line">    host2.centos7</span><br><span class="line">    host3.centos7</span><br><span class="line">[root@Client ansible]#ansible lb --list-hosts</span><br><span class="line">  hosts (1):</span><br><span class="line">    host1.centos7</span><br><span class="line">[root@Client ansible]#ansible tc --list-hosts</span><br><span class="line">  hosts (2):</span><br><span class="line">    host2.centos7</span><br><span class="line">    host3.centos7</span><br><span class="line">[root@Client ansible]#</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-077742825792c97e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>基于ssh做无密钥认证</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[root@Client ansible]#ssh-keygen -t rsa -P &#39;&#39;</span><br><span class="line">Generating public&#x2F;private rsa key pair.</span><br><span class="line">Enter file in which to save the key (&#x2F;root&#x2F;.ssh&#x2F;id_rsa): </span><br><span class="line">Your identification has been saved in &#x2F;root&#x2F;.ssh&#x2F;id_rsa.</span><br><span class="line">Your public key has been saved in &#x2F;root&#x2F;.ssh&#x2F;id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">02:6e:ab:d7:9a:35:54:25:7b:e6:2d:f7:c8:d8:aa:c1 root@Client.centos7</span><br><span class="line">The key&#39;s randomart image is:</span><br><span class="line">+--[ RSA 2048]----+</span><br><span class="line">|        . .      |</span><br><span class="line">|         +       |</span><br><span class="line">|    .   o o      |</span><br><span class="line">|   . . . + .     |</span><br><span class="line">|    o o S o o    |</span><br><span class="line">|   . o o   * o   |</span><br><span class="line">|    ..o E . + .  |</span><br><span class="line">|   ..o.. . .     |</span><br><span class="line">|  ..o.  ...      |</span><br><span class="line">+-----------------+</span><br><span class="line">[root@Client ansible]#ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host1</span><br><span class="line">The authenticity of host &#39;host1 (192.168.10.11)&#39; can&#39;t be established.</span><br><span class="line">ECDSA key fingerprint is 9a:7d:a7:45:06:e0:7f:f2:d5:9c:35:05:8c:c2:f7:e9.</span><br><span class="line">Are you sure you want to continue connecting (yes&#x2F;no)? yes</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;ssh-copy-id: INFO: attempting to log in with the new key(s), </span><br><span class="line">to filter out any that are already installed</span><br><span class="line">&#x2F;usr&#x2F;bin&#x2F;ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now </span><br><span class="line">it is to install the new keys</span><br><span class="line">root@host1&#39;s password: </span><br><span class="line"></span><br><span class="line">Number of key(s) added: 1</span><br><span class="line"></span><br><span class="line">Now try logging into the machine, with:   &quot;ssh &#39;root@host1&#39;&quot;</span><br><span class="line">and check to make sure that only the key(s) you wanted were added.</span><br><span class="line"></span><br><span class="line">[root@Client ansible]#ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host2</span><br><span class="line">...</span><br><span class="line">[root@Client ansible]#ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host3</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-2693b94f415bb935.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>测试 ssh 链接</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-bd2d7caaea3336fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>执行简单的ansible命令测试能否管控远程主机</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@Client ansible]#ansible all -m shell -a &quot;ifconfig ens33&quot;</span><br></pre></td></tr></table></figure>
+<img src="http://upload-images.jianshu.io/upload_images/6121564-1a6de710bc5c4216.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></li>
+<li><strong>同步时间</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-b350d686f891a3a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>#创建角色</p>
+<blockquote>
+<p>需要创建三个角色分别为<strong>nginx</strong> 和 <strong>tomcat</strong> 以及 <strong>jdk</strong></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-f66792d4aa6c971e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-72da45cf9445382d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-50e0625444829fb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写playbook剧本nt.yml :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-c216ea9bc019c38e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写nginx角色的tasks :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-bea7c57d5dce0158.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写nginx角色的配置文件 :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-cc261ca1877b0273.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写nginx角色的handlers :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e4c5606d7ad327e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>测试一下nginx角色能否成执行：</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-913e8f63a75ab49f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>在lb主机上查看进程和端口是否存在：</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-54cc0e326a951da2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<ul>
+<li><strong>编辑tomcat角色的tasks :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-bd7e53d3cf06dc60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<ul>
+<li><strong>编写jdk角色的tasks :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-53ef3df054510b14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写jdk角色的files/java.sh :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-ef1ffffeaf68facd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<ul>
+<li><strong>编写jdk角色的vars/main.yml :</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-de27b18802ced97c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>#完善我们的剧本nt.yml<br><img src="http://upload-images.jianshu.io/upload_images/6121564-adaf8c77f185138f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#执行我们的剧本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">[root@Client ansible]#ansible-playbook nt.yml   </span><br><span class="line"></span><br><span class="line">PLAY [lb] **********************************************************************</span><br><span class="line"></span><br><span class="line">TASK [setup] *******************************************************************</span><br><span class="line">ok: [host1.centos7]</span><br><span class="line"></span><br><span class="line">TASK [nginx : install nginx] ***************************************************</span><br><span class="line">ok: [host1.centos7]</span><br><span class="line"></span><br><span class="line">TASK [nginx : install conf] ****************************************************</span><br><span class="line">ok: [host1.centos7]</span><br><span class="line"></span><br><span class="line">TASK [nginx : start nginx] *****************************************************</span><br><span class="line">ok: [host1.centos7]</span><br><span class="line"></span><br><span class="line">PLAY [tc] **********************************************************************</span><br><span class="line"></span><br><span class="line">TASK [setup] *******************************************************************</span><br><span class="line">ok: [host3.centos7]</span><br><span class="line">ok: [host2.centos7]</span><br><span class="line"></span><br><span class="line">TASK [jdk : install openjdk] ***************************************************</span><br><span class="line">changed: [host2.centos7]</span><br><span class="line">changed: [host3.centos7]</span><br><span class="line"></span><br><span class="line">TASK [jdk : install evn file] **************************************************</span><br><span class="line">changed: [host3.centos7]</span><br><span class="line">changed: [host2.centos7]</span><br><span class="line"></span><br><span class="line">TASK [tomcat : install package] ************************************************</span><br><span class="line">changed: [host3.centos7] &#x3D;&gt; (item&#x3D;[u&#39;tomcat&#39;, u&#39;tomcat-admin-webapps&#39;, u&#39;tomcat-webapps&#39;, u&#39;tomcat-docs-webapp&#39;])</span><br><span class="line">changed: [host2.centos7] &#x3D;&gt; (item&#x3D;[u&#39;tomcat&#39;, u&#39;tomcat-admin-webapps&#39;, u&#39;tomcat-webapps&#39;, u&#39;tomcat-docs-webapp&#39;])</span><br><span class="line"></span><br><span class="line">TASK [tomcat : start tomcat] ***************************************************</span><br><span class="line">changed: [host3.centos7]</span><br><span class="line">changed: [host2.centos7]</span><br><span class="line"></span><br><span class="line">PLAY RECAP *********************************************************************</span><br><span class="line">host1.centos7              : ok&#x3D;4    changed&#x3D;0    unreachable&#x3D;0    failed&#x3D;0   </span><br><span class="line">host2.centos7              : ok&#x3D;5    changed&#x3D;4    unreachable&#x3D;0    failed&#x3D;0   </span><br><span class="line">host3.centos7              : ok&#x3D;5    changed&#x3D;4    unreachable&#x3D;0    failed&#x3D;0   </span><br><span class="line"></span><br><span class="line">[root@Client ansible]#</span><br></pre></td></tr></table></figure>
+<p>#最终测试</p>
+<blockquote>
+<p><strong>在浏览器里输入<a href="http://www.grh.io" target="_blank" rel="noopener">www.grh.io</a></strong></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-a98badd327a11b34.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 
       
     </div>
@@ -384,6 +1243,9 @@
   </div>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -448,7 +1310,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="#去mariadb官网下载二进制安装包 进入官网www.mariadb.org选择 Download  选择版本 *选择需要安装的二进制安装包 谢谢MariaDB的免费软件，开源精神是世界的…  #安装环境Linux 操作系统 CentOS 6.9 版本#创建数据库存放路径和权限设置  12345678910111213141516171819202122232425[root@host-b a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于CentOS6.9的MariaDB二进制安装">
+<meta property="og:url" content="http://yoursite.com/2020/02/14/%E5%9F%BA%E4%BA%8ECentOS6.9%E7%9A%84MariaDB%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#去mariadb官网下载二进制安装包 进入官网www.mariadb.org选择 Download  选择版本 *选择需要安装的二进制安装包 谢谢MariaDB的免费软件，开源精神是世界的…  #安装环境Linux 操作系统 CentOS 6.9 版本#创建数据库存放路径和权限设置  12345678910111213141516171819202122232425[root@host-b a">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-3ffaf94b91dc260c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-2aed770df96796b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-c5790456a663b286.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-17f9043f4618ac1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-0df7aba3a2a1681d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-121b858c0396a241.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-173b8a5b5c21df11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-6702c43436e2e8ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-477cde3069409c19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-d6040828b649c90a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-f791f6db20cd4ba5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-f656ede0f4bddbcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-559a6f7b140db4f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-eea98c00a9ee3ea8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-4d061a57802e15c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-9b18fef47765ece5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-3b0cc33740c748be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-34aaf6781a006765.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-b930a0d5bb64b2f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-9598f389abb793ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-f211aebca4e274ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-d3f35a8f8b96760e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-1e54ecb806ba0244.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-02-14T02:06:15.623Z">
+<meta property="article:modified_time" content="2020-02-14T02:06:15.623Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/6121564-3ffaf94b91dc260c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+<link rel="canonical" href="http://yoursite.com/2020/02/14/%E5%9F%BA%E4%BA%8ECentOS6.9%E7%9A%84MariaDB%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>基于CentOS6.9的MariaDB二进制安装 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/Books/" rel="section"><i class="fa fa-fw fa-eye"></i>Books</a>
+
+  </li>
+        <li class="menu-item menu-item-video">
+
+    <a href="/Video/" rel="section"><i class="fa fa-fw fa-play-circle"></i>Video</a>
+
+  </li>
+        <li class="menu-item menu-item-game">
+
+    <a href="/Game/" rel="section"><i class="fa fa-fw fa-gamepad"></i>Game</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E5%9F%BA%E4%BA%8ECentOS6.9%E7%9A%84MariaDB%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于CentOS6.9的MariaDB二进制安装
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-02-14 10:06:15" itemprop="dateCreated datePublished" datetime="2020-02-14T10:06:15+08:00">2020-02-14</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/6121564-3ffaf94b91dc260c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#去mariadb官网下载二进制安装包</p>
+<p><strong>进入官网<a href="http://www.mariadb.org选择" target="_blank" rel="noopener">www.mariadb.org选择</a> Download</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-2aed770df96796b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="进入官网www.mariadb.org选择 Download "></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-c5790456a663b286.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="点击 Download"></p>
+<p><strong>选择版本</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-17f9043f4618ac1f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里选择5.5.57版本"></p>
+<p><strong>*选择需要安装的二进制安装包</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-0df7aba3a2a1681d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="选择基于 x86平台使用与Linux的编译完的二进制包"></p>
+<p><strong>谢谢MariaDB的免费软件，开源精神是世界的…</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-121b858c0396a241.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="最后这里是填写相关信息的，这里我们无需填写直接选择下载"></p>
+<hr>
+<p>#安装环境<br><strong>Linux 操作系统 CentOS 6.9 版本</strong><br>#创建数据库存放路径和权限设置</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-173b8a5b5c21df11.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="创建存放数据库目录 --&gt;创建系统用户账号 --&gt;设置系统用户对/app/data目录的权限"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@host-b app]#pwd</span><br><span class="line">&#x2F;app</span><br><span class="line">[root@host-b app]#</span><br><span class="line">[root@host-b app]#mkdir &#x2F;app&#x2F;data</span><br><span class="line">[root@host-b app]#</span><br><span class="line">[root@host-b app]#rz</span><br><span class="line"></span><br><span class="line">[root@host-b app]#getent passwd mysql</span><br><span class="line">[root@host-b app]#</span><br><span class="line">[root@host-b app]#ls</span><br><span class="line">data  mariadb-5.5.57-linux-x86_64.tar.gz</span><br><span class="line">[root@host-b app]#</span><br><span class="line">[root@host-b app]#useradd -r -d &#x2F;app&#x2F;data -s &#x2F;sbin&#x2F;nologin -u 36 mysql</span><br><span class="line">[root@host-b app]#id mysql</span><br><span class="line">uid&#x3D;36(mysql) gid&#x3D;36(mysql) groups&#x3D;36(mysql)</span><br><span class="line">[root@host-b app]#ll</span><br><span class="line">total 218916</span><br><span class="line">drwxr-xr-x. 2 root root      4096 Aug  2 12:33 data</span><br><span class="line">-rw-r--r--. 1 root root 224162771 Aug  2  2017 mariadb-5.5.57-linux-x86_64.tar.gz</span><br><span class="line">[root@host-b app]#</span><br><span class="line">[root@host-b app]#chown mysql:mysql &#x2F;app&#x2F;data</span><br><span class="line">[root@host-b app]#ll -d data</span><br><span class="line">drwxr-xr-x. 2 mysql mysql 4096 Aug  2 12:33 data</span><br><span class="line">[root@host-b app]#</span><br></pre></td></tr></table></figure>
+<p>#解压缩包</p>
+<blockquote>
+<p>我们安装的是人家已经编译好了的二进制程序包，所以解压后路径不能随便放，按人家编译好的环境来解压！路径为<strong><code>/usr/local</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-6702c43436e2e8ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="特别注意路径要指定"></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@host-b app]#tar xvf mariadb-5.5.57-linux-x86_64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;  &lt;--路径一定要正确</span><br></pre></td></tr></table></figure>
+<p>#修改二进制程序的名字和相关权限</p>
+<blockquote>
+<p>因为我们安装的是人家已经编译好的二进制程序包，人家编译时规定名字叫mysql，所以我们要修改名字，或者创建软连接</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-477cde3069409c19.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修改解压后目录的名字 --&gt; 创建软链接"><br>#修改mysql目录下的所有文件的所属组为mysql</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-d6040828b649c90a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="为了有权限执行mysql目录下的程序，修改mysql目录下所有文件的所属组为mysql"></p>
+<blockquote>
+<p>到这之后，我们的二进制程序已经解压完了，虽然二进制程序有啦，但是还不能启动。如果现在就启动会报错的，比如路径错误等，所以接下来我们还需要修改配置文件<br>#修改配置文件<br><strong>1. 我们先打开看一下系统自带的配置文件</strong></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-f791f6db20cd4ba5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据库路径与我们指定的/app/data不符合"><br><strong>2. 利用模板自己创建配置文件</strong><br><strong><code>选择配置文件模板</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-f656ede0f4bddbcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="切进存放模板的目录选择模板"></p>
+<p><strong><code>创建一个配置文件目录，把模板复制过去改名为 my.cfg</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-559a6f7b140db4f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong><code>vim 编辑配给文件，数据库路径是必须配置</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-eea98c00a9ee3ea8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>#生成对应的mysql数据库并放在 /app/data 目录下</p>
+<blockquote>
+<p>我们用一个脚本生成数据库即可，脚本在解压缩目录下的scripts目录里 ：<br><strong><code>/mysql_install_db</code></strong></p>
+</blockquote>
+<p><strong><code>把 /mysql_install_db 脚本找出来</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-4d061a57802e15c0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong><code>执行脚本 /mysql_install_db 生成数据库</code></strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">[root@host-b mysql]#pwd</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;mysql      &lt;---执行脚本的目录</span><br><span class="line">[root@host-b mysql]#scripts&#x2F;mysql_install_db --datadir&#x3D;&#x2F;app&#x2F;data --user&#x3D;mysql  &lt;--指定路径和用户</span><br><span class="line">Installing MariaDB&#x2F;MySQL system tables in &#39;&#x2F;app&#x2F;data&#39; ...</span><br><span class="line">170804  4:14:58 [Warning] &#39;THREAD_CONCURRENCY&#39; is deprecated and will be removed in a fu</span><br><span class="line">ture release.170804  4:14:58 [Note] .&#x2F;bin&#x2F;mysqld (mysqld 5.5.57-MariaDB) starting as process 4955 ...</span><br><span class="line">OK</span><br><span class="line">Filling help tables...</span><br><span class="line">170804  4:14:59 [Warning] &#39;THREAD_CONCURRENCY&#39; is deprecated and will be removed in a fu</span><br><span class="line">ture release.170804  4:14:59 [Note] .&#x2F;bin&#x2F;mysqld (mysqld 5.5.57-MariaDB) starting as process 4963 ...</span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line">To start mysqld at boot time you have to copy</span><br><span class="line">support-files&#x2F;mysql.server to the right place for your system</span><br><span class="line"></span><br><span class="line">PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !</span><br><span class="line">To do so, start the server, then issue the following commands:</span><br><span class="line"></span><br><span class="line">&#39;.&#x2F;bin&#x2F;mysqladmin&#39; -u root password &#39;new-password&#39;</span><br><span class="line">&#39;.&#x2F;bin&#x2F;mysqladmin&#39; -u root -h host-b.6.9 password &#39;new-password&#39;</span><br><span class="line"></span><br><span class="line">Alternatively you can run:</span><br><span class="line">&#39;.&#x2F;bin&#x2F;mysql_secure_installation&#39;</span><br><span class="line"></span><br><span class="line">which will also give you the option of removing the test</span><br><span class="line">databases and anonymous user created by default.  This is</span><br><span class="line">strongly recommended for production servers.</span><br><span class="line"></span><br><span class="line">See the MariaDB Knowledgebase at http:&#x2F;&#x2F;mariadb.com&#x2F;kb or the</span><br><span class="line">MySQL manual for more instructions.</span><br><span class="line"></span><br><span class="line">You can start the MariaDB daemon with:</span><br><span class="line">cd &#39;.&#39; ; .&#x2F;bin&#x2F;mysqld_safe --datadir&#x3D;&#39;&#x2F;app&#x2F;data&#39;</span><br><span class="line"></span><br><span class="line">You can test the MariaDB daemon with mysql-test-run.pl</span><br><span class="line">cd &#39;.&#x2F;mysql-test&#39; ; perl mysql-test-run.pl</span><br><span class="line"></span><br><span class="line">Please report any problems at http:&#x2F;&#x2F;mariadb.org&#x2F;jira</span><br><span class="line"></span><br><span class="line">The latest information about MariaDB is available at http:&#x2F;&#x2F;mariadb.org&#x2F;.</span><br><span class="line">You can find additional information about the MySQL part at:</span><br><span class="line">http:&#x2F;&#x2F;dev.mysql.com</span><br><span class="line">Consider joining MariaDB&#39;s strong and vibrant community:</span><br><span class="line">https:&#x2F;&#x2F;mariadb.org&#x2F;get-involved&#x2F;</span><br><span class="line"></span><br><span class="line">[root@host-b mysql]#</span><br><span class="line">[root@host-b mysql]#ll &#x2F;app&#x2F;data    &lt;--查看该目录</span><br><span class="line">total 1084</span><br><span class="line">-rw-rw----. 1 mysql mysql   16384 Aug  4 04:14 aria_log.00000001</span><br><span class="line">-rw-rw----. 1 mysql mysql      52 Aug  4 04:14 aria_log_control</span><br><span class="line">drwx------. 2 mysql root     4096 Aug  4 04:14 mysql               &lt;--mysql数据库</span><br><span class="line">-rw-rw----. 1 mysql mysql   30346 Aug  4 04:14 mysql-bin.000001</span><br><span class="line">-rw-rw----. 1 mysql mysql 1038814 Aug  4 04:14 mysql-bin.000002</span><br><span class="line">-rw-rw----. 1 mysql mysql      38 Aug  4 04:14 mysql-bin.index</span><br><span class="line">drwx------. 2 mysql mysql    4096 Aug  4 04:14 performance_schema</span><br><span class="line">drwx------. 2 mysql root     4096 Aug  4 04:14 test</span><br><span class="line">[root@host-b mysql]#</span><br><span class="line">[root@host-b mysql]#</span><br></pre></td></tr></table></figure>
+<p><strong><code>执行完 /mysql_install_db 脚本后 /app/data 目录下生成的数据库文件</code></strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-9b18fef47765ece5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>#把服务脚本准备好，设置相关权限启动服务</p>
+<blockquote>
+<p><strong><code>（1）把服务脚本 mysql.server 放到 /etc/inint.d/ 目录下，并修改为 mysqld</code></strong><br><strong><code>（2）设置为开机启动</code></strong><br><strong><code>（3）创建日志文件 mkdir /var/log/mysql.d 注意路径</code></strong><br><strong><code>（4）修改日志文件的所属主为 mysql</code></strong><br><strong><code>（5）service mysqld start 启动服务</code></strong></p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-3b0cc33740c748be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>#把二进制程序路径添加到$PATH变量里</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-34aaf6781a006765.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-b930a0d5bb64b2f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#测试并设置口令</p>
+<blockquote>
+<p>目前我们虽然能够登陆数据库但是不安全，因为没有设置安全口令谁都可以登录；这样不安全。</p>
+</blockquote>
+<p><strong>测试查看端都是否打开：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-9598f389abb793ff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>没有设置安全口令之前：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-f211aebca4e274ba.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><strong>执行安全脚本<code>mysql_secure_installation</code>设置口令：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-d3f35a8f8b96760e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><strong>执行安全脚本<code>mysql_secure_installation</code>的代码块：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">[root@host-b bin]#mysql_secure_installation </span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;mysql&#x2F;bin&#x2F;mysql_secure_installation: line 393: find_mysql_client: command not</span><br><span class="line"> found</span><br><span class="line">NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB</span><br><span class="line">      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!</span><br><span class="line"></span><br><span class="line">In order to log into MariaDB to secure it, we&#39;ll need the current</span><br><span class="line">password for the root user.  If you&#39;ve just installed MariaDB, and</span><br><span class="line">you haven&#39;t set the root password yet, the password will be blank,</span><br><span class="line">so you should just press enter here.</span><br><span class="line"></span><br><span class="line">Enter current password for root (enter for none):      &lt;-- 输入当前root密码,这里是回车</span><br><span class="line">OK, successfully used password, moving on...</span><br><span class="line"></span><br><span class="line">Setting the root password ensures that nobody can log into the MariaDB</span><br><span class="line">root user without the proper authorisation.</span><br><span class="line"></span><br><span class="line">Set root password? [Y&#x2F;n] y      &lt;-- 设置root密码么？ &lt; y &gt;</span><br><span class="line">New password:                   &lt;-- 这里输入密码</span><br><span class="line">Re-enter new password:          &lt;-- 再输入一次密码</span><br><span class="line">Password updated successfully!</span><br><span class="line">Reloading privilege tables..</span><br><span class="line"> ... Success!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">By default, a MariaDB installation has an anonymous user, allowing anyone</span><br><span class="line">to log into MariaDB without having to have a user account created for</span><br><span class="line">them.  This is intended only for testing, and to make the installation</span><br><span class="line">go a bit smoother.  You should remove them before moving into a</span><br><span class="line">production environment.</span><br><span class="line"></span><br><span class="line">Remove anonymous users? [Y&#x2F;n] y          &lt;-- 是否删除匿名用户？ &lt; y &gt;</span><br><span class="line"> ... Success!</span><br><span class="line"></span><br><span class="line">Normally, root should only be allowed to connect from &#39;localhost&#39;.  This</span><br><span class="line">ensures that someone cannot guess at the root password from the network.</span><br><span class="line"></span><br><span class="line">Disallow root login remotely? [Y&#x2F;n] n   &lt;-- 是否禁止root远程登录？   &lt; n &gt; </span><br><span class="line"> ... skipping.</span><br><span class="line"></span><br><span class="line">By default, MariaDB comes with a database named &#39;test&#39; that anyone can</span><br><span class="line">access.  This is also intended only for testing, and should be removed</span><br><span class="line">before moving into a production environment.</span><br><span class="line"></span><br><span class="line">Remove test database and access to it? [Y&#x2F;n] n    &lt;-- 是否删除测试数据库？ &lt; y&#x2F;n都可以 &gt;</span><br><span class="line"> ... skipping.</span><br><span class="line"></span><br><span class="line">Reloading the privilege tables will ensure that all changes made so far</span><br><span class="line">will take effect immediately.</span><br><span class="line"></span><br><span class="line">Reload privilege tables now? [Y&#x2F;n] y              &lt;-- 现在从新加载权限表么？ &lt; y &gt;</span><br><span class="line"> ... Success!</span><br><span class="line"></span><br><span class="line">Cleaning up...</span><br><span class="line"></span><br><span class="line">All done!  If you&#39;ve completed all of the above steps, your MariaDB</span><br><span class="line">installation should now be secure.</span><br><span class="line"></span><br><span class="line">Thanks for using MariaDB!</span><br><span class="line">[root@host-b bin]#</span><br></pre></td></tr></table></figure>
+<p><strong>设置安全口令之后：</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/6121564-1e54ecb806ba0244.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<hr>
+<p>#结语<br><strong>到这里就完成整个MariaDB数据库的二进制安装！自己学习用的，如果能够帮到读者是我的荣幸；</strong><br><strong>最后还要感谢MariaDB数据库的开发者们免费提供的软件，开源精神是世界的！</strong></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/14/Linux%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/" rel="prev" title="Linux常见的文件系统操作命令">
+      <i class="fa fa-chevron-left"></i> Linux常见的文件系统操作命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/14/%E9%83%A8%E7%BD%B2LAMP-%E5%AE%9E%E7%8E%B0Wordpress-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="next" title="部署LAMP 实现Wordpress 搭建个人博客">
+      部署LAMP 实现Wordpress 搭建个人博客 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
