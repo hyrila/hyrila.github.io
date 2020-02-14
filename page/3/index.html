@@ -1,73 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="en">
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 
-<script id="hexo-configurations">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://yoursite.com').hostname,
     root: '/',
     scheme: 'Gemini',
-    version: '7.7.0',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
     fancybox: false,
-    mediumzoom: false,
+    fastclick: false,
     lazyload: false,
-    pangu: false,
-    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
-      appID: '',
+      applicationID: '',
       apiKey: '',
       indexName: '',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: 'search.xml',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+    }
   };
 </script>
+
+
+  
+
+
+
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="Hyrila">
 <meta property="og:url" content="http://yoursite.com/page/3/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Hyrila">
 <meta property="og:locale" content="en_US">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="Hyrila">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/page/3/">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/page/3/"/>
+
+
+
+<script id="page.configurations">
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false
   };
 </script>
 
-  <title>Hexo</title>
+  <title>Hyrila</title>
   
+
+
+
+
+
+
 
 
 
@@ -76,6 +136,7 @@
 
   <noscript>
   <style>
+  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -84,8 +145,9 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-title { opacity: initial; }
 
+  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -97,156 +159,248 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 4.2.0"></head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
+    
 
-    <div>
+    <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">Hyrila</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
+      
+        <p class="site-subtitle">让世界充满爱</p>
+      
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
   </div>
 </div>
+
 
 
 <nav class="site-nav">
   
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-about">
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
 
-    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+    
+    
+    
+      
+    
 
-  </li>
-        <li class="menu-item menu-item-tags">
+    
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;Home</a>
 
   </li>
-        <li class="menu-item menu-item-books">
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
 
-    <a href="/Books/" rel="section"><i class="fa fa-fw fa-eye"></i>Books</a>
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;About</a>
 
   </li>
-        <li class="menu-item menu-item-video">
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
 
-    <a href="/Video/" rel="section"><i class="fa fa-fw fa-play-circle"></i>Video</a>
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;Tags</a>
 
   </li>
-        <li class="menu-item menu-item-game">
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
 
-    <a href="/Game/" rel="section"><i class="fa fa-fw fa-gamepad"></i>Game</a>
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;Archives</a>
 
   </li>
-      <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
-        </a>
-      </li>
-  </ul>
 
+      
+      
+    </ul>
+  
+
+  
+
+  
 </nav>
-  <div class="site-search">
-    <div class="popup search-popup">
-    <div class="search-header">
-  <span class="search-icon">
-    <i class="fa fa-search"></i>
-  </span>
-  <div class="search-input-container">
-    <input autocomplete="off" autocorrect="off" autocapitalize="none"
-           placeholder="Searching..." spellcheck="false"
-           type="text" id="search-input">
-  </div>
-  <span class="popup-btn-close">
-    <i class="fa fa-times-circle"></i>
-  </span>
-</div>
-<div id="search-result"></div>
 
-</div>
-<div class="search-pop-overlay"></div>
 
-  </div>
+
+  
+
+
+
 </div>
     </header>
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+  
+  
+
+  
+
+  <a href="https://github.com/hyrila" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank">&lt;svg width&#x3D;&quot;80&quot; height&#x3D;&quot;80&quot; viewBox&#x3D;&quot;0 0 250 250&quot; aria-hidden&#x3D;&quot;true&quot;&gt;&lt;path d&#x3D;&quot;M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z&quot;&gt;&lt;&#x2F;path&gt;&lt;path d&#x3D;&quot;M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2&quot; fill&#x3D;&quot;currentColor&quot; style&#x3D;&quot;transform-origin: 130px 106px;&quot; class&#x3D;&quot;octo-arm&quot;&gt;&lt;&#x2F;path&gt;&lt;path d&#x3D;&quot;M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z&quot; fill&#x3D;&quot;currentColor&quot; class&#x3D;&quot;octo-body&quot;&gt;&lt;&#x2F;path&gt;&lt;&#x2F;svg&gt;</a>
 
 
-    <main class="main">
+
+    <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-
-          <div class="content">
             
 
-  <div class="posts-expand">
-        
+          
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/CentOS%E8%AE%BE%E7%BD%AE%E6%9F%90%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E5%90%AF%E7%94%A8%E6%88%96%E5%BC%80%E6%9C%BA%E7%A6%81%E7%94%A8/">
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/CentOS%E8%AE%BE%E7%BD%AE%E6%9F%90%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E5%90%AF%E7%94%A8%E6%88%96%E5%BC%80%E6%9C%BA%E7%A6%81%E7%94%A8/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/CentOS%E8%AE%BE%E7%BD%AE%E6%9F%90%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E5%90%AF%E7%94%A8%E6%88%96%E5%BC%80%E6%9C%BA%E7%A6%81%E7%94%A8/" class="post-title-link" itemprop="url">CentOS设置某服务开机启用或开机禁用</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/CentOS%E8%AE%BE%E7%BD%AE%E6%9F%90%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E5%90%AF%E7%94%A8%E6%88%96%E5%BC%80%E6%9C%BA%E7%A6%81%E7%94%A8/" class="post-title-link" itemprop="url">CentOS设置某服务开机启用或开机禁用</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 10:03:33" itemprop="dateCreated datePublished" datetime="2020-02-14T10:03:33+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -254,58 +408,150 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-0a91131b635b58e5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CentOS6.x开机禁用并关闭防火墙服务.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-215c618f189fa5e4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="CentOS7.x开机禁用并关闭防火墙服务.png"></p>
+      
 
+      
+        
+          
+            <p>
+              
+
+
+              
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/CentOS%E8%AE%BE%E7%BD%AE%E6%9F%90%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E5%90%AF%E7%94%A8%E6%88%96%E5%BC%80%E6%9C%BA%E7%A6%81%E7%94%A8/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">搭建主从DNS服务器</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">搭建主从DNS服务器</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 10:02:49" itemprop="dateCreated datePublished" datetime="2020-02-14T10:02:49+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -313,68 +559,149 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>1.在CentOS7.3上搭建好一个DNS服务器当主DNS服务器<br>2在6.9上安装bind包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~]# yum -y install bind</span><br><span class="line">~]# rpm -ql bind</span><br><span class="line">~]# chkconfig named on</span><br><span class="line">~]# service named start</span><br><span class="line">~]# ss -ntul</span><br><span class="line">~]# vim &#x2F;etc&#x2F;named.conf </span><br><span class="line">~]# rndc reload</span><br><span class="line">~]# ss -ntul</span><br></pre></td></tr></table></figure>
-<p>2.修改配置文件为从DNS服务器</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-5f4b5a4d298d8ccd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
-<p>在CentOS6.9上配置好从服务器后重新加载配置文件，打开slave目录里的文件，和作为主DNS服务器的CentOS7.3的数据库文件是否相同</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-aeccc787f9cc6210.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
-<p>在客户端上测试</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-c93fce6abecd4f51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"></p>
-<blockquote>
-<p>到目前为止，在主DNS服务器CentOS7.3没有进行任何操作，就有了从DNS服务器CentOS6.9，这说明谁都能当从DNS服务器，这太不安全了！</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-5af0c3bf0c179039.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图片.png"><br>图中在主DNS服务器配置文件里加了一项传输限制策略，只允许从服务器一个传出。在从服务器配置文件里同时也添加了传输限制策略，不允许任何人传输；</p>
+      
 
+      
+        
+          
+            <p>
+              1.在CentOS7.3上搭建好一个DNS服务器当主DNS服务器2在6.9上安装bind包
+~]# yum -y install bind~]# rpm -ql bind~]# chkconfig named on~]# service named start~]# ss -ntul~]# vim 
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B7%A8%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B7%A8%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B7%A8%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/" class="post-title-link" itemprop="url">SSH客户端跨过防火墙实现远程登陆</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B7%A8%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/" class="post-title-link" itemprop="url">SSH客户端跨过防火墙实现远程登陆</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 10:02:07" itemprop="dateCreated datePublished" datetime="2020-02-14T10:02:07+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -382,68 +709,150 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-239158f0f9b4cc2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图-1"></p>
-<p><strong>环境</strong>： <strong>C</strong>主机在防火墙策略上禁止<strong>A</strong>主机访问，<strong>A</strong>是<strong>SSH</strong>客户端<br><strong>条件</strong>： <strong>B</strong>主机可以通过防火墙访问<strong>C</strong>主机，是<strong>SSH</strong>服务器<br><strong>问题</strong>： 中间有防火墙，<strong>A</strong>应该怎么去<strong><code>SSH</code></strong>登陆<strong>C</strong>主机呢？</p>
-<p><strong>解决方案：这里利用SSH客户端的强制伪<code>tty</code>分配 <code>&quot; -t &quot;</code> 选项</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-eb8058df0cb3dcb6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图-2"><br><strong>在</strong>图-2<strong>中非常清晰的标注了各个步骤的详细内容：</strong></p>
-<blockquote>
-<p>第①步是作为<strong>图-1</strong>中的<strong>C</strong>主机并搭建的环境</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~]#</span><br><span class="line">~]# iptables -nvl    &lt;-- 在C主机上查看下防火墙策略</span><br><span class="line">~]#</span><br><span class="line">~]# iptables -F      &lt;-- 如果C主机防火墙打开状态就关闭防火墙</span><br><span class="line">~]#</span><br><span class="line">~]# iptables -A INPUT -s 172.16.251.100 -j REJECT    &lt;-- 在C主机上禁止A主机链接</span><br><span class="line">~]#</span><br></pre></td></tr></table></figure>
-<p>第<strong>②</strong>步是<strong>B</strong>主机链接情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~]# ss -nat</span><br></pre></td></tr></table></figure>
-<p>第<strong>③</strong>步，也是最重要的一步，在<strong>A</strong>主机上登陆<strong>C</strong>主机</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# ssh -t 172.16.251.44 ssh 172.16.251.66   &lt;-- A主机上通过B主机登陆C主机</span><br><span class="line">root@172.16.251.44&#39;s password:  &lt;--输入B主机密码</span><br><span class="line">root@172.16.251.66&#39;s password:  &lt;--输入C主机密码</span><br></pre></td></tr></table></figure>
-<p>第④步是在<strong>B</strong>主机上再次查看链接状态，从图-2中清楚地看到有新的链接</p>
+      
 
+      
+        
+          
+            <p>
+              
+环境： C主机在防火墙策略上禁止A主机访问，A是SSH客户端条件： B主机可以通过防火墙访问C主机，是SSH服务器问题： 中间有防火墙，A应该怎么去SSH登陆C主机呢？
+解决方案：这里利用SSH客户端的强制伪tty分配 &quot; -t &quot; 选项在图-2中非常清晰的标注了各个步骤的详细
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B7%A8%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E6%9F%A5%E7%9C%8B%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E6%9F%A5%E7%9C%8B%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/%E6%9F%A5%E7%9C%8B%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">查看隐藏文件的几种方法</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/%E6%9F%A5%E7%9C%8B%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">查看隐藏文件的几种方法</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 10:00:07" itemprop="dateCreated datePublished" datetime="2020-02-14T10:00:07+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -451,61 +860,152 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-a03af773dc67fdff.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>####Linux查看目录下隐藏文件的四种方法</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-69e8244b32c2f8ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="四种查看隐藏文件的命令"></p>
-<p>####代码表示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#ls</span><br><span class="line">anaconda-ks.cfg  Downloads      httpd-2.4.25.tar.bz2  Pictures   vimrc</span><br><span class="line">bin              etc2017-06-06  initial-setup-ks.cfg  Public     Word 2007.lnk</span><br><span class="line">Desktop          f1             Music                 Templates</span><br><span class="line">Documents        httpd-2.4.25   partfile              Videos</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#ls -aI &quot;[^.]*&quot;   </span><br><span class="line">.              .bash_logout   .cache   .dbus          .lesshst  .tcshrc</span><br><span class="line">..             .bash_profile  .config  .esd_auth      .local    .viminfo</span><br><span class="line">.bash_history  .bashrc        .cshrc   .ICEauthority  .ssh      .vimrc</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#ls -a --ignore&#x3D;[^.]*</span><br><span class="line">.              .bash_logout   .cache   .dbus          .lesshst  .tcshrc</span><br><span class="line">..             .bash_profile  .config  .esd_auth      .local    .viminfo</span><br><span class="line">.bash_history  .bashrc        .cshrc   .ICEauthority  .ssh      .vimrc</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#ls -d .*</span><br><span class="line">.              .bash_logout   .cache   .dbus          .lesshst  .tcshrc</span><br><span class="line">..             .bash_profile  .config  .esd_auth      .local    .viminfo</span><br><span class="line">.bash_history  .bashrc        .cshrc   .ICEauthority  .ssh      .vimrc</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#</span><br><span class="line">[root@CentOS7 ~]#l.</span><br><span class="line">.              .bash_logout   .cache   .dbus          .lesshst  .tcshrc</span><br><span class="line">..             .bash_profile  .config  .esd_auth      .local    .viminfo</span><br><span class="line">.bash_history  .bashrc        .cshrc   .ICEauthority  .ssh      .vimrc</span><br><span class="line">[root@CentOS7 ~]#</span><br></pre></td></tr></table></figure>
+      
 
+      
+        
+          
+            <p>
+              
+####Linux查看目录下隐藏文件的四种方法
+
+####代码表示：
+[root@CentOS7 ~]#[root@CentOS7 ~]#lsanaconda-ks.cfg  Downloads      httpd-2.4.25.tar.bz2  Pictures   vimrcbin     
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/%E6%9F%A5%E7%9C%8B%E9%9A%90%E8%97%8F%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/" class="post-title-link" itemprop="url">CentOS6系列系统启动流程故障表现形式以及排错修复</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/" class="post-title-link" itemprop="url">CentOS6系列系统启动流程故障表现形式以及排错修复</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 09:58:39" itemprop="dateCreated datePublished" datetime="2020-02-14T09:58:39+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -513,110 +1013,156 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-6f248c411a5683bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<blockquote>
-<p>本文大体顺序为：某故障—表现形式(图)—排错—修复</p>
-</blockquote>
-<p>##因MBR损坏导致系统故障无法重启</p>
-<p>####重启表现形式:</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-788dabeeca00dc97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>####排错：</p>
-<p>如果重启系统后出现上图所示界面说明<strong>MBR</strong>损坏了。因为是MBR损坏的原因，操作系统重启时认为系统硬盘根本不具有可引导功能了，所以把硬盘忽略过去，直接进入第二个启动设备光盘。</p>
-<p>####修复方法：</p>
-<p><strong>进入救援模式 — <code>chroot  /mnt/sysimage/</code> — <code>grub-install</code> — <code>sync</code> — <code>exit</code> — <code>reboot</code></strong></p>
-<blockquote>
-<p>这里略过进入救援模式的步骤</p>
-</blockquote>
-<p><strong>切根：chroot  /mnt/sysimage/</strong><br>进入救援模式制后需要注意当前的根并不是我们系统里的根，是光盘自带的小Linux的根，而真正的根在进入救援模式的时候已经帮我们寻找到并把它挂载到了/mnt/sysimage上，可通过<strong><code>df</code></strong>命令查看</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-0df237fa6403c895.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>所以进入救援模式的<strong><code>shell</code></strong>之后最好先进行切根操作</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-db9883f4676e3af8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**`chroot  /mnt/sysiage`**"></p>
-<p><strong>修复：用grub-install命令</strong><br>命令<strong><code>grub-install</code></strong>是修复<strong><code>grub</code></strong>的，它可以把系统启动流程中的<strong><code>stage1</code></strong>和<strong><code>stage1_5</code></strong>阶段安装到对应的磁盘上去，并把二阶段的相关文件复制到<strong><code>boot</code></strong>目录下。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-1dc04501ffb53623.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="修复完之后多同步几次再退出"></p>
-<p><strong>同步数据：用sync命令</strong><br>sync命令是同步缓存数据的，因为我们向磁盘里写数据是先写进缓存里再读进磁盘里的。所以这时候不能急，多同步几下，让数据完全写进磁盘里在退出重启。请看上图；</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-74e2fa0e4c571a83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="reboot"></p>
-<p><strong>代码块:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash-4.1# chroot &#x2F;mnt&#x2F;sysimage   &lt;---- 切根</span><br><span class="line">sh-4.1# grub-install &#x2F;dev&#x2F;sda    &lt;---- 修复</span><br><span class="line">sh-4.1# sync                     &lt;---- 同步数据</span><br><span class="line">sh-4.1# sync</span><br><span class="line">sh-4.1# exit</span><br></pre></td></tr></table></figure>
+      
 
-<hr>
-<p>##grub的stage1_5阶段出现故障无法重启<br>####重启表现形式：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-73f4b9994c67e818.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**`stage1_5 阶段损坏重启表现形式`**"></p>
-<p>####排错：<br>看到上图可以确定是stage1_5阶段损坏引起的故障，导致无法重启。如果一阶段没出问题，MBR没坏，系统会认为磁盘能启动，不会进入到光盘界面，只是后续起不来了，想进二阶段进不去了。</p>
-<p>####修复方法：</p>
-<blockquote>
-<p>和修复stage1阶段出故障一样，特别注意重启表现形式的区别。所以下面我列出步骤和命令代码块</p>
-</blockquote>
-<p><strong>进入救援模式 — <code>chroot  /mnt/sysimage/</code> — <code>grub-install</code> — <code>sync</code> — <code>exit</code> — <code>reboot</code></strong></p>
-<p><strong>代码块:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash-4.1# chroot &#x2F;mnt&#x2F;sysimage   &lt;---- 切根</span><br><span class="line">sh-4.1# grub-install &#x2F;dev&#x2F;sda    &lt;---- 修复</span><br><span class="line">sh-4.1# sync                     &lt;---- 同步数据</span><br><span class="line">sh-4.1# sync</span><br><span class="line">sh-4.1# exit</span><br></pre></td></tr></table></figure>
-<hr>
-<p>##grub 的2 阶段出故障导致无法启动</p>
-<p>####重启表现形式：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-22424bd6325b4df3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2阶段出故障的重启表现形式"></p>
-<p>####排错：<br>初始安装的时候/boot/grub/下的文件并不是放在该目录下的，而是放在扇区里，如果后期经过grub-install命令修复过故障，会把那些文件写在该目录下。所以再次出故障表现的形式也不一样，如上图所示；</p>
-<p>####修复方法：<br>修复方法还是进入光盘引导的救援模式；与上述的故障修复一样。</p>
-<p>####但是：</p>
-<blockquote>
-<p>如果你是因为误操作把整个<strong>grub</strong>目下的所有文件都删除了的话，上面的修复步骤还不能完全修复好，<strong>grub</strong>下的<strong>grub.conf</strong>文件可不是<strong>grub-install</strong>命令可以生成的！<strong>grub.conf</strong>文件是由我们安装系统的时候<strong>安装向导程序 anaconda</strong>生成的！！所以当我们完成上面的步骤<strong>reboot</strong>之后我们还需手动制作<strong>grub.conf</strong>文件！</p>
-</blockquote>
-<p><strong>显示界面：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-bfdc8a0594d11a63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这就是重启后制作grub.conf文件的界面"></p>
-<p><strong>制作grub.conf文件：</strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-5ea1f3abd375bc83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="输入图中红框里的三行内容boot回车重启"></p>
-<p><strong>因为系统又一次去扫文件，我们需要再一次执行上面的操作才算完成</strong></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-5c6439b9d80ea124.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<hr>
-<p>##结语<br><strong>这</strong>里我只列出三种相似系统故障的表现形式和修复方法。</p>
-<p><strong>有</strong>文件损坏、误操作等各种原因引起的系统故障导致无法重启，其表现形式都有所不同。我也不能在这么一篇简简单单的博文里全部列出来。当然我菜鸟级别的技术水平，也列不出所有来。所以这篇博文我称之为第一篇。后续还有更新更多的相关博文。我好你好大家好才是真的好…</p>
-<p><strong>如</strong>果本文那里有误，我会非常愿意大家帮纠错。同时大家有其他更多的系统故障排错修复经验强烈要求分享给我吧，大牛们！！！</p>
+      
+        
+          
+            <p>
+              
 
+本文大体顺序为：某故障—表现形式(图)—排错—修复
+
+##因MBR损坏导致系统故障无法重启
+####重启表现形式:
+
+####排错：
+如果重启系统后出现上图所示界面说明MBR损坏了。因为是MBR损坏的原因，操作系统重启时认为系统硬盘根本不具有可引导功能了，所以把硬盘忽略过去，直接进入第二个启动设
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Centos6.9%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E4%B8%80%E4%B8%AAIP/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Centos6.9%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E4%B8%80%E4%B8%AAIP/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/Centos6.9%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E4%B8%80%E4%B8%AAIP/" class="post-title-link" itemprop="url">CentOS 6.9系统如何通过多网卡绑定一个IP地址提高网络连接可用性和冗错性？</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/Centos6.9%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E4%B8%80%E4%B8%AAIP/" class="post-title-link" itemprop="url">CentOS 6.9系统如何通过多网卡绑定一个IP地址提高网络连接可用性和冗错性？</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 09:36:22" itemprop="dateCreated datePublished" datetime="2020-02-14T09:36:22+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -624,97 +1170,150 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-060367e692b06ce7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<h2 id="正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode-1模式。那到底怎么做呢呢？还请往下看"><a href="#正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode-1模式。那到底怎么做呢呢？还请往下看" class="headerlink" title="######正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode  1模式。那到底怎么做呢呢？还请往下看~"></a>######正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用<strong><code>Bonding</code></strong>技术的<strong><code>Mode  1</code></strong>模式。那到底怎么做呢呢？还请往下看~</h2><p>####第一：首先关闭<strong><code>NetworkManager</code></strong>服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# service NetworkManager stop</span><br></pre></td></tr></table></figure>
-<hr>
-<p>####第二：在<strong><code>/etc/sysconfig/network-scripts/</code></strong>目录下配置三个配置文件</p>
-<blockquote>
-<p>1.创建一个<strong><code>bond</code></strong>的新配置文件<br>2.修改要绑定的两个网卡的配置文件</p>
-</blockquote>
-<p>######新建<strong><code>bond</code></strong>文件并进行配置 :</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cd &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;</span><br><span class="line"></span><br><span class="line">[root@localhost network-scripts]# vim ifcfg-bond0    &lt;&#x3D;&#x3D;: 直接用vim编辑器创建，名字可以自定义，写配置文件的时候注意相同就行</span><br><span class="line">DEVICE&#x3D;bond0</span><br><span class="line">BOOTPROTO&#x3D;none</span><br><span class="line">IPADDR&#x3D;192.168.32.99</span><br><span class="line">PREFIX&#x3D;24</span><br><span class="line">BONDING_OPTS&#x3D;&quot;mode&#x3D;1 miimon&#x3D;100&quot;      &lt;&#x3D;&#x3D;: 注意，这一行最关键！&quot;mode&#x3D;1&quot;是bo工作模式；&quot;miimon&#x3D;100&quot;是监控间隔为100毫秒；</span><br><span class="line">[root@localhost network-scripts]#</span><br></pre></td></tr></table></figure>
-<p>######如图 :</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-b7e3d190002327a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>######修改要绑定同一个IP地址的两个网卡配置文件 :</p>
-<p><strong>eth0 :</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]# vim ifcfg-eth0</span><br><span class="line">DEVICE&#x3D;&quot;eth0&quot;</span><br><span class="line">MASTER&#x3D;bond0              &lt;&#x3D;&#x3D;: 属于bond0            </span><br><span class="line">SLAVE&#x3D;yes                 &lt;&#x3D;&#x3D;: 确认从属关系 </span><br><span class="line">IPADDR&#x3D;192.168.32.66</span><br><span class="line">PREFIX&#x3D;24</span><br><span class="line">GATEWAY&#x3D;192.168.32.1</span><br><span class="line">BOOTPROTO&#x3D;&quot;none&quot;</span><br><span class="line">HWADDR&#x3D;&quot;00:0C:29:5A:C5:00&quot;</span><br><span class="line">IPV6INIT&#x3D;&quot;yes&quot;</span><br><span class="line">ONBOOT&#x3D;&quot;yes&quot;</span><br><span class="line">TYPE&#x3D;&quot;Ethernet&quot;</span><br><span class="line">UUID&#x3D;&quot;6da43880-cb88-4b6e-992f-d4c228b03cc9&quot;</span><br></pre></td></tr></table></figure>
-<p>######如图 :</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-15b7f99baf00219d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p><strong>eth1 :</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]# vim ifcfg-eth1</span><br><span class="line">DEVICE&#x3D;eth1</span><br><span class="line">MASTER&#x3D;bond0</span><br><span class="line">SLAVE&#x3D;yes</span><br><span class="line">IPADDR&#x3D;192.168.32.88</span><br><span class="line">PREFIX&#x3D;24</span><br><span class="line">GATEWAY&#x3D;192.168.32.1</span><br><span class="line">MACADDR&#x3D;00:0C:29:5A:C5:66  </span><br><span class="line">BOOTPROTO&#x3D;none</span><br><span class="line">ONBOOT&#x3D;&quot;yes&quot;</span><br><span class="line">TYPE&#x3D;Ethernet</span><br><span class="line">DNS1&#x3D;114.114.114.114</span><br><span class="line">DNS2&#x3D;8.8.8.8</span><br><span class="line">DNS3&#x3D;8.8.4.4</span><br></pre></td></tr></table></figure>
+      
 
-<p>######如图 :</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e8931f64bca25dd4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<hr>
-<p>####第三：重启网络服务<code>service network restart</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost network-scripts]# service network restart</span><br><span class="line">Shutting down interface bond0:                             [  OK  ]</span><br><span class="line">Shutting down loopback interface:                          [  OK  ]</span><br><span class="line">Bringing up loopback interface:                            [  OK  ]</span><br><span class="line">Bringing up interface bond0:  Determining if ip address 192.168.32.99 is already in use f</span><br><span class="line">or device bond0...                                                           [  OK  ]</span><br></pre></td></tr></table></figure>
-<hr>
-<p>####第四：查看配置结果</p>
-<blockquote>
-<p>这里不做详细的测试，看下IP地址和bond0工作状态</p>
-</blockquote>
-<p>######查看IP地址：</p>
-<blockquote>
-<p>这里注意查看网卡<strong>eth0</strong>和网卡<strong>eth1</strong>的<strong>mac</strong>地址，它们是相同的哦</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ifconfig</span><br><span class="line">bond0     Link encap:Ethernet  HWaddr 00:0C:29:5A:C5:00                       &lt;&#x3D;&#x3D;: MAC地址相同</span><br><span class="line">          inet addr:192.168.32.99  Bcast:192.168.32.255  Mask:255.255.255.0</span><br><span class="line">          inet6 addr: fe80::20c:29ff:fe5a:c500&#x2F;64 Scope:Link</span><br><span class="line">          UP BROADCAST RUNNING MASTER MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:685 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:440 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:0 </span><br><span class="line">          RX bytes:62692 (61.2 KiB)  TX bytes:44137 (43.1 KiB)</span><br><span class="line"></span><br><span class="line">eth0      Link encap:Ethernet  HWaddr 00:0C:29:5A:C5:00                       &lt;&#x3D;&#x3D;: MAC地址相同 </span><br><span class="line">          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:612 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:416 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:1000 </span><br><span class="line">          RX bytes:54584 (53.3 KiB)  TX bytes:42563 (41.5 KiB)</span><br><span class="line"></span><br><span class="line">eth1      Link encap:Ethernet  HWaddr 00:0C:29:5A:C5:00                       &lt;&#x3D;&#x3D;: MAC地址相同 </span><br><span class="line">          UP BROADCAST RUNNING SLAVE MULTICAST  MTU:1500  Metric:1</span><br><span class="line">          RX packets:74 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:24 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:1000 </span><br><span class="line">          RX bytes:8168 (7.9 KiB)  TX bytes:1574 (1.5 KiB)</span><br><span class="line"></span><br><span class="line">lo        Link encap:Local Loopback  </span><br><span class="line">          inet addr:127.0.0.1  Mask:255.0.0.0</span><br><span class="line">          inet6 addr: ::1&#x2F;128 Scope:Host</span><br><span class="line">          UP LOOPBACK RUNNING  MTU:65536  Metric:1</span><br><span class="line">          RX packets:12 errors:0 dropped:0 overruns:0 frame:0</span><br><span class="line">          TX packets:12 errors:0 dropped:0 overruns:0 carrier:0</span><br><span class="line">          collisions:0 txqueuelen:0 </span><br><span class="line">          RX bytes:1040 (1.0 KiB)  TX bytes:1040 (1.0 KiB)</span><br><span class="line"></span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
-
-<p>######<strong>查</strong>看<strong><code>bond0</code></strong>状态:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat &#x2F;proc&#x2F;net&#x2F;bonding&#x2F;bond0 </span><br><span class="line">Ethernet Channel Bonding Driver: v3.7.1 (April 27, 2011)</span><br><span class="line"></span><br><span class="line">Bonding Mode: fault-tolerance (active-backup)       &lt;&#x3D;&#x3D;: 工作模式</span><br><span class="line">Primary Slave: None</span><br><span class="line">Currently Active Slave: eth0                        &lt;&#x3D;&#x3D;: 当前工作的网卡</span><br><span class="line">MII Status: up</span><br><span class="line">MII Polling Interval (ms): 100</span><br><span class="line">Up Delay (ms): 0</span><br><span class="line">Down Delay (ms): 0</span><br><span class="line"></span><br><span class="line">Slave Interface: eth0</span><br><span class="line">MII Status: up                                      &lt;&#x3D;&#x3D;: eth0状态</span><br><span class="line">Speed: 1000 Mbps</span><br><span class="line">Duplex: full</span><br><span class="line">Link Failure Count: 0</span><br><span class="line">Permanent HW addr: 00:0c:29:5a:c5:00</span><br><span class="line">Slave queue ID: 0</span><br><span class="line"></span><br><span class="line">Slave Interface: eth1</span><br><span class="line">MII Status: up                                     &lt;&#x3D;&#x3D;: eth1状态</span><br><span class="line">Speed: 1000 Mbps</span><br><span class="line">Duplex: full</span><br><span class="line">Link Failure Count: 0</span><br><span class="line">Permanent HW addr: 00:0c:29:5a:c5:66</span><br><span class="line">Slave queue ID: 0</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
-<hr>
-<p>####结语<br><strong>bonding</strong>就是 将多块网卡绑定同一IP 地址对外提供服务，可以实现高可用或者负载均衡。当然，直接给两块网卡设置同一IP 地址是不可能的。先通过配置bonding ，虚拟一块网卡对外提供连接，然后修改物理网卡的配置文件，设置成和虚拟网卡从属关系，这样的话物理网卡的MAC地址和虚拟网卡的MAC 地址呈现为相同的地址。</p>
-<p><strong>当然</strong>有很多种工作模式，不同的功能可以选择~这里就不细说了</p>
-
+      
+        
+          
+            <p>
+              
+######正如题说，首先我们要选择一门能够实现多网卡绑定一个IP地址的技术。显而易见就是企业级应用Bonding技术的Mode  1模式。那到底怎么做呢呢？还请往下看~####第一：首先关闭NetworkManager服务
+[root@localhost ~]# service NetworkM
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/Centos6.9%E5%A4%9A%E7%BD%91%E5%8D%A1%E7%BB%91%E5%AE%9A%E4%B8%80%E4%B8%AAIP/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/LVM/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/LVM/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/LVM/" class="post-title-link" itemprop="url">LVM逻辑卷管理</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/LVM/" class="post-title-link" itemprop="url">LVM逻辑卷管理</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 09:34:26" itemprop="dateCreated datePublished" datetime="2020-02-14T09:34:26+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -722,138 +1321,154 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-435423206449ba79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>###什么是LV逻辑卷？<br><strong>逻辑卷</strong>是将一个或多个物理分区或块设备整合在一起形成一种逻辑层。可以使独立的硬盘，也可以是独立的分区。</p>
-<p>###逻辑卷结构视图</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-f5104b18c38e0460.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="逻辑卷生成拓扑图"></p>
-<p><strong>上图</strong>画的或许不是那么标准，但是也能大体看出逻辑卷的结构。下面从下而上简单说明下：</p>
-<blockquote>
-<p>1.” <strong><code>~]#</code></strong> “ 表示命令提示符<br>2.” <strong><code>#/  /#</code></strong> “ 表示添加的注释内容</p>
-</blockquote>
-<p>1.最下层是有一些硬盘或硬盘分区等组成；</p>
-<p>2.下数第二层是<strong>物理卷</strong>（PV）；<strong><code>pvcreate</code></strong>命令是生成物理卷的命令，后面跟那些物理分区或块设备；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~]# pvcreate  &#x2F;dev&#x2F;sd&#123;b1,c,d2,e&#125;   #&#x2F; pvcreat 命令后面跟要做成物理卷的物理分区或块设备 &#x2F;#</span><br><span class="line">~]# pvdisplay                      #&#x2F; &quot;pvdisplay&quot; 命令是详细列出系统上面每个物理卷的信息 &#x2F;#</span><br></pre></td></tr></table></figure>
+      
 
-<p>3.下数第三层是<strong>卷组</strong>（VG）；<strong><code>vgcreate</code></strong>命令是把物理卷做成卷组的命令，后面跟卷组名称(按实际情况自定义)和物理卷名称；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~]# vgcreate vg0 -s 16M &#x2F;dev&#x2F;sd&#123;b1,c,d2,e&#125;    #&#x2F; &quot;vg0&quot;是给卷组起的名称；&quot;-s 16M&quot; 是PE值大小 &#x2F;#</span><br><span class="line">~]# vgdisplay                                 #&#x2F; 列出卷组的详细信息 &#x2F;#</span><br></pre></td></tr></table></figure>
+      
+        
+          
+            <p>
+              
+###什么是LV逻辑卷？逻辑卷是将一个或多个物理分区或块设备整合在一起形成一种逻辑层。可以使独立的硬盘，也可以是独立的分区。
+###逻辑卷结构视图
 
-<p>4.最上面一层，就是我们的<strong>逻辑卷</strong>(LV)；<strong><code>lvcreate</code></strong>是从卷组生成逻辑卷的命令，后面写逻辑卷的名称、逻辑卷的大小和卷组名称；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# lvcreate -n lv0 -l 666 &#x2F;dev&#x2F;vg0      #&#x2F; &quot;-n&quot;后面跟逻辑卷的名称；&quot;-l&quot;后面跟PE的个数；最后是卷组名称； &#x2F;#</span><br><span class="line">~]# lvcreate -n lv0 -L 20G &#x2F;dev&#x2F;vg0      #&#x2F; &quot;-L&quot;大写的后面是逻辑卷容量大小（M,G）&#x2F;#</span><br><span class="line">~]# lvdisplay                            #&#x2F; 列出逻辑卷的详细信息 &#x2F;#</span><br></pre></td></tr></table></figure>
+上图画的或许不是那么标准，但是也能大体看出逻辑卷的结构。下面从下而上简单说明下：
 
-<p><strong><code>上面差不多已经讲完了如何生成逻辑卷LV了！剩下的步骤不外乎就是:对LV做文件系统--&gt;创建挂载点--&gt;把LV挂载上去--&gt;正常使用即可</code></strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# mkfs.ext4  &#x2F;dev&#x2F;vg0&#x2F;lv0        #&#x2F; 特别注意：这里的逻辑卷名称是LV的全名！为什么？请看lvdisplay结果 &#x2F;#</span><br><span class="line">~]# mkdir  &#x2F;mnt&#x2F;lv0                #&#x2F; 创建挂载逻辑卷的挂载点目录 &#x2F;#</span><br><span class="line">~]# mount  &#x2F;dev&#x2F;vg0&#x2F;lv0  &#x2F;mnt&#x2F;lv0  #&#x2F; 挂载逻辑卷 &#x2F;#</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>###为什么要用逻辑卷管理？</p>
-<blockquote>
-<p><strong>LVM</strong>的重点在于可以弹性调整文件系统的容量！或者说它有在线可扩展性！</p>
-</blockquote>
-<p><strong>大</strong>白话说的话，一个逻辑卷空间不够了你可以从卷组中调出来一部分容量分给它；反过来也可以缩减它的空间大小等等可在线扩展操作。</p>
-<blockquote>
-<p>以下是从百度百科搬过来的关于LVM优点的说法，说的很对我就借花献佛了~</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">LVM与直接使用物理存储相比,有以下优点:</span><br><span class="line">1. 灵活的容量</span><br><span class="line">当使用逻辑卷时,文件系统可以扩展到多个磁盘上,你可以聚合多个磁盘或磁盘分区成单一的逻辑卷.</span><br><span class="line">2.可伸缩的存储池</span><br><span class="line">你可以使用简单的命令来扩大或缩小逻辑卷大小,不用重新格式化或分区磁盘设备.</span><br><span class="line">3.在线的数据再分配</span><br><span class="line">你可以在线移动数据,数据可以在磁盘在线的情况下重新分配.比如,你可以在线更换可热插拔的磁盘.</span><br><span class="line">4. 方便的设备命名</span><br><span class="line">逻辑卷可以按你觉得方便的方式来起任何名称.</span><br><span class="line">5.磁盘条块化.</span><br><span class="line">你可以生成一个逻辑盘,它的数据可以被条块化存储在2个或更多的磁盘上.这样可以明显提升数据吞吐量</span><br><span class="line">6.镜像卷</span><br><span class="line">逻辑卷提供方便的方法来镜像你的数据.</span><br><span class="line">7.卷快照</span><br><span class="line">使用逻辑卷,你可以获得设备快照用来一致性备份或者测试数据更新效果而不影响真实数据.</span><br></pre></td></tr></table></figure>
-<hr>
-<p>###实验：扩展LV容量</p>
-<p><strong>下</strong>面我做做一个在线扩展LV的实验体会体会LVM逻辑卷管理的特性还有相关命令的运用</p>
-<blockquote>
-<p>1.” <strong><code>~]#</code></strong> “ 表示命令提示符<br>2.” <strong><code>#/  /#</code></strong> “ 表示添加的注释内容</p>
-</blockquote>
-<p>#####第一步：用<strong><code>lsblk</code></strong>命令查看有没有空闲的硬盘可以让我们拿来用于增加LV容量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">~]#lsblk</span><br><span class="line">NAME              MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</span><br><span class="line"></span><br><span class="line">#&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line"></span><br><span class="line">sdb                 8:16   0   20G  0 disk </span><br><span class="line">└─vgtest-lvtest   253:0    0   30G  0 lvm  </span><br><span class="line">sdc                 8:32   0   50G  0 disk        #&#x2F; 发现sdc盘是50G的空间满足实验需求 &#x2F;#</span><br><span class="line">├─sdc1              8:33   0   10G  0 part </span><br><span class="line">│ └─vgtest-lvtest 253:0    0   30G  0 lvm  </span><br><span class="line">└─sdc2              8:34   0    5G  0 part </span><br><span class="line">sdd                 8:48   0  100G  0 disk </span><br><span class="line">sr0                11:0    1  7.7G  0 rom  &#x2F;run&#x2F;media&#x2F;root&#x2F;CentOS 7 x86_64</span><br></pre></td></tr></table></figure>
-
-<p><strong>查</strong>看硬盘信息发现<strong><code>/dev/sdc</code></strong>硬盘满足我们的实验需求！</p>
-<hr>
-<p>#####第二步:用<strong><code>fdisk</code></strong>命令增加一分区</p>
-<blockquote>
-<p>在增加分区的时候需要注意标记新增分区用途的类别</p>
-</blockquote>
-<p><strong>先</strong>分区~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">~]#fdisk &#x2F;dev&#x2F;sdc</span><br><span class="line">Welcome to fdisk (util-linux 2.23.2).</span><br><span class="line"></span><br><span class="line">Changes will remain in memory only, until you decide to write them.</span><br><span class="line">Be careful before using the write command.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Command (m for help): p                               #&#x2F; 这是打印硬盘分区信息 &#x2F;#</span><br><span class="line"></span><br><span class="line">#&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">&#x2F;dev&#x2F;sdc1            2048    20973567    10485760   8e  Linux LVM</span><br><span class="line">&#x2F;dev&#x2F;sdc2        20973568    31459327     5242880   83  Linux</span><br><span class="line"></span><br><span class="line">Command (m for help): u                              #&#x2F; &quot;u&quot;是切换扇区和柱面 &#x2F;#</span><br><span class="line">Changing display&#x2F;entry units to cylinders (DEPRECATED!).</span><br><span class="line"></span><br><span class="line">Command (m for help): n                              #&#x2F; &quot;n&quot;是开始分区 &#x2F;#                                              </span><br><span class="line">Partition type:</span><br><span class="line">   p   primary (2 primary, 0 extended, 2 free)       #&#x2F; 这里的&quot;p&quot;主分区 &#x2F;#</span><br><span class="line">   e   extended                                      #&#x2F; 这里的&quot;e&quot;扩展分区 &#x2F;#</span><br><span class="line">Select (default p): p                                #&#x2F; 这里我分一个主分区 &#x2F;#</span><br><span class="line">Partition number (3,4, default 3): 3                 #&#x2F; 选择主分区编号为3 &#x2F;#</span><br><span class="line">First cylinder (1959-6527, default 1959): </span><br><span class="line">Using default value 1959</span><br><span class="line">Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1959-6527, default 6527): +10G    #&#x2F; 分10G大小 &#x2F;#</span><br><span class="line">Partition 3 of type Linux and of size 10 GiB is set</span><br><span class="line"></span><br><span class="line">Command (m for help): t                              #&#x2F; 这是标记分区类别 &#x2F;#</span><br><span class="line">Partition number (1-3, default 3): 3                 #&#x2F; 输入第几个分区 &#x2F;#</span><br><span class="line">Hex code (type L to list all codes): L               #&#x2F; 大写&quot;L&quot;可以查看各种分区类别编号 &#x2F;#</span><br><span class="line"></span><br><span class="line">#&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line">      </span><br><span class="line">Hex code (type L to list all codes): 8e              #&#x2F; &quot;8e&quot;是用于逻辑卷的分区类别标记 &#x2F;#</span><br><span class="line">Changed type of partition &#39;Linux&#39; to &#39;Linux LVM&#39;</span><br><span class="line"></span><br><span class="line">Command (m for help): p</span><br><span class="line"></span><br><span class="line">#&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line"></span><br><span class="line">   Device Boot      Start         End      Blocks   Id  System</span><br><span class="line">&#x2F;dev&#x2F;sdc1               1        1306    10485760   8e  Linux LVM</span><br><span class="line">&#x2F;dev&#x2F;sdc2            1306        1959     5242880   83  Linux</span><br><span class="line">&#x2F;dev&#x2F;sdc3            1959        3265    10488832   8e  Linux LVM </span><br><span class="line"></span><br><span class="line">Command (m for help): w                              #&#x2F; &quot;w&quot;是存盘退出 &#x2F;#</span><br><span class="line">The partition table has been altered!</span><br><span class="line"></span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line"></span><br><span class="line">WARNING: Re-reading the partition table failed with error 16: Device or resource busy.</span><br><span class="line">The kernel still uses the old table. The new table will be used at</span><br><span class="line">the next reboot or after you run partprobe(8) or kpartx(8)</span><br><span class="line">Syncing disks.</span><br></pre></td></tr></table></figure>
-
-<p><strong>同</strong>步分区信息：用<strong><code>partprobe</code></strong>命令同步<del>并用<strong><code>lsblk</code></strong>查看分区信息</del></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">~]#partprobe                                         #&#x2F; 把分区信息同步在内存里 &#x2F;#</span><br><span class="line">Warning: Unable to open &#x2F;dev&#x2F;sr0 read-write (Read-only file system).  </span><br><span class="line">&#x2F;dev&#x2F;sr0 has been opened read-only.</span><br><span class="line"></span><br><span class="line">~]#lsblk                                             #&#x2F; 查看硬盘信息，是否分区成功 &#x2F;#</span><br><span class="line">NAME              MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</span><br><span class="line"></span><br><span class="line">#&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line"></span><br><span class="line">sdc                 8:32   0   50G  0 disk </span><br><span class="line">├─sdc1              8:33   0   10G  0 part </span><br><span class="line">│ └─vgtest-lvtest 253:0    0   30G  0 lvm  </span><br><span class="line">├─sdc2              8:34   0    5G  0 part </span><br><span class="line">└─sdc3              8:35   0   10G  0 part</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>#####第三步：用<strong><code>pvcreate</code></strong>命令把<strong><code>/dev/sd3</code></strong>生成物理卷并用<strong><code>pvdisplay</code></strong>查看物理卷详细信息<br><strong>先</strong>生成物理卷~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~]#pvcreate &#x2F;dev&#x2F;sdc3</span><br><span class="line">  Physical volume &quot;&#x2F;dev&#x2F;sdc3&quot; successfully created.</span><br></pre></td></tr></table></figure>
-<p><strong>查</strong>看物理卷详细信息~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">~]#pvdisplay </span><br><span class="line">  --- Physical volume ---</span><br><span class="line"></span><br><span class="line">#&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line">   </span><br><span class="line">  &quot;&#x2F;dev&#x2F;sdc3&quot; is a new physical volume of &quot;10.00 GiB&quot;     #&#x2F; 这里就是我们新生成的物理卷信息 &#x2F;#</span><br><span class="line">  --- NEW Physical volume ---</span><br><span class="line">  PV Name               &#x2F;dev&#x2F;sdc3                         #&#x2F; 物理卷名称 &#x2F;#</span><br><span class="line">  VG Name                                                 #&#x2F; 注意，这里的卷组信息还是空的，因为还没划分给卷组 &#x2F;#</span><br><span class="line">  PV Size               10.00 GiB                         #&#x2F; 新增物理卷大小 &#x2F;#</span><br><span class="line">  Allocatable           NO</span><br><span class="line">  PE Size               0   </span><br><span class="line">  Total PE              0</span><br><span class="line">  Free PE               0</span><br><span class="line">  Allocated PE          0</span><br><span class="line">  PV UUID               81cHlt-osRn-I2Lc-faE6-36GN-ShzX-eHTfGJ</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>#####第四步：用<strong><code>vgextend</code></strong>命令把新的物理卷添加至卷组并用<strong><code>vgdisplay</code></strong>命令查看卷组详细信息</p>
-<p><strong>开</strong>始之前先看看卷组信息，可以可以做对比，这样会更直接些。关键点我都有注释的哦~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">~]#vgdisplay </span><br><span class="line">  --- Volume group ---</span><br><span class="line"></span><br><span class="line">#&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line"></span><br><span class="line">  VG Size               29.97 GiB                   #&#x2F; 卷组大小为30G &#x2F;#</span><br><span class="line">  PE Size               16.00 MiB</span><br><span class="line">  Total PE              1918</span><br><span class="line">  Alloc PE &#x2F; Size       1918 &#x2F; 29.97 GiB</span><br><span class="line">  Free  PE &#x2F; Size       0 &#x2F; 0                       #&#x2F; 没有可用PE &#x2F;#</span><br><span class="line">  VG UUID               kbBjKq-iFnA-fQSH-IK5w-EDFl-FFSL-uLSil9</span><br></pre></td></tr></table></figure>
-<p><strong>现</strong>在我们开始用<strong><code>vdextend</code></strong>命令增加卷组容量~</p>
-<blockquote>
-<p><strong><code>vgextend</code></strong>命令用于动态扩展LVM卷组，它通过向卷组中添加物理卷来增加卷组的容量。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">~]#vgextend vgtest &#x2F;dev&#x2F;sdc3                       #&#x2F; 把物理卷&quot;&#x2F;dev&#x2F;sdc3&quot;添加至卷组&quot;vgtest&quot;中 &#x2F;#</span><br><span class="line">  Volume group &quot;vgtest&quot; successfully extended</span><br><span class="line">~]#vgdisplay                                       #&#x2F; 查看卷组详细信息 &#x2F;#</span><br><span class="line">  --- Volume group ---</span><br><span class="line">  VG Name               vgtest</span><br><span class="line">  System ID             </span><br><span class="line">  Format                lvm2</span><br><span class="line">  Metadata Areas        3</span><br><span class="line">  Metadata Sequence No  6</span><br><span class="line">  VG Access             read&#x2F;write</span><br><span class="line">  VG Status             resizable</span><br><span class="line">  MAX LV                0</span><br><span class="line">  Cur LV                1</span><br><span class="line">  Open LV               0</span><br><span class="line">  Max PV                0</span><br><span class="line">  Cur PV                3</span><br><span class="line">  Act PV                3</span><br><span class="line">  VG Size               39.97 GiB                   #&#x2F; 可以看出眷组空间大小从之前只有30G变成目前的40G &#x2F;#</span><br><span class="line">  PE Size               16.00 MiB</span><br><span class="line">  Total PE              2558</span><br><span class="line">  Alloc PE &#x2F; Size       1918 &#x2F; 29.97 GiB</span><br><span class="line">  Free  PE &#x2F; Size       640 &#x2F; 10.00 GiB             #&#x2F; 这里多出来10G的可用PE &#x2F;#</span><br><span class="line">  VG UUID               kbBjKq-iFnA-fQSH-IK5w-EDFl-FFSL-uLSil9</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>#####第五步：用<strong><code>lvextend</code></strong>命令增加逻辑卷的容量，并用<strong><code>lvdisplay</code></strong>查看逻辑卷详细信息<br><strong>同</strong>样在开始之前我们先看看逻辑卷信息，看看它大小是多少~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">~]#lvdisplay </span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path                &#x2F;dev&#x2F;vgtest&#x2F;lvtest        #&#x2F; 这才是逻辑卷的名称 &#x2F;#</span><br><span class="line">  LV Name                lvtest</span><br><span class="line">  VG Name                vgtest</span><br><span class="line">  LV UUID                5IMYwN-9JZS-4KB1-ofFq-WpVn-OVv6-XOCfhL</span><br><span class="line">  LV Write Access        read&#x2F;write</span><br><span class="line">  LV Creation host, time CentOS7.Wxg, 2017-06-24 20:17:47 +0800</span><br><span class="line">  LV Status              available</span><br><span class="line">  # open                 0</span><br><span class="line">  LV Size                29.97 GiB                  #&#x2F; 逻辑卷大小是30G &#x2F;#</span><br><span class="line">  Current LE             1918</span><br><span class="line">  Segments               2</span><br><span class="line">  Allocation             inherit</span><br><span class="line">  Read ahead sectors     auto</span><br><span class="line">  - currently set to     8192</span><br><span class="line">  Block device           253:0</span><br></pre></td></tr></table></figure>
-<p><strong>现</strong>在我们开始用<strong><code>lvextend</code></strong>命令给逻辑卷增加容量<del>就给他增加个5G容量吧</del></p>
-<blockquote>
-<p><strong>lvextend</strong>命令用于在线扩展逻辑卷的空间大小，而不中断应用程序对逻辑卷的访问</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">~]#lvextend -r -L +5G &#x2F;dev&#x2F;vgtest&#x2F;lvtest            #&#x2F; 给LV新增加5G的容量,注意增加容量时要有&quot;+&quot;号 &#x2F;#</span><br><span class="line"></span><br><span class="line">      #&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line"></span><br><span class="line">~]#lvdisplay </span><br><span class="line">  --- Logical volume ---</span><br><span class="line">  LV Path                &#x2F;dev&#x2F;vgtest&#x2F;lvtest</span><br><span class="line">  LV Name                lvtest</span><br><span class="line">  VG Name                vgtest</span><br><span class="line">  LV UUID                5IMYwN-9JZS-4KB1-ofFq-WpVn-OVv6-XOCfhL</span><br><span class="line">  LV Write Access        read&#x2F;write</span><br><span class="line">  LV Creation host, time CentOS7.Wxg, 2017-06-24 20:17:47 +0800</span><br><span class="line">  LV Status              available</span><br><span class="line">  # open                 0</span><br><span class="line">  LV Size                34.97 GiB                 #&#x2F; 注意到没有，从之前的30G变成现在的35G了 &#x2F;#</span><br><span class="line">  Current LE             2238</span><br><span class="line">  Segments               3</span><br><span class="line">  Allocation             inherit</span><br><span class="line">  Read ahead sectors     auto</span><br><span class="line">  - currently set to     8192</span><br><span class="line">  Block device           253:0</span><br></pre></td></tr></table></figure>
-
-<p><strong>如</strong>果还看不出差别的话，我回过头去看看卷组的信息，看看自由<strong>PE</strong>值是否从<strong>10G</strong>减少到<strong>5G</strong>了~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~]#vgdisplay </span><br><span class="line">  --- Volume group ---</span><br><span class="line">  VG Name               vgtest</span><br><span class="line">               </span><br><span class="line"> #&#x2F;---------此处省略----------&#x2F;#</span><br><span class="line"></span><br><span class="line">  Alloc PE &#x2F; Size       2238 &#x2F; 34.97 GiB</span><br><span class="line">  Free  PE &#x2F; Size       320 &#x2F; 5.00 GiB             #&#x2F; 注意到没有，从之前的10G变成现在的5G了 &#x2F;#</span><br><span class="line">  VG UUID               kbBjKq-iFnA-fQSH-IK5w-EDFl-FFSL-uLSil9</span><br></pre></td></tr></table></figure>
-<hr>
-<p>###结语：<br><strong>通</strong>过这个<strong>扩展LV</strong>的实验我们很直观的体会到在线管理逻辑卷的优势，可以有效避免一些不必要的麻烦。</p>
-<p><strong>当</strong>然逻辑卷管理除了<strong>扩展LV</strong>还有很多其他功能，例如可以<strong>缩减LV</strong>避免不必要的空间浪费、可以<strong>移除PV</strong>及时更换老旧的硬盘、可以<strong>跨主机迁移LV</strong>不丢数据的前提下脱离老旧主机迁到新的主机上等等强大的功能都可以实现。在这我就不分别做实验来证明啦~</p>
-
+1.” ~]# “ 表示命令提示符2.” #/  /# “ 表示
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/LVM/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/raid/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/raid/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/raid/" class="post-title-link" itemprop="url">RAID技术简记</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/raid/" class="post-title-link" itemprop="url">RAID技术简记</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 09:28:33" itemprop="dateCreated datePublished" datetime="2020-02-14T09:28:33+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -861,109 +1476,154 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>##什么是廉价磁盘冗余阵列<strong>RAID</strong>？<br>###概念简述</p>
-<blockquote>
-<p><strong>顾</strong>名思义,廉价磁盘冗余阵列是一种将多个较小的磁盘整合成为一个较大的磁盘装置。从而达到<strong>数据存储</strong>和<strong>数据保护</strong>等功能！</p>
-</blockquote>
-<p>###数据保护<br>有多个磁盘组成的磁盘阵列固然能都做到数据存储的功能，那么又是怎么做到<strong>数据保护</strong>的功能呢？</p>
-<blockquote>
-<p>保护功能体现在讲一个将数据切割成多个分段，放在不同的物理磁盘上。这样就可以避免因为单块儿或者多块儿磁盘故障而导致的数据丢失问题。当然这里就需要借助于<code>**RAID**</code>技术的灵活运用来达到不同效果！</p>
-</blockquote>
-<hr>
-<p>###RAID级别</p>
-<blockquote>
-<p>生产环境的不同和技术上的不断发展<strong>RAID</strong>技术也以不同的方式或级别被各方运用着。从而形成各种级别和方式。这里我简单的挑选个别级别来说一下。</p>
-</blockquote>
-<p>####RAID-0</p>
-<blockquote>
-<p><strong>RAID-0</strong>级别也叫条带卷，它主要实现方式是把一份数据切成多个分段连续存放磁盘阵列的每一个磁盘上，达到同时存取读写目的。它代表了所有<strong>RAID</strong>级别中最高的存储性能。</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-9faa8137cd0cab73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="RAID-0示意图"></p>
-<p>#####RAID-0特性</p>
-<blockquote>
-<p>1.性能优秀<br>2.没有冗错性<br>3.磁盘利用率100%</p>
-</blockquote>
-<hr>
-<p>####RAID-1</p>
-<blockquote>
-<p><strong>RAID-1</strong>级别也叫镜像卷，顾名思义它主要实现方式是两块磁盘同时读写数据。防止单个物理磁盘损坏导致的数据丢失。</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e4f9c3de1f05dac0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**RAID-1示意图**"></p>
-<p>#####RAID-1特性</p>
-<blockquote>
-<p>1.安全性高<br>2.冗错性不错<br>3.磁盘利用率50%<br>4.读取性能高<br>5.成本高</p>
-</blockquote>
-<hr>
-<p>####RAID-4</p>
-<blockquote>
-<p><strong>RAID-4</strong>级别的数据都是依次存储在多个硬盘之上，奇偶校验码存放在独立的奇偶校验盘上。</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-1a6857c0dc0e0dd1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**RIAD -4示意图**"></p>
-<p>所谓异性相吸，同性相斥。有了校验盘之后，数据块损坏了也可以通过校验位进行恢复。<br>#####RAID-4特性</p>
-<blockquote>
-<p>1.读取性能好<br>2.因为有校验位，冗错性不错<br>3.稳定性差</p>
-</blockquote>
-<hr>
-<p>####RAID-5</p>
-<blockquote>
-<p><strong>RAID-5</strong>级别简单来讲就是RAID-4的升级版，不同于RAID-4的地方是它没有独立的校验盘，而是分散的。或者可以说它是RAID-1和RAID-0的拆中版。</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-b12f02de125f4ca0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**RAID-5**"><br>#####RAID-5特性</p>
-<blockquote>
-<p>1.性能不错<br>2.数据安全性好<br>3.冗错性不错<br>4.磁盘利用率为N-1/N</p>
-</blockquote>
-<hr>
-<p>######Ps:上述都是我浅薄的认知。大牛们可以忽略本文章，如有问题我更希望大牛们不吝赐教。</p>
+      
 
+      
+        
+          
+            <p>
+              ##什么是廉价磁盘冗余阵列RAID？###概念简述
+
+顾名思义,廉价磁盘冗余阵列是一种将多个较小的磁盘整合成为一个较大的磁盘装置。从而达到数据存储和数据保护等功能！
+
+###数据保护有多个磁盘组成的磁盘阵列固然能都做到数据存储的功能，那么又是怎么做到数据保护的功能呢？
+
+保护功能体现在讲一个将数据切
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/raid/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E8%AF%AF%E5%88%A0libc.so.6%E5%90%8E%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E8%BF%87%E7%A8%8B/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/%E8%AF%AF%E5%88%A0libc.so.6%E5%90%8E%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E8%BF%87%E7%A8%8B/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/%E8%AF%AF%E5%88%A0libc.so.6%E5%90%8E%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">删除libc.so.6后如何修复系统</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/%E8%AF%AF%E5%88%A0libc.so.6%E5%90%8E%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">删除libc.so.6后如何修复系统</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 09:27:13" itemprop="dateCreated datePublished" datetime="2020-02-14T09:27:13+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -971,82 +1631,162 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>####第一步：重启操作系统</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-836e6114519ba644.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**重启操作系统**"></p>
-<p>####第二步：读进程时瞬间按一下键盘上的<strong>Esc</strong>键</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-f52d608f8b2d25b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**读条时按一下Esc键，这步骤需要眼疾手快，因为就在那一两秒时间内完成操作，而且要精确操作，只能按一次Esc键。**"></p>
-<p>####第三步：选择CD-ROM Drive</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-cf11f843f96a2042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**选择光盘启动**"></p>
-<p>####第四步：选择救援模式安装系统</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-17daea99ef8457cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**选择第三项救援安装系统模式**"></p>
-<p>####第五步：选择系统语言</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e3ee6a7b3f331c3b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**选择English选项，然后【OK】**"></p>
-<p>####第六步：选择键盘格式</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-0d98d5b3d41e87b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**键盘格式选择Us然后【OK】**"></p>
-<p>####第七步：选择网络配置</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-2ca4a0b8ce8d628b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**因为该故障和网络无关，所以这里无需相关网络配置，选择【No】选项继续**"></p>
-<p>####第八步：关于/mnt/sysimage说明界面</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-e7754addbd6b7c59.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**选择Continue选项会自动寻找你的根并把它挂在到/mnt/sysimage目录下**"></p>
-<p>####第九步：选择OK继续即可</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-47760ae2155b42a5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**说明已经找到你的根并将其挂载在/mnt/sysimage下，选择【OK】继续**"></p>
-<p>####第十步：选择【OK】继续</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-1a3cb8123fa0ec75.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**选【OK】选项，提示已经把根写换到哪里了"></p>
-<p>####第十一步：开启Shell</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-1f3a25b3250a7528.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**选第一个打开一个shell按【OK】继续**"></p>
-<p>####第十二步：进入Bash字符命令界面</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-49a15e96437c65d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**进入Bash之后的操作就是我们恢复系统的最主要环节。详细的命令步骤如图内注释所示**"></p>
-<p>####第十三步：最后步骤，重启即可</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-d6a9d0cf5c4ea405.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**如图，选择第三项重启选项，然后【OK】重启**"></p>
+      
 
+      
+        
+          
+            <p>
+              ####第一步：重启操作系统
+
+####第二步：读进程时瞬间按一下键盘上的Esc键
+
+####第三步：选择CD-ROM Drive
+
+####第四步：选择救援模式安装系统
+
+####第五步：选择系统语言
+
+####第六步：选择键盘格式
+
+####第七步：选择网络配置
+
+####第八步：关于/mnt/
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/%E8%AF%AF%E5%88%A0libc.so.6%E5%90%8E%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E8%BF%87%E7%A8%8B/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
+
     
     
-      <footer class="post-footer">
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
+
+
+    
+      
+
+  
+
   
   
   
 
-        
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="Hyrila"/>
+      <meta itemprop="description" content=""/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="Hyrila"/>
     </span>
+
+    
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">Linux文件系统简记</a>
-        </h1>
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/14/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">Linux文件系统简记</a>
+              
+            
+          </h1>
+        
 
         <div class="post-meta">
-            <span class="post-meta-item">
+          <span class="post-time">
+
+            
+            
+            
+
+            
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Posted on</span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
 
               <time title="Created: 2020-02-14 09:23:03" itemprop="dateCreated datePublished" datetime="2020-02-14T09:23:03+08:00">2020-02-14</time>
-            </span>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
 
           
 
         </div>
       </header>
+    
 
     
     
@@ -1054,47 +1794,70 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>###文件系统简述</p>
-<blockquote>
-<p>什么是<strong>文件系统</strong>?又怎么去查找？例如我们在Windows系统下，查找一个File文件的时候，我们会选择一个磁盘开始一层一层的查找，直到找到File文件为止。这种的从最顶端开始一级一级的找到文件的，称之为<strong>文件路径</strong>。<br>所以<strong>文件系统</strong>的概念就是：从给定的<strong>起始位置</strong>去逐层查找，如果给定的<strong>起始位置</strong>相对其他而言再也没有的位置称之为绝对起始位置。</p>
-</blockquote>
-<p><strong>在</strong>Linux系统为了能够实现多个文件系统或者多个文件系统独立管理的功能，所以需要分区，但是各分区不能被自我独立的访问，而是只能与现有的根一块儿被访问。</p>
-<p>###Linux文件系统的特性</p>
-<blockquote>
-<p> 1.文件名严格区分字符大小写。<br>  2.文件名可使用除了/以外的任意字符，但不介意使用特殊字符。<br>  3.文件名长度不能超过255个字符。<br>  4.所有 <strong>.</strong> 开头的文件都是隐藏文件。</p>
-</blockquote>
-<p>###Linux文件系统与目录结构</p>
-<blockquote>
-<p><strong>Linux</strong>下的文件系统为树形结构，入口为  <strong>/</strong>   树形结构下的文件目录。</p>
-</blockquote>
-<p>####文件系统与目录结构</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-483f69a05c7dc03a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="文件目录结构.png"></p>
-<p>####Linux根下的文件</p>
-<blockquote>
-<p><strong>Linux</strong>根<strong>“ / “</strong>下的文件目录以及功能</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-0b62ad14488ff997.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Linux根下的文件及功能.png"></p>
-<p>###Linux下的文件类型<br>** - <strong>：普通文件<br>**d</strong>：目录文件<br><strong>b</strong>：块儿设备<br><strong>c</strong>：字符设备<br><strong>l</strong>：符号链接文件<br><strong>p</strong>：管道文件<br><strong>s</strong>：套接字文件，socket</p>
+      
 
+      
+        
+          
+            <p>
+              ###文件系统简述
+
+什么是文件系统?又怎么去查找？例如我们在Windows系统下，查找一个File文件的时候，我们会选择一个磁盘开始一层一层的查找，直到找到File文件为止。这种的从最顶端开始一级一级的找到文件的，称之为文件路径。所以文件系统的概念就是：从给定的起始位置去逐层查找，如果给定的起始位
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/02/14/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
       
     </div>
 
     
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot; aria-label&#x3D;&quot;Previous page&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot; aria-label&#x3D;&quot;Next page&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -1102,101 +1865,110 @@
           </div>
           
 
-<script>
-  window.addEventListener('tabs:register', () => {
-    let activeClass = CONFIG.comments.activeClass;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
         </div>
+        
           
   
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
   </div>
 
-  <aside class="sidebar">
+  <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
+      
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Hyrila</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
       </div>
-      <!--/noindex-->
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">John Doe</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">36</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-  </nav>
-</div>
+      
 
-
-
-      </div>
+      
 
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  
 
 
+        
       </div>
     </main>
 
-    <footer class="footer">
+    <footer id="footer" class="footer">
       <div class="footer-inner">
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Hyrila</span>
+
+  
+
+  
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
-  </div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0</div>
+
+
+
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.0
-  </div>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.1</div>
+
+
+
 
         
 
@@ -1207,27 +1979,102 @@
 
 
 
+        
       </div>
     </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
   </div>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
 
 
-<script src="/js/next-boot.js"></script>
 
-<script src="/js/bookmark.js"></script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+
+  
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+  
+
+  
 
 
 
@@ -1237,19 +2084,28 @@
 
 
   
-<script src="/js/local-search.js"></script>
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
+  
 
-
+  
 
   
 
