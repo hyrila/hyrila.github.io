@@ -122,7 +122,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">让世界充满爱</p>
+        <p class="site-subtitle">让界充满爱</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -194,7 +194,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="胆小怕事，心地善良">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -239,7 +239,7 @@
 </ul>
 </blockquote>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vrrp协议：Virtual Redundant Routing Protocol</span><br><span class="line">      术语：</span><br><span class="line">		虚拟路由器：Virtual Router </span><br><span class="line">		虚拟路由器标识：VRID(0-255)</span><br><span class="line">		物理路由器：</span><br><span class="line">			master：主设备</span><br><span class="line">			backup：备用设备</span><br><span class="line">			priority：优先级</span><br><span class="line">		VIP：Virtual IP </span><br><span class="line">		VMAC：Virutal MAC (00-00-5e-00-01-VRID)</span><br><span class="line">			 GraciousARP</span><br><span class="line">				</span><br><span class="line">通告：心跳，优先级等；周期性；</span><br><span class="line">			</span><br><span class="line">        抢占式，非抢占式；</span><br><span class="line">			</span><br><span class="line">安全工作：</span><br><span class="line">		无认证</span><br><span class="line">		简单字符认证</span><br><span class="line">		MD5</span><br><span class="line">					</span><br><span class="line">工作模式：</span><br><span class="line">    主&#x2F;备：单虚拟路径器；</span><br><span class="line">    主&#x2F;主：主&#x2F;备（虚拟路径器1），备&#x2F;主（虚拟路径器2）</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vrrp协议：Virtual Redundant<span class="built_in"> Routing </span>Protocol</span><br><span class="line">      术语：</span><br><span class="line">		虚拟路由器：Virtual Router </span><br><span class="line">		虚拟路由器标识：VRID(0-255)</span><br><span class="line">		物理路由器：</span><br><span class="line">			master：主设备</span><br><span class="line">			backup：备用设备</span><br><span class="line">			priority：优先级</span><br><span class="line">		VIP：Virtual<span class="built_in"> IP </span></span><br><span class="line">		VMAC：Virutal MAC (00-00-5e-00-01-VRID)</span><br><span class="line">			 GraciousARP</span><br><span class="line">				</span><br><span class="line">通告：心跳，优先级等；周期性；</span><br><span class="line">			</span><br><span class="line">        抢占式，非抢占式；</span><br><span class="line">			</span><br><span class="line">安全工作：</span><br><span class="line">		无认证</span><br><span class="line">		简单字符认证</span><br><span class="line">		MD5</span><br><span class="line">					</span><br><span class="line">工作模式：</span><br><span class="line">    主/备：单虚拟路径器；</span><br><span class="line">    主/主：主/备（虚拟路径器1），备/主（虚拟路径器2）</span><br></pre></td></tr></table></figure>
 
 <p>#keepalived定义：</p>
 <blockquote>
@@ -272,14 +272,14 @@
 </blockquote>
 <p>#Linux CentOS系统keepalived 安装和配置文件结构</p>
 <p><strong>高可用集群的配置前提：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HA Cluster的配置前提：</span><br><span class="line">	(1) 各节点时间必须同步；</span><br><span class="line">	        ntp, chrony</span><br><span class="line">	(2) 确保iptables及selinux不会成为阻碍；</span><br><span class="line">	(3) 各节点之间可通过主机名互相通信（对KA并非必须）；</span><br><span class="line">		    建议使用&#x2F;etc&#x2F;hosts文件实现； </span><br><span class="line">	(4) 确保各节点的用于集群服务的接口支持MULTICAST（多播）通信；</span><br><span class="line">		    D类：224-239；</span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HA Cluster的配置前提：</span><br><span class="line">	(<span class="number">1</span>) 各节点时间必须同步；</span><br><span class="line">	        ntp, chrony</span><br><span class="line">	(<span class="number">2</span>) 确保iptables及selinux不会成为阻碍；</span><br><span class="line">	(<span class="number">3</span>) 各节点之间可通过主机名互相通信（对KA并非必须）；</span><br><span class="line">		    建议使用/etc/hosts文件实现； </span><br><span class="line">	(<span class="number">4</span>) 确保各节点的用于集群服务的接口支持MULTICAST（多播）通信；</span><br><span class="line">		    D类：<span class="number">224</span><span class="number">-239</span>；</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://upload-images.jianshu.io/upload_images/6121564-033e74194e51b2af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><strong>安装keepalived：</strong></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/6121564-0e965e545455fe6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/6121564-cd80263c70616803.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="几个主要的文件"></p>
 <p><strong>配置文件组成部分：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">TOP HIERACHY   顶级结构</span><br><span class="line">      GLOBAL CONFIGURATION  全局配置段</span><br><span class="line">      VRRPD CONFIGURATION   vrrp配置段</span><br><span class="line">      LVS CONFIGURATION     LVS配置段</span><br><span class="line"></span><br><span class="line">GLOBAL CONFIGURATION  全局配置段</span><br><span class="line">      Global definitions</span><br><span class="line">      Static routes&#x2F;addresses   在全局配置中可以添加静态路由</span><br><span class="line"></span><br><span class="line">VRRPD CONFIGURATION  vrrp 配置段</span><br><span class="line">      VRRP synchronization group(s)  同步组</span><br><span class="line">      VRRP instance(s)  vrrp实例：一个vrrp实例就是一个vrrp虚拟路由器</span><br><span class="line"></span><br><span class="line">LVS CONFIGURATION  LVS配置段：keepalived的高可用的时候才有必要配置这段</span><br><span class="line">      Virtual server group(s)  虚拟服务器组</span><br><span class="line">      Virtual server(s)   虚拟服务器</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">TOP HIERACHY   顶级结构</span><br><span class="line">      GLOBAL CONFIGURATION  全局配置段</span><br><span class="line">      VRRPD CONFIGURATION   vrrp配置段</span><br><span class="line">      LVS CONFIGURATION     LVS配置段</span><br><span class="line"></span><br><span class="line">GLOBAL CONFIGURATION  全局配置段</span><br><span class="line">      Global definitions</span><br><span class="line">      Static routes/addresses   在全局配置中可以添加静态路由</span><br><span class="line"></span><br><span class="line">VRRPD CONFIGURATION <span class="built_in"> vrrp </span>配置段</span><br><span class="line">     <span class="built_in"> VRRP </span>synchronization group(s)  同步组</span><br><span class="line">     <span class="built_in"> VRRP </span>instance(s)  vrrp实例：一个vrrp实例就是一个vrrp虚拟路由器</span><br><span class="line"></span><br><span class="line">LVS CONFIGURATION  LVS配置段：keepalived的高可用的时候才有必要配置这段</span><br><span class="line">      Virtual<span class="built_in"> server </span>group(s)  虚拟服务器组</span><br><span class="line">      Virtual server(s)   虚拟服务器</span><br></pre></td></tr></table></figure>
 <hr>
 <p>####（—-未完待续 —- ）</p>
 
@@ -369,7 +369,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Hyrila</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">胆小怕事，心地善良</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -473,5 +473,10 @@
 
   
 
+  
+     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+     <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
 </body>
 </html>

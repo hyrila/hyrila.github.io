@@ -46,12 +46,12 @@
   };
 </script>
 
-  <meta name="description" content="1234567891011ssh-keygen -t rsa -P &quot;&quot;ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@Clientssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host1ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub roo">
+  <meta name="description" content="1234567891011ssh-keygen -t rsa -P &quot;&quot;ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@Clientssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host1ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host2ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于Ansible角色部署Nginx虚拟机">
 <meta property="og:url" content="http://yoursite.com/2020/02/17/%E5%9F%BA%E4%BA%8EAnsible%E8%A7%92%E8%89%B2%E9%83%A8%E7%BD%B2Nginx%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
 <meta property="og:site_name" content="Hyrila">
-<meta property="og:description" content="1234567891011ssh-keygen -t rsa -P &quot;&quot;ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@Clientssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host1ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub roo">
+<meta property="og:description" content="1234567891011ssh-keygen -t rsa -P &quot;&quot;ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@Clientssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host1ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host2ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-7a473fa6901bd4b2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/6121564-6936c7efd044ef2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -128,7 +128,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">让世界充满爱</p>
+        <p class="site-subtitle">让界充满爱</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -200,7 +200,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="胆小怕事，心地善良">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -233,7 +233,7 @@
 
       
         <p><img src="http://upload-images.jianshu.io/upload_images/6121564-7a473fa6901bd4b2.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -P &quot;&quot;</span><br><span class="line">ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@Client</span><br><span class="line">ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host1</span><br><span class="line">ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host2</span><br><span class="line">ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host3</span><br><span class="line">ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host4</span><br><span class="line">ssh-copy-id -i ~&#x2F;.ssh&#x2F;id_rsa.pub root@host5</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">cd &#x2F;etc&#x2F;ansible&#x2F;</span><br><span class="line">vim hosts </span><br><span class="line">mkdir -pv &#x2F;etc&#x2F;ansible&#x2F;roles&#x2F;nginx&#x2F;&#123;tasks,templates,files,vars,handlers,meta,default&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -P <span class="string">""</span></span><br><span class="line">ssh-copy-id -i <span class="regexp">~/.ssh/</span>id_rsa.pub root<span class="meta">@Client</span></span><br><span class="line">ssh-copy-id -i <span class="regexp">~/.ssh/</span>id_rsa.pub root<span class="meta">@host</span>1</span><br><span class="line">ssh-copy-id -i <span class="regexp">~/.ssh/</span>id_rsa.pub root<span class="meta">@host</span>2</span><br><span class="line">ssh-copy-id -i <span class="regexp">~/.ssh/</span>id_rsa.pub root<span class="meta">@host</span>3</span><br><span class="line">ssh-copy-id -i <span class="regexp">~/.ssh/</span>id_rsa.pub root<span class="meta">@host</span>4</span><br><span class="line">ssh-copy-id -i <span class="regexp">~/.ssh/</span>id_rsa.pub root<span class="meta">@host</span>5</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">cd <span class="regexp">/etc/</span>ansible/</span><br><span class="line">vim hosts </span><br><span class="line">mkdir -pv <span class="regexp">/etc/</span>ansible<span class="regexp">/roles/</span>nginx/&#123;tasks,templates,files,vars,handlers,meta,<span class="keyword">default</span>&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="http://upload-images.jianshu.io/upload_images/6121564-6936c7efd044ef2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="主机清单"></p>
 <p><img src="http://upload-images.jianshu.io/upload_images/6121564-e8cb56696efb7d70.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
@@ -330,7 +330,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Hyrila</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">胆小怕事，心地善良</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -434,5 +434,10 @@
 
   
 
+  
+     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+     <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
 </body>
 </html>

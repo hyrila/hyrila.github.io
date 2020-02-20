@@ -121,7 +121,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">让世界充满爱</p>
+        <p class="site-subtitle">让界充满爱</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -193,7 +193,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="胆小怕事，心地善良">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -232,11 +232,11 @@
 <blockquote>
 <p>第①步是作为<strong>图-1</strong>中的<strong>C</strong>主机并搭建的环境</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~]#</span><br><span class="line">~]# iptables -nvl    &lt;-- 在C主机上查看下防火墙策略</span><br><span class="line">~]#</span><br><span class="line">~]# iptables -F      &lt;-- 如果C主机防火墙打开状态就关闭防火墙</span><br><span class="line">~]#</span><br><span class="line">~]# iptables -A INPUT -s 172.16.251.100 -j REJECT    &lt;-- 在C主机上禁止A主机链接</span><br><span class="line">~]#</span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~]#</span><br><span class="line">~]# iptables -nvl    &lt;-- 在C主机上查看下防火墙策略</span><br><span class="line">~]#</span><br><span class="line">~]# iptables -F      &lt;-- 如果C主机防火墙打开状态就关闭防火墙</span><br><span class="line">~]#</span><br><span class="line">~]# iptables -A INPUT -s <span class="number">172.16</span><span class="number">.251</span><span class="number">.100</span> -j REJECT    &lt;-- 在C主机上禁止A主机链接</span><br><span class="line">~]#</span><br></pre></td></tr></table></figure>
 <p>第<strong>②</strong>步是<strong>B</strong>主机链接情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~]# ss -nat</span><br></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~]<span class="comment"># ss -nat</span></span><br></pre></td></tr></table></figure>
 <p>第<strong>③</strong>步，也是最重要的一步，在<strong>A</strong>主机上登陆<strong>C</strong>主机</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# ssh -t 172.16.251.44 ssh 172.16.251.66   &lt;-- A主机上通过B主机登陆C主机</span><br><span class="line">root@172.16.251.44&#39;s password:  &lt;--输入B主机密码</span><br><span class="line">root@172.16.251.66&#39;s password:  &lt;--输入C主机密码</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~]# <span class="selector-tag">ssh</span> <span class="selector-tag">-t</span> 172<span class="selector-class">.16</span><span class="selector-class">.251</span><span class="selector-class">.44</span> <span class="selector-tag">ssh</span> 172<span class="selector-class">.16</span><span class="selector-class">.251</span><span class="selector-class">.66</span>   &lt;<span class="selector-tag">--</span> <span class="selector-tag">A</span>主机上通过<span class="selector-tag">B</span>主机登陆<span class="selector-tag">C</span>主机</span><br><span class="line"><span class="selector-tag">root</span><span class="keyword">@172</span>.16.251.44's <span class="attribute">password:</span>  &lt;--输入B主机密码</span><br><span class="line">root@<span class="number">172.16</span>.<span class="number">251.66</span><span class="string">'s password:  &lt;--输入C主机密码</span></span><br></pre></td></tr></table></figure>
 <p>第④步是在<strong>B</strong>主机上再次查看链接状态，从图-2中清楚地看到有新的链接</p>
 
     </div>
@@ -325,7 +325,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Hyrila</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">胆小怕事，心地善良</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -429,5 +429,10 @@
 
   
 
+  
+     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+     <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
 </body>
 </html>

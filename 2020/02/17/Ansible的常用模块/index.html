@@ -120,7 +120,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">让世界充满爱</p>
+        <p class="site-subtitle">让界充满爱</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -192,7 +192,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="胆小怕事，心地善良">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -239,12 +239,12 @@
 <ul>
 <li><strong>templates模块：<br>直接把一个文件基于模板处理完以后保存于远程服务器之上；</strong></li>
 <li><strong>shell模块：<br>在远程主机上shell进程下运行命令，支持shell特性，如管道等；</strong></li>
-<li><strong>copy模块：<br>复制文件的模块;</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(1) src&#x3D;源地址，源目录</span><br><span class="line">   （如果带&#x2F;的话目录本身不复制，只把目录中的内容复制过去，如果最后不带&#x2F;的话会复制目录本身以及内容可递归）  </span><br><span class="line">    dest&#x3D;目标地址、目标目录</span><br><span class="line">(2) content&#x3D;（&#39;自己生成内容&#39;）  </span><br><span class="line">    dest&#x3D;（把自己生成的内容发到目标地址）</span><br><span class="line">    owner（复制过去之后的属主）, </span><br><span class="line">    group（复制过去之后的属组）, </span><br><span class="line">    mode（复制过去之后的权限）</span><br><span class="line">    remote_src (从远程复制到远程)</span><br></pre></td></tr></table></figure></li>
-<li><strong>file模块：<br>创建文件的模块，其更重要的是设定文件属性的；</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(1) 创建链接文件：*path&#x3D;  src&#x3D;  state&#x3D;link</span><br><span class="line">(2) 修改属性：path&#x3D;  owner&#x3D; mode&#x3D; group&#x3D; </span><br><span class="line">(3) 创建目录：path&#x3D;  state&#x3D;directory</span><br></pre></td></tr></table></figure></li>
-<li><strong>yum模块：<br>安装程序包;</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;：程序包名称，可以带版本号</span><br><span class="line">state&#x3D; 安装还是卸载</span><br><span class="line">       present, latest , installed都表示安装</span><br><span class="line">       absent , removed 都表示卸载</span><br></pre></td></tr></table></figure></li>
-<li><strong>service模块：<br>管理服务,比如启动停止重启之类的</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;服务名称</span><br><span class="line">state&#x3D;</span><br><span class="line">	started 启动服务</span><br><span class="line">	stopped 停止服务</span><br><span class="line">	restarted 重启服务</span><br><span class="line">	enabled 开机启用</span><br></pre></td></tr></table></figure></li>
-<li><strong>user模块：<br>管理用户账号;</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">*name&#x3D; 用户名</span><br><span class="line">system&#x3D; 是否系统用户</span><br><span class="line">uid&#x3D; 用户账号</span><br><span class="line">shell&#x3D; shell类型</span><br><span class="line">group&#x3D; 属组</span><br><span class="line">groups&#x3D; 附属组</span><br><span class="line">home&#x3D; 家目录</span><br></pre></td></tr></table></figure></li>
-<li><strong>group模块：<br>在指定目标主机上创建组的;</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name&#x3D;组名</span><br><span class="line">gid&#x3D;组ID</span><br><span class="line">state</span><br></pre></td></tr></table></figure>
+<li><strong>copy模块：<br>复制文件的模块;</strong><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(1) <span class="attribute">src</span>=源地址，源目录</span><br><span class="line">   （如果带/的话目录本身不复制，只把目录中的内容复制过去，如果最后不带/的话会复制目录本身以及内容可递归）  </span><br><span class="line">    <span class="attribute">dest</span>=目标地址、目标目录</span><br><span class="line">(2) <span class="attribute">content</span>=（'自己生成内容'）  </span><br><span class="line">    <span class="attribute">dest</span>=（把自己生成的内容发到目标地址）</span><br><span class="line">    owner（复制过去之后的属主）, </span><br><span class="line">    group（复制过去之后的属组）, </span><br><span class="line">    mode（复制过去之后的权限）</span><br><span class="line">    remote_src (从远程复制到远程)</span><br></pre></td></tr></table></figure></li>
+<li><strong>file模块：<br>创建文件的模块，其更重要的是设定文件属性的；</strong><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>) 创建链接文件：*path=  src=  <span class="keyword">state</span>=link</span><br><span class="line">(<span class="number">2</span>) 修改属性：path=  owner= mode= <span class="keyword">group</span>= </span><br><span class="line">(<span class="number">3</span>) 创建目录：path=  <span class="keyword">state</span>=directory</span><br></pre></td></tr></table></figure></li>
+<li><strong>yum模块：<br>安装程序包;</strong><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">name=：程序包名称，可以带版本号</span><br><span class="line"><span class="keyword">state</span>= 安装还是卸载</span><br><span class="line">       present, latest , installed都表示安装</span><br><span class="line">       absent , removed 都表示卸载</span><br></pre></td></tr></table></figure></li>
+<li><strong>service模块：<br>管理服务,比如启动停止重启之类的</strong><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name</span>=<span class="string">服务名称</span></span><br><span class="line"><span class="attr">state</span>=<span class="string"></span></span><br><span class="line">	<span class="attr">started</span> <span class="string">启动服务</span></span><br><span class="line">	<span class="attr">stopped</span> <span class="string">停止服务</span></span><br><span class="line">	<span class="attr">restarted</span> <span class="string">重启服务</span></span><br><span class="line">	<span class="attr">enabled</span> <span class="string">开机启用</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>user模块：<br>管理用户账号;</strong><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">*<span class="attr">name=</span> 用户名</span><br><span class="line"><span class="attr">system=</span> 是否系统用户</span><br><span class="line"><span class="attr">uid=</span> 用户账号</span><br><span class="line"><span class="attr">shell=</span> shell类型</span><br><span class="line"><span class="attr">group=</span> 属组</span><br><span class="line"><span class="attr">groups=</span> 附属组</span><br><span class="line"><span class="attr">home=</span> 家目录</span><br></pre></td></tr></table></figure></li>
+<li><strong>group模块：<br>在指定目标主机上创建组的;</strong><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name=组名</span><br><span class="line">gid=组ID</span><br><span class="line"><span class="keyword">state</span></span><br></pre></td></tr></table></figure>
 #结语<blockquote>
 <p><strong>我只是列出了比较常用的几个模块来简单说明，也是自我学习用的；可以通过 <code>ansible-doc -l</code>列出所有模块，并通过<code>ansible-doc -s Module_Name(模块名)</code>获取帮助；</strong></p>
 </blockquote>
@@ -337,7 +337,7 @@
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Hyrila</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">胆小怕事，心地善良</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
@@ -441,5 +441,10 @@
 
   
 
+  
+     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+     <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+     <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
 </body>
 </html>
