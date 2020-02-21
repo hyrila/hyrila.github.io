@@ -214,6 +214,144 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Hyrila">
+      <meta itemprop="description" content="胆小怕事，心地善良">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyrila">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" class="post-title-link" itemprop="url">Linux文件系统简记</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 09:51:50" itemprop="dateCreated datePublished" datetime="2020-02-17T09:51:50+08:00">2020-02-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>###文件系统简述</p>
+<blockquote>
+<p>什么是<strong>文件系统</strong>?又怎么去查找？例如我们在Windows系统下，查找一个File文件的时候，我们会选择一个磁盘开始一层一层的查找，直到找到File文件为止。这种的从最顶端开始一级一级的找到文件的，称之为<strong>文件路径</strong>。<br>所以<strong>文件系统</strong>的概念就是：从给定的<strong>起始位置</strong>去逐层查找，如果给定的<strong>起始位置</strong>相对其他而言再也没有的位置称之为绝对起始位置。</p>
+</blockquote>
+<p><strong>在</strong>Linux系统为了能够实现多个文件系统或者多个文件系统独立管理的功能，所以需要分区，但是各分区不能被自我独立的访问，而是只能与现有的根一块儿被访问。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/17/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/LinuxIptables/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Hyrila">
+      <meta itemprop="description" content="胆小怕事，心地善良">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyrila">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/LinuxIptables/" class="post-title-link" itemprop="url">Linux iptables</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 09:51:03" itemprop="dateCreated datePublished" datetime="2020-02-17T09:51:03+08:00">2020-02-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-8af721e5cedcd878.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p>#概念：</p>
+<blockquote>
+<p><strong><code>(1) Linux 防火墙 ：</code></strong><br><strong><code>集成在内核里的 Netfilter 组件里，Linux 内核里已经自带一些防火墙的基本功能。并且,把我们生活中和工作中常用的常见的防火墙功能分成 PREROUTING  INPUT OUTPUT FORWARD POSTROUTING   等五个功能模块，称之为hook。用iptables 命令工具向其写入规则！</code></strong><br><img src="http://upload-images.jianshu.io/upload_images/6121564-27c9b954f67e613f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><strong><code>(2) Linux 防火墙工具 ：</code></strong><br><strong><code>iptables：命令行工具，工作在用户空间；用来编写规则，写好的规则被送往netfilter ，告诉内核如何去处理信息包</code></strong><br><strong><code>firewalld ：CentOS 7 引入的新的前端管理工具，这里不细讲</code></strong></p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/17/LinuxIptables/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/raid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -644,156 +782,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8Nginx/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8Nginx/" class="post-title-link" itemprop="url">keepalived高可用Nginx Proxy服务</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 09:45:39" itemprop="dateCreated datePublished" datetime="2020-02-17T09:45:39+08:00">2020-02-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<ul>
-<li>准备四台主机为host（1-4）；</li>
-<li>host1 host2上配置Nginx调度服务和keepalived服务；</li>
-<li>主机host3和主机host4提供Web服务<ul>
-<li>host1：192.168.10.11</li>
-<li>host2：192.168.10.12</li>
-<li>host3：192.168.10.13</li>
-<li>host4：192.168.10.14</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8Nginx/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/" class="post-title-link" itemprop="url">CentOS6系列系统启动流程故障表现形式以及排错修复</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 09:45:04" itemprop="dateCreated datePublished" datetime="2020-02-17T09:45:04+08:00">2020-02-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-6f248c411a5683bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<blockquote>
-<p>本文大体顺序为：某故障—表现形式(图)—排错—修复</p>
-</blockquote>
-<p>##因MBR损坏导致系统故障无法重启</p>
-<p>####重启表现形式:</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-788dabeeca00dc97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>####排错：</p>
-<p>如果重启系统后出现上图所示界面说明<strong>MBR</strong>损坏了。因为是MBR损坏的原因，操作系统重启时认为系统硬盘根本不具有可引导功能了，所以把硬盘忽略过去，直接进入第二个启动设备光盘。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -866,7 +854,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
