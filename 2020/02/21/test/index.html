@@ -48,29 +48,33 @@
   };
 </script>
 
-  <meta name="description" content="胆小怕事，心地善良">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hyrila">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="我在工作中编写的部署脚本 记录起来，以后写脚本时拿来参考。  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889">
+<meta property="og:type" content="article">
+<meta property="og:title" content="test">
+<meta property="og:url" content="http://yoursite.com/2020/02/21/test/index.html">
 <meta property="og:site_name" content="Hyrila">
-<meta property="og:description" content="胆小怕事，心地善良">
+<meta property="og:description" content="我在工作中编写的部署脚本 记录起来，以后写脚本时拿来参考。  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-21T11:19:01.000Z">
+<meta property="article:modified_time" content="2020-02-21T11:23:34.765Z">
 <meta property="article:author" content="Hyrila">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="shell">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/2020/02/21/test/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false
+    isHome: false,
+    isPost: true
   };
 </script>
 
-  <title>Hyrila - 让界充满爱</title>
+  <title>test | Hyrila</title>
   
 
 
@@ -210,10 +214,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/21/test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,8 +231,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/21/test/" class="post-title-link" itemprop="url">test</a>
+          test
         </h2>
 
         <div class="post-meta">
@@ -253,495 +256,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="我在工作中编写的部署脚本"><a href="#我在工作中编写的部署脚本" class="headerlink" title="我在工作中编写的部署脚本"></a>我在工作中编写的部署脚本</h3><blockquote>
+        <h3 id="我在工作中编写的部署脚本"><a href="#我在工作中编写的部署脚本" class="headerlink" title="我在工作中编写的部署脚本"></a>我在工作中编写的部署脚本</h3><blockquote>
 <p><strong>记录起来，以后写脚本时拿来参考。</strong></p>
 </blockquote>
 <figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"># 用Ansible playbook 去批量部署。</span><br><span class="line">region=<span class="variable">$1</span></span><br><span class="line">env=<span class="variable">$2</span></span><br><span class="line"></span><br><span class="line">listDir=<span class="string">"/export/jar_packages/list"</span></span><br><span class="line">serviceDir=<span class="string">"/export/jar_packages/service"</span></span><br><span class="line">logsDir=<span class="string">"/export/jar_packages/log"</span></span><br><span class="line">playbookDir=<span class="string">"/export/jar_packages/playbook/"</span></span><br><span class="line"></span><br><span class="line">depoloy() &#123;</span><br><span class="line">        <span class="keyword">cd</span> <span class="variable">$playbookDir</span></span><br><span class="line">        ansible-playbook -i <span class="variable">$region</span>-<span class="variable">$env</span>-hosts service.yml --extra-vars <span class="string">"service=$host"</span> &gt;&gt; ../<span class="variable">$region</span>-<span class="variable">$env</span>-depoloy-`date +%Y%<span class="keyword">m</span>%<span class="keyword">d</span>`.<span class="keyword">log</span> 2&gt;&amp;1</span><br><span class="line">        echo <span class="variable">$host</span></span><br><span class="line">        <span class="keyword">sleep</span> 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 获取测试和准生产环境的所有IP 和 服务重定向到一个 .txt 文件中;</span><br><span class="line">getServiceListNotProd() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">cd</span> <span class="variable">$listDir</span></span><br><span class="line"></span><br><span class="line">        grep  <span class="string">"^$region"</span> cloud.service.<span class="keyword">list</span> |grep ansible|\</span><br><span class="line">        awk '&#123;<span class="keyword">print</span> <span class="variable">$2</span><span class="string">"\t"</span><span class="variable">$1&#125;</span>'|awk -F <span class="string">"="</span> '&#123;<span class="keyword">print</span> <span class="variable">$2&#125;</span>'|\</span><br><span class="line">        grep <span class="variable">$env</span>|awk '&#123;<span class="keyword">print</span> <span class="variable">$2</span><span class="string">"\t"</span><span class="variable">$1&#125;</span>'|<span class="keyword">sort</span>|\</span><br><span class="line">        awk '&#123;<span class="keyword">print</span> <span class="variable">$2</span><span class="string">"\t"</span><span class="variable">$1&#125;</span>' | sed <span class="string">"s/$region-//g"</span>|\</span><br><span class="line">        sed 's/cgtn-<span class="comment">//g'|sed 's/-[[:digit:]]\&#123;1,2\&#125;//g'|\</span></span><br><span class="line">        sed <span class="string">"s/-$env//g"</span> &gt; <span class="variable">$region</span>-<span class="variable">$env</span>-<span class="keyword">list</span>.txt</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 获取正式环境的所有IP 和 服务重定向到一个 .txt 文件中;</span><br><span class="line">getServiceListProd() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">cd</span> <span class="variable">$listDir</span></span><br><span class="line"></span><br><span class="line">        grep  <span class="string">"^$region"</span> cloud.service.prod |grep ansible|\</span><br><span class="line">        awk '&#123;<span class="keyword">print</span> <span class="variable">$2</span><span class="string">"\t"</span><span class="variable">$1&#125;</span>'|awk -F <span class="string">"="</span> '&#123;<span class="keyword">print</span> <span class="variable">$2&#125;</span>'|\</span><br><span class="line">        grep <span class="variable">$env</span>|awk '&#123;<span class="keyword">print</span> <span class="variable">$2</span><span class="string">"\t"</span><span class="variable">$1&#125;</span>'|<span class="keyword">sort</span>|\</span><br><span class="line">        awk '&#123;<span class="keyword">print</span> <span class="variable">$2</span><span class="string">"\t"</span><span class="variable">$1&#125;</span>' | sed <span class="string">"s/$region-//g"</span>|\</span><br><span class="line">        sed 's/cgtn-<span class="comment">//g'|sed 's/-[[:digit:]]\&#123;1,2\&#125;//g'|\</span></span><br><span class="line">        sed <span class="string">"s/-$env//g"</span> &gt; <span class="variable">$region</span>-<span class="variable">$env</span>-<span class="keyword">list</span>.txt</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 从生成后的 .txt文件中过滤获取IP 和 服务生成 备份步骤所需的 region.env.host.service文件;</span><br><span class="line">getHostServiceList() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">cd</span> <span class="variable">$listDir</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> `<span class="keyword">cat</span> <span class="variable">$region</span>-<span class="variable">$env</span>-<span class="keyword">list</span>.txt |awk '&#123;<span class="keyword">print</span> <span class="variable">$2&#125;</span>'|uniq`</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        <span class="keyword">cat</span> <span class="variable">$region</span>-<span class="variable">$env</span>-<span class="keyword">list</span>.txt |grep <span class="variable">$i</span> |head -<span class="keyword">n</span> 1 &gt;&gt; <span class="variable">$region</span>.<span class="variable">$env</span>.host.service ;</span><br><span class="line">        done</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 生成 相应环境playbook 所需要部署的服务 services 列表</span><br><span class="line"></span><br><span class="line">getServices() &#123;</span><br><span class="line">        <span class="keyword">cd</span> <span class="variable">$listDir</span></span><br><span class="line">        echo <span class="string">"register-service"</span> &gt; <span class="variable">$playbookDir</span>/<span class="variable">$regione</span>.<span class="variable">$env</span>.services</span><br><span class="line">        awk '&#123;<span class="keyword">print</span> <span class="variable">$2&#125;</span>' <span class="variable">$region</span>.<span class="variable">$env</span>.host.service|grep -v <span class="string">"register-service"</span> &gt;&gt; <span class="variable">$playbookDir</span>/<span class="variable">$regione</span>.<span class="variable">$env</span>.services</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"># 根据判断是否prod环境生成region.env.host.service文件</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$env</span> == <span class="string">"prod"</span> ];then</span><br><span class="line"></span><br><span class="line">        # 将之前生成的相关文件移到 back目录下，确保生成最新的相关文件;</span><br><span class="line">        mv <span class="variable">$listDir</span>/<span class="variable">$region</span>-<span class="variable">$env</span>-<span class="keyword">list</span>.txt <span class="variable">$listDir</span>/back/<span class="variable">$region</span>-<span class="variable">$env</span>-<span class="keyword">list</span>.txt.bak</span><br><span class="line">        mv <span class="variable">$listDir</span>/<span class="variable">$region</span>.<span class="variable">$env</span>.host.service <span class="variable">$listDir</span>/back/<span class="variable">$region</span>.<span class="variable">$env</span>.host.service.bak</span><br><span class="line"></span><br><span class="line">        <span class="keyword">sleep</span> 1</span><br><span class="line"></span><br><span class="line">        getServiceListProd</span><br><span class="line">        getHostServiceList</span><br><span class="line">        getServices</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"></span><br><span class="line">        # 将之前生成的相关文件移到 back目录下，确保生成最新的相关文件;</span><br><span class="line">        mv <span class="variable">$listDir</span>/<span class="variable">$region</span>-<span class="variable">$env</span>-<span class="keyword">list</span>.txt <span class="variable">$listDir</span>/back/<span class="variable">$region</span>-<span class="variable">$env</span>-<span class="keyword">list</span>.txt.bak</span><br><span class="line">        mv <span class="variable">$listDir</span>/<span class="variable">$region</span>.<span class="variable">$env</span>.host.service <span class="variable">$listDir</span>/back/<span class="variable">$region</span>.<span class="variable">$env</span>.host.service.bak</span><br><span class="line"></span><br><span class="line">        <span class="keyword">sleep</span> 1</span><br><span class="line"></span><br><span class="line">        getServiceListNotProd</span><br><span class="line">        getHostServiceList</span><br><span class="line">        getServices</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="keyword">sleep</span> 3</span><br><span class="line"></span><br><span class="line"><span class="keyword">cd</span> <span class="variable">$playbookDir</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">cat</span> <span class="variable">$region</span>.<span class="variable">$env</span>.services | <span class="keyword">while</span> <span class="keyword">read</span> host</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        depoloy</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/shell/" rel="tag"># shell</a>
+          </div>
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/21/Linux%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E7%A8%8B%E5%BA%8F%E8%84%9A%E6%9C%AC/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/21/Linux%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E7%A8%8B%E5%BA%8F%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">Linux开机自启程序脚本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-02-21 13:50:43 / 修改时间：13:56:49" itemprop="dateCreated datePublished" datetime="2020-02-21T13:50:43+08:00">2020-02-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment"># chkconfig: 2345 77 22</span></span><br><span class="line"><span class="attribute">eureka</span>=`grep \`hostname|awk -F <span class="string">"."</span> <span class="string">'&#123;print $1&#125;'</span>|awk -F <span class="string">"-"</span> <span class="string">'&#123;print $2"."$3"."$4"."$5&#125;'</span>\` /etc/hosts |grep eureka|awk <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line"></span><br><span class="line"><span class="attribute">jarOld</span>=<span class="string">"register-service-1.0.0-SNAPSHOT.jar"</span></span><br><span class="line"><span class="attribute">jarNew</span>=<span class="string">"register-service.jar"</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">eureka</span>=`grep \`hostname|awk -F <span class="string">"."</span> <span class="string">'&#123;print $1&#125;'</span>|awk -F <span class="string">"-"</span> <span class="string">'&#123;print $2"."$3"."$4"."$5&#125;'</span>\` /etc/hosts |grep eureka|awk <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line"></span><br><span class="line">cd /home/cgtn/register-service</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -f <span class="variable">$jarOld</span> ]; then</span><br><span class="line">        sudo -u cgtn nohup /usr/java/jdk1.8.0_92/bin/java -Xms256M -Xmx256M -jar <span class="variable">$jarOld</span> --spring.profiles.<span class="attribute">active</span>=<span class="variable">$eureka</span> &amp; 2&gt;&amp;1 &gt;/dev/<span class="literal">null</span></span><br><span class="line">elif [ -f <span class="variable">$jarNew</span> ]; then</span><br><span class="line">        sudo -u cgtn nohup /usr/java/jdk1.8.0_92/bin/java -Xms256M -Xmx256M -jar <span class="variable">$jarNew</span> --spring.profiles.<span class="attribute">active</span>=<span class="variable">$eureka</span> &amp; 2&gt;&amp;1 &gt;/dev/<span class="literal">null</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">        echo <span class="string">"No *.jar packages"</span></span><br><span class="line">        exit 0</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">chkconfig --<span class="builtin-name">add</span> register-start</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># chkconfig: 2345 77 22</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="attribute">eureka</span>=`grep \`hostname|awk -F <span class="string">"."</span> <span class="string">'&#123;print $1&#125;'</span>|awk -F <span class="string">"-"</span> <span class="string">'&#123;print $2"."$3"."$4"."$5&#125;'</span>\` /etc/hosts |grep eureka|awk <span class="string">'&#123;print $2&#125;'</span>`</span><br><span class="line"></span><br><span class="line">cd /home/cgtn/register-service</span><br><span class="line"></span><br><span class="line">. /etc/profile</span><br><span class="line"></span><br><span class="line">sudo -u cgtn nohup  /usr/java/jdk1.8.0_92/bin/java -Xms256M -Xmx256M -jar register-service.jar --spring.profiles.<span class="attribute">active</span>=<span class="variable">$&#123;eureka&#125;</span> 2&gt;&amp;1 &gt;/dev/<span class="literal">null</span> &amp;</span><br></pre></td></tr></table></figure>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/21/Linux%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E7%A8%8B%E5%BA%8F%E8%84%9A%E6%9C%AC/" rel="prev" title="Linux开机自启程序脚本">
+      <i class="fa fa-chevron-left"></i> Linux开机自启程序脚本
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/" class="post-title-link" itemprop="url">修改用户权限</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 10:26:48" itemprop="dateCreated datePublished" datetime="2020-02-17T10:26:48+08:00">2020-02-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>###用户权限</p>
-<p> |- - - | - - -| - - -|<br> 用户   组   其他</p>
-<p>用户一般会有读（r）、写（w）、执行（x）等权限，还有特殊权限（s）；如图所示：</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-13d1161d75964b5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="权限.png"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEZabbix-server%E6%9C%8D%E5%8A%A1%E7%AB%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEZabbix-server%E6%9C%8D%E5%8A%A1%E7%AB%AF/" class="post-title-link" itemprop="url">安装配置Zabbix-server服务端</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 10:25:45" itemprop="dateCreated datePublished" datetime="2020-02-17T10:25:45+08:00">2020-02-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-f166baee06b2682c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>####1. 配置zabbix的yum仓库</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http:<span class="comment">//repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-1.el7.centos.noarch.rpm</span></span><br><span class="line"></span><br><span class="line">rpm -ivh zabbix-release-<span class="number">3.4</span>-<span class="number">1</span><span class="selector-class">.el7</span><span class="selector-class">.centos</span><span class="selector-class">.noarch</span>.rpm</span><br><span class="line"></span><br><span class="line">yum clean all</span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEZabbix-server%E6%9C%8D%E5%8A%A1%E7%AB%AF/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/Samba%E6%9C%8D%E5%8A%A1%E5%AE%9E%E7%8E%B0Linux%E4%B8%8EWindows%E7%9B%B8%E4%BA%92%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/Samba%E6%9C%8D%E5%8A%A1%E5%AE%9E%E7%8E%B0Linux%E4%B8%8EWindows%E7%9B%B8%E4%BA%92%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/" class="post-title-link" itemprop="url">Samba服务实现Linux与Windows相互共享资源</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 10:23:55" itemprop="dateCreated datePublished" datetime="2020-02-17T10:23:55+08:00">2020-02-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-747440bb672fae14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
-<p>#什么是samba?</p>
-<blockquote>
-<p><strong><code>samba</code></strong>服务与<strong><code>FTP NFS</code></strong>服务一样，是一种提供网络文件共享的服务；<br><strong><code>samba</code></strong>服务可以让<strong><code>Windows</code></strong>机器访问搭建在Linux服务器上的共享文件；<br><strong><code>samba</code></strong>服务支持兼容<strong><code>Windows</code></strong>共享，<strong><code>samba</code></strong>服务搭建在底层是<strong><code>Linux</code></strong>操作系统服务器上，而<strong><code>Windows</code></strong>桌面客户端可以通过<strong><code>samba</code></strong>服务访问<strong><code>Linux</code></strong>服务器上的共享文件，对共享文件数据来说是安全的！<br><strong><code>samba</code></strong>服务是基于内核级支持的，是个文件系统；也能把远程samba共享出来的资源挂载到本机；</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/Samba%E6%9C%8D%E5%8A%A1%E5%AE%9E%E7%8E%B0Linux%E4%B8%8EWindows%E7%9B%B8%E4%BA%92%E5%85%B1%E4%BA%AB%E8%B5%84%E6%BA%90/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-title-link" itemprop="url">搭建主从DNS服务器</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 10:23:28" itemprop="dateCreated datePublished" datetime="2020-02-17T10:23:28+08:00">2020-02-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1.在CentOS7.3上搭建好一个DNS服务器当主DNS服务器<br>2在6.9上安装bind包</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~]# yum -y install bind</span><br><span class="line">~]# rpm -ql bind</span><br><span class="line">~]# chkconfig named on</span><br><span class="line">~]#<span class="built_in"> service </span>named start</span><br><span class="line">~]# ss -ntul</span><br><span class="line">~]# vim /etc/named.conf </span><br><span class="line">~]# rndc reload</span><br><span class="line">~]# ss -ntul</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/%E6%90%AD%E5%BB%BA%E4%B8%BB%E4%BB%8EDNS%E6%9C%8D%E5%8A%A1%E5%99%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B7%A8%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B7%A8%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/" class="post-title-link" itemprop="url">SSH客户端跨过防火墙实现远程登陆</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 10:22:59" itemprop="dateCreated datePublished" datetime="2020-02-17T10:22:59+08:00">2020-02-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="http://upload-images.jianshu.io/upload_images/6121564-239158f0f9b4cc2a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图-1"></p>
-<p><strong>环境</strong>： <strong>C</strong>主机在防火墙策略上禁止<strong>A</strong>主机访问，<strong>A</strong>是<strong>SSH</strong>客户端<br><strong>条件</strong>： <strong>B</strong>主机可以通过防火墙访问<strong>C</strong>主机，是<strong>SSH</strong>服务器<br><strong>问题</strong>： 中间有防火墙，<strong>A</strong>应该怎么去<strong><code>SSH</code></strong>登陆<strong>C</strong>主机呢？</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/SSH%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%B7%A8%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/%E8%AF%AF%E5%88%A0libc.so.6%E5%90%8E%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E8%BF%87%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/%E8%AF%AF%E5%88%A0libc.so.6%E5%90%8E%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">删除libc.so.6后如何修复系统</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-17 10:22:14" itemprop="dateCreated datePublished" datetime="2020-02-17T10:22:14+08:00">2020-02-17</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>####第一步：重启操作系统</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-836e6114519ba644.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**重启操作系统**"></p>
-<p>####第二步：读进程时瞬间按一下键盘上的<strong>Esc</strong>键</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/6121564-f52d608f8b2d25b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="**读条时按一下Esc键，这步骤需要眼疾手快，因为就在那一两秒时间内完成操作，而且要精确操作，只能按一次Esc键。**"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/%E8%AF%AF%E5%88%A0libc.so.6%E5%90%8E%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E8%BF%87%E7%A8%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 
 
           </div>
@@ -792,6 +342,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#我在工作中编写的部署脚本"><span class="nav-number">1.</span> <span class="nav-text">我在工作中编写的部署脚本</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

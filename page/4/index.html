@@ -214,6 +214,83 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8Nginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Hyrila">
+      <meta itemprop="description" content="胆小怕事，心地善良">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hyrila">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/17/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8Nginx/" class="post-title-link" itemprop="url">keepalived高可用Nginx Proxy服务</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-17 09:45:39" itemprop="dateCreated datePublished" datetime="2020-02-17T09:45:39+08:00">2020-02-17</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<ul>
+<li>准备四台主机为host（1-4）；</li>
+<li>host1 host2上配置Nginx调度服务和keepalived服务；</li>
+<li>主机host3和主机host4提供Web服务<ul>
+<li>host1：192.168.10.11</li>
+<li>host2：192.168.10.12</li>
+<li>host3：192.168.10.13</li>
+<li>host4：192.168.10.14</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/17/keepalived%E9%AB%98%E5%8F%AF%E7%94%A8Nginx/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/17/Centos6%E7%B3%BB%E5%88%97%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E6%95%85%E9%9A%9C%E8%A1%A8%E7%8E%B0%E5%BD%A2%E5%BC%8F%E4%BB%A5%E5%8F%8A%E6%8E%92%E9%94%99%E4%BF%AE%E5%A4%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -710,65 +787,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/14/centos7%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Hyrila">
-      <meta itemprop="description" content="胆小怕事，心地善良">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hyrila">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/14/centos7%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/" class="post-title-link" itemprop="url">centos7修改主机名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-14 10:11:01" itemprop="dateCreated datePublished" datetime="2020-02-14T10:11:01+08:00">2020-02-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">hostnamectl </span><span class="built_in">--static</span> <span class="built_in">set-hostname</span> <span class="string">host4.</span><span class="string">centos7</span></span><br><span class="line"><span class="string">vim </span>/<span class="string">etc/</span><span class="string">hosts</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">root@</span><span class="string">host1 </span>~]<span class="comment">#vim /etc/hosts</span></span><br><span class="line"><span class="string">127.</span>0.0.1   <span class="string">localhost </span><span class="string">localhost.</span><span class="string">localdomain </span><span class="string">localhost4 </span><span class="string">localhost4.</span><span class="string">localdomain4 </span><span class="string">host1.</span><span class="string">centos7</span></span><br><span class="line"><span class="string">:</span>:1         <span class="string">localhost </span><span class="string">localhost.</span><span class="string">localdomain </span><span class="string">localhost6 </span><span class="string">localhost6.</span><span class="string">localdomain6</span></span><br></pre></td></tr></table></figure>
-<p>hostnamectl –static set-hostname host1.centos7</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -841,9 +859,15 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
